@@ -58,7 +58,7 @@ public class Pagina {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tblRequisicoes']/div[1]")));
 		
 		return new Preenche(driver);
-	}
+	} // fim do metodo novo()
 
 	public boolean resultado(String numero,String processo,String vara,String requsicao,String credito,String data
 			,String situacao,String cadastro) throws TimeoutException {
@@ -68,13 +68,14 @@ public class Pagina {
 		// espera por tabela de requisicoes.
 		wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath(".//*[@id='tblRequisicoes:j_idt130']"),"Requisições de Pagamento"));
 		
-		
-		boolean isTheTextPresent =driver.getPageSource().contains(numero) && driver.getPageSource().contains(processo) && driver.getPageSource().contains(vara)
+		return driver.getPageSource().contains(numero) && driver.getPageSource().contains(processo) && driver.getPageSource().contains(vara)
 				&& driver.getPageSource().contains(requsicao) && driver.getPageSource().contains(credito) && driver.getPageSource().contains(data)
 				&& driver.getPageSource().contains(situacao) && driver.getPageSource().contains(cadastro);
 		
-		return isTheTextPresent;
-	}
+		
+		
+	} // fim do metodo resultado()
+	
 	
 	public boolean resultado(String resultado) throws TimeoutException {
 
