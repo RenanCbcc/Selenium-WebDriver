@@ -1,25 +1,28 @@
-package incluir_requisicao_pagamento;
+package alterar_requisicao_pagamento;
+import static org.junit.Assert.assertTrue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.openqa.selenium.NotFoundException;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.Ignore;
+import org.junit.Test;
+import org.openqa.selenium.ElementNotVisibleException;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.NotFoundException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import static org.junit.Assert.assertTrue;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.ElementNotVisibleException;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriverException;
+import incluir_requisicao_pagamento.Pagina;
+import incluir_requisicao_pagamento.Teste_Inclui;
+import consultar_requisicao_pagamento.Teste_Consulta;
 
-public class Teste_Inclui {
+public class Teste_Altera {
 	private final static Logger logger = Logger.getLogger(Teste_Inclui.class.getCanonicalName());
 	private WebDriver driver;
-	private Pagina pagina; // esta classe visita a pagina de consulta e
-								// preenche os formulários
+	private Pagina pagina; // esta classe visita a pagina de consulta e preenche os formulários
+	private Teste_Consulta consulta; // pre-requisito do caso de teste
 
 	@Before
 	public void inicilizar() {
@@ -34,6 +37,8 @@ public class Teste_Inclui {
 	@Test
 	public void UC002_CT002_PD002_1()
 	{
+		
+			
 		try{
 			this.pagina.visitar();
 /*Dados do Proceso*/		this.pagina.novo().preencher("00000/0000", "0000002-18.2008.5.08.0009","RPV","Alimentar",".//*[@id='tabGeral:cmbVara_panel']/div[2]/ul/li[2]","Teste case",
@@ -124,4 +129,6 @@ public class Teste_Inclui {
 	@After
 	public void fechar() {
 		driver.close();
-	}}
+	}
+
+}
