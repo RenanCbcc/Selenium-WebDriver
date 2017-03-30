@@ -24,7 +24,7 @@ public class Preenche {
 		this.driver = driver;
 		fluentwait = new FluentWait<WebDriver>(driver)  
                 .withTimeout(5, TimeUnit.SECONDS)
-                .pollingEvery(2, TimeUnit.SECONDS)
+                .pollingEvery(3, TimeUnit.SECONDS)
                 .ignoring(NoSuchElementException.class)
                 .ignoring(StaleElementReferenceException.class)
                 .ignoring(WebDriverException.class);
@@ -103,6 +103,7 @@ public class Preenche {
 			logger.info("Vara de Origem Inativo");
 			System.out.println("Vara de Origem Inativo");
 		}
+		
 		
 		// se isto for retirado, por algum motivo, o campo nao eh preencido
 		if (natureza_credito.equals("Alimentar")) { // alimentar e comun.
@@ -262,7 +263,7 @@ public class Preenche {
 
 	public boolean isClickable(WebElement el) {
 		try {
-			fluentwait.until(ExpectedConditions.visibilityOf(el));
+			// espera que o elemento esja visivel e clickavel.
 			fluentwait.until(ExpectedConditions.elementToBeClickable(el)).click();
 			
 			return true;
