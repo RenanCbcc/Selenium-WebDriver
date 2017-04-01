@@ -72,27 +72,26 @@ public class Pagina {
 
 	public boolean resultado(String numero,String processo,String vara,String requsicao,String credito) throws TimeoutException {
 
-		logger.info("verifica se existem resultados na listagem");
-
-		// Codigo com error <==========================================
+		// Bug_Mr_Anderson, why do you persist? <==========================================
 		{
 	
-		fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='tblRequisicoes:0:j_idt148']"))).click();
-		
-		
-		WebElement element = driver.findElement(By.xpath(".//*[@id='tblRequisicoes:0:j_idt152']"));
+		fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='tblRequisicoes:0:j_idt148']")));
+		WebElement Bug_Mr_Anderson = driver.findElement(By.xpath(".//*[@id='tblRequisicoes:0:j_idt148']"));
 			
+		Actions actions = new Actions(driver);
+		    Integer iBottom = Bug_Mr_Anderson.getSize().height;
+		    Integer iRight = Bug_Mr_Anderson.getSize().width;
+		    actions.moveToElement(Bug_Mr_Anderson, iRight/2, iBottom/2).click().perform();
+		    System.out.println("Bug_Mr_Anderson, why do you persist?");
+		   
 		
-		 Actions actions = new Actions(driver);
-		    Integer iBottom = element.getSize().height;
-		    Integer iRight = element.getSize().width;
-		    actions.moveToElement(element, iRight/2, iBottom/2).click().perform();
-		    System.out.println("AHHHHHHHHHHHHHHHHHHHHH");
-		}
+		} // fim do bloco Bug_Mr_Anderson.
 		
 		fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='tabGeral']/ul/li[3]/a"))).click();
 		fluentwait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath(".//*[@id='tabGeral:j_idt239']/legend"),"Dados da Requisição de Pagamento"));
 		
+		logger.info("verifica se existem resultados na listagem");
+
 		return driver.getPageSource().contains(numero) && driver.getPageSource().contains(processo) && driver.getPageSource().contains(vara)
 				&& driver.getPageSource().contains(requsicao) && driver.getPageSource().contains(credito);
 		

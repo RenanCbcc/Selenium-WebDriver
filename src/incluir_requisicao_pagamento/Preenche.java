@@ -105,6 +105,9 @@ public class Preenche {
 		}
 		
 		
+		// Bug_Mr_Anderson, why do you persist? <==========================================
+				{
+			
 		// se isto for retirado, por algum motivo, o campo nao eh preencido
 		if (natureza_credito.equals("Alimentar")) { // alimentar e comun.
 			driver.findElement(By.xpath(".//*[@id='tabGeral:cmbNaturezas']/tbody/tr/td[1]/div/div[2]/span")).click();
@@ -112,6 +115,8 @@ public class Preenche {
 			driver.findElement(By.xpath(".//*[@id='tabGeral:cmbAssuntos']/tbody/tr/td[3]/div/div[2]/span")).click();
 		}
 		
+		} // fim do bloco Bug_Mr_Anderson.
+				
 		logger.info("Preenchendo ou nao Observacao");
 		WebElement campo_bservacao = driver.findElement(By.id("tabGeral:inObs"));
 		if (campo_bservacao.isEnabled()) {

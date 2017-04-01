@@ -1,6 +1,7 @@
 package visualizar_Informacoes_resumidas_requisicao_pagamento;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.lang.AssertionError;
 import org.openqa.selenium.NotFoundException;
 import org.junit.After;
 import org.junit.Before;
@@ -31,7 +32,8 @@ public class Teste_Visualiza {
 		this.pagina = new Pagina(this.driver);
 
 	}
-
+	
+	
 
 	@Test
 	public void UC002_CT001_PD001_1()
@@ -39,7 +41,28 @@ public class Teste_Visualiza {
 		try{
 			this.pagina.visitar();
 			this.pagina.novo().preencher("00002/2016", "0021700-91.2006.5.08.0125");/* Número, N_Processo, Situação, Devedor */
-			assertTrue(this.pagina.resultado("0010/2017","0128300-28.2008.5.08.0009","VARA DO TRABALHO DE ALTAMIRA","Precatório",
+			assertTrue(this.pagina.resultado("00002/2016","0128300-28.2008.5.08.0009","2ª VARA DO TRABALHO DE ABAETETUBA","Precatório",
+					"Comum"));		
+				
+			} 
+
+		catch (NoSuchElementException nsee){ logger.log(Level.SEVERE, nsee.getMessage(), nsee); }
+		catch (NotFoundException nfe){ logger.log(Level.SEVERE, nfe.getMessage(), nfe);}
+		catch (ElementNotVisibleException enve){ logger.log(Level.SEVERE, enve.getMessage(), enve);}
+		catch (TimeoutException toe){ logger.log(Level.SEVERE, toe.getMessage(), toe);}
+		catch (WebDriverException ede){ logger.log(Level.SEVERE, ede.getMessage(), ede);}
+		catch (AssertionError aee){ logger.log(Level.SEVERE, aee.getMessage(), aee);}
+
+			
+	}
+	
+	@Test
+	public void UC002_CT001_PD001_2()
+	{
+		try{
+			this.pagina.visitar();
+			this.pagina.novo().preencher("00001/2017", "0000003-03.2008.5.08.0009");/* Número, N_Processo, Situação, Devedor */
+			assertTrue(this.pagina.resultado("00001/2017","0000003-03.2008.5.08.0009","9ª VARA DO TRABALHO DE BELÉM","Precatório",
 					"Alimentar"));		
 				
 			} 
@@ -49,17 +72,18 @@ public class Teste_Visualiza {
 		catch (ElementNotVisibleException enve){ logger.log(Level.SEVERE, enve.getMessage(), enve);}
 		catch (TimeoutException toe){ logger.log(Level.SEVERE, toe.getMessage(), toe);}
 		catch (WebDriverException ede){ logger.log(Level.SEVERE, ede.getMessage(), ede);}
+		catch (AssertionError aee){ logger.log(Level.SEVERE, aee.getMessage(), aee);}
 
 			
 	}
-	
-	@Ignore
-	public void UC002_CT002_PD001_2()
+
+	@Test
+	public void UC002_CT002_PD001_3()
 	{
 		try{
 			this.pagina.visitar();
 			this.pagina.novo().preencher("00282/2009", "0071200-63.2004.5.08.0201");/* Numero, N_Processo, Situação, Devedor */
-			assertTrue(this.pagina.resultado("0010/2017","0109400-24.2004.5.08.0013","1ª VARA DO TRABALHO DE MACAPÁ","Precatório",
+			assertTrue(this.pagina.resultado("00282/2009","0071200-63.2004.5.08.0201","1ª VARA DO TRABALHO DE MACAPÁ","Precatório",
 					"Alimentar"));
  
 			
