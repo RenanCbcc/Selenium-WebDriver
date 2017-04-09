@@ -12,11 +12,12 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import static org.junit.Assert.assertTrue;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.ElementNotVisibleException;
+import org.openqa.selenium.InvalidSelectorException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriverException;
 
 public class Teste_Inclui {
-	private final static Logger logger = Logger.getLogger(Teste_Inclui.class.getCanonicalName());
+	private Logger logger = Logger.getLogger(Teste_Inclui.class.getCanonicalName());
 	private WebDriver driver;
 	private Pagina pagina; // esta classe visita a pagina de consulta e
 								// preenche os formulários
@@ -45,11 +46,12 @@ public class Teste_Inclui {
 			assertTrue(pagina.resultado("Erro: org.hibernate.exception.ConstraintViolationException: could not execute statement"));
 			} 
 
-		catch (NoSuchElementException nsee){ logger.log(Level.SEVERE, nsee.getMessage(), nsee); }
-		catch (NotFoundException nfe){ logger.log(Level.SEVERE, nfe.getMessage(), nfe);}
-		catch (ElementNotVisibleException enve){ logger.log(Level.SEVERE, enve.getMessage(), enve);}
-		catch (TimeoutException toe){ logger.log(Level.SEVERE, toe.getMessage(), toe);}
-		catch (WebDriverException ede){ logger.log(Level.SEVERE, ede.getMessage(), ede);}
+		catch (InvalidSelectorException ise){ logger.log(Level.SEVERE, ise.getMessage(), ise);assertTrue(false);}
+		catch (NoSuchElementException nsee){ logger.log(Level.SEVERE, nsee.getMessage(), nsee); assertTrue(false);}
+		catch (NotFoundException nfe){ logger.log(Level.SEVERE, nfe.getMessage(), nfe);assertTrue(false);}
+		catch (ElementNotVisibleException enve){ logger.log(Level.SEVERE, enve.getMessage(), enve);assertTrue(false);}
+		catch (TimeoutException toe){ logger.log(Level.SEVERE, toe.getMessage(), toe);assertTrue(false);}
+		catch (WebDriverException ede){ logger.log(Level.SEVERE, ede.getMessage(), ede);assertTrue(false);}
 			
 	}
 	
@@ -65,10 +67,12 @@ public class Teste_Inclui {
 			
 		}
 		
-		catch (NoSuchElementException nsee){ logger.log(Level.SEVERE, nsee.getMessage(), nsee); }
-		catch (NotFoundException nfe){ logger.log(Level.SEVERE, nfe.getMessage(), nfe);}
-		catch (ElementNotVisibleException enve){ logger.log(Level.SEVERE, enve.getMessage(), enve);}
-		catch (TimeoutException toe){ logger.log(Level.SEVERE, toe.getMessage(), toe);}
+		catch (InvalidSelectorException ise){ logger.log(Level.SEVERE, ise.getMessage(), ise);assertTrue(false);}
+		catch (NoSuchElementException nsee){ logger.log(Level.SEVERE, nsee.getMessage(), nsee); assertTrue(false);}
+		catch (NotFoundException nfe){ logger.log(Level.SEVERE, nfe.getMessage(), nfe);assertTrue(false);}
+		catch (ElementNotVisibleException enve){ logger.log(Level.SEVERE, enve.getMessage(), enve);assertTrue(false);}
+		catch (TimeoutException toe){ logger.log(Level.SEVERE, toe.getMessage(), toe);assertTrue(false);}
+		catch (WebDriverException ede){ logger.log(Level.SEVERE, ede.getMessage(), ede);assertTrue(false);}
 		
 	}
 	
@@ -88,10 +92,12 @@ public class Teste_Inclui {
 			
 		}
 		
-		catch (NoSuchElementException nsee){ logger.log(Level.SEVERE, nsee.getMessage(), nsee); }
-		catch (NotFoundException nfe){ logger.log(Level.SEVERE, nfe.getMessage(), nfe);}
-		catch (ElementNotVisibleException enve){ logger.log(Level.SEVERE, enve.getMessage(), enve);}
-		catch (TimeoutException toe){ logger.log(Level.SEVERE, toe.getMessage(), toe);}
+		catch (InvalidSelectorException ise){ logger.log(Level.SEVERE, ise.getMessage(), ise);assertTrue(false);}
+		catch (NoSuchElementException nsee){ logger.log(Level.SEVERE, nsee.getMessage(), nsee); assertTrue(false);}
+		catch (NotFoundException nfe){ logger.log(Level.SEVERE, nfe.getMessage(), nfe);assertTrue(false);}
+		catch (ElementNotVisibleException enve){ logger.log(Level.SEVERE, enve.getMessage(), enve);assertTrue(false);}
+		catch (TimeoutException toe){ logger.log(Level.SEVERE, toe.getMessage(), toe);assertTrue(false);}
+		catch (WebDriverException ede){ logger.log(Level.SEVERE, ede.getMessage(), ede);assertTrue(false);}
 		
 	}
 	
@@ -112,10 +118,13 @@ public class Teste_Inclui {
 			
 		}
 		
-		catch (NoSuchElementException nsee){ logger.log(Level.SEVERE, nsee.getMessage(), nsee); }
-		catch (NotFoundException nfe){ logger.log(Level.SEVERE, nfe.getMessage(), nfe);}
-		catch (ElementNotVisibleException enve){ logger.log(Level.SEVERE, enve.getMessage(), enve);}
-		catch (TimeoutException toe){ logger.log(Level.SEVERE, toe.getMessage(), toe);}
+		catch (InvalidSelectorException ise){ logger.log(Level.SEVERE, ise.getMessage(), ise);assertTrue(false);}
+		catch (NoSuchElementException nsee){ logger.log(Level.SEVERE, nsee.getMessage(), nsee); assertTrue(false);}
+		catch (NotFoundException nfe){ logger.log(Level.SEVERE, nfe.getMessage(), nfe);assertTrue(false);}
+		catch (ElementNotVisibleException enve){ logger.log(Level.SEVERE, enve.getMessage(), enve);assertTrue(false);}
+		catch (TimeoutException toe){ logger.log(Level.SEVERE, toe.getMessage(), toe);assertTrue(false);}
+		catch (WebDriverException ede){ logger.log(Level.SEVERE, ede.getMessage(), ede);assertTrue(false);}
+		
 		
 	}
 	

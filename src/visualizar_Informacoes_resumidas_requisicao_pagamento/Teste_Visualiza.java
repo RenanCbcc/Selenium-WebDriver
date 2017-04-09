@@ -1,4 +1,5 @@
 package visualizar_Informacoes_resumidas_requisicao_pagamento;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.lang.AssertionError;
@@ -14,6 +15,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import static org.junit.Assert.assertTrue;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.ElementNotVisibleException;
+import org.openqa.selenium.InvalidSelectorException;
 import org.openqa.selenium.TimeoutException;
 
 public class Teste_Visualiza {
@@ -32,77 +34,118 @@ public class Teste_Visualiza {
 		this.pagina = new Pagina(this.driver);
 
 	}
-	
-	
 
 	@Test
-	public void UC002_CT001_PD001_1()
-	{
-		try{
+	public void UC002_CT005_PD001_1() {
+		try {
 			this.pagina.visitar();
-			this.pagina.novo().preencher("00002/2016", "0021700-91.2006.5.08.0125");/* Número, N_Processo, Situação, Devedor */
-			assertTrue(this.pagina.resultado("00002/2016","0128300-28.2008.5.08.0009","2ª VARA DO TRABALHO DE ABAETETUBA","Precatório",
-					"Comum"));		
-				
-			} 
+			this.pagina.novo().preencher("00010/2017",
+					"0128300-28.2008.5.08.0009");/*
+													 * Número, N_Processo,
+													 * Situação, Devedor
+													 */
+			assertTrue(this.pagina.resultado("00010/2017", "0128300-28.2008.5.08.0009", "VARA DO TRABALHO DE ALTAMIRA",
+					"Precatório", "Alimentar"));
 
-		catch (NoSuchElementException nsee){ logger.log(Level.SEVERE, nsee.getMessage(), nsee); }
-		catch (NotFoundException nfe){ logger.log(Level.SEVERE, nfe.getMessage(), nfe);}
-		catch (ElementNotVisibleException enve){ logger.log(Level.SEVERE, enve.getMessage(), enve);}
-		catch (TimeoutException toe){ logger.log(Level.SEVERE, toe.getMessage(), toe);}
-		catch (WebDriverException ede){ logger.log(Level.SEVERE, ede.getMessage(), ede);}
-		catch (AssertionError aee){ logger.log(Level.SEVERE, aee.getMessage(), aee);}
-
-			
-	}
-	
-	@Test
-	public void UC002_CT001_PD001_2()
-	{
-		try{
-			this.pagina.visitar();
-			this.pagina.novo().preencher("00001/2017", "0000003-03.2008.5.08.0009");/* Número, N_Processo, Situação, Devedor */
-			assertTrue(this.pagina.resultado("00001/2017","0000003-03.2008.5.08.0009","9ª VARA DO TRABALHO DE BELÉM","Precatório",
-					"Alimentar"));		
-				
-			} 
-
-		catch (NoSuchElementException nsee){ logger.log(Level.SEVERE, nsee.getMessage(), nsee); }
-		catch (NotFoundException nfe){ logger.log(Level.SEVERE, nfe.getMessage(), nfe);}
-		catch (ElementNotVisibleException enve){ logger.log(Level.SEVERE, enve.getMessage(), enve);}
-		catch (TimeoutException toe){ logger.log(Level.SEVERE, toe.getMessage(), toe);}
-		catch (WebDriverException ede){ logger.log(Level.SEVERE, ede.getMessage(), ede);}
-		catch (AssertionError aee){ logger.log(Level.SEVERE, aee.getMessage(), aee);}
-
-			
-	}
-
-	@Test
-	public void UC002_CT002_PD001_3()
-	{
-		try{
-			this.pagina.visitar();
-			this.pagina.novo().preencher("00282/2009", "0071200-63.2004.5.08.0201");/* Numero, N_Processo, Situação, Devedor */
-			assertTrue(this.pagina.resultado("00282/2009","0071200-63.2004.5.08.0201","1ª VARA DO TRABALHO DE MACAPÁ","Precatório",
-					"Alimentar"));
- 
-			
 		}
-		
-		catch (NoSuchElementException nsee){ logger.log(Level.SEVERE, nsee.getMessage(), nsee); }
-		catch (NotFoundException nfe){ logger.log(Level.SEVERE, nfe.getMessage(), nfe);}
-		catch (ElementNotVisibleException enve){ logger.log(Level.SEVERE, enve.getMessage(), enve);}
-		catch (TimeoutException toe){ logger.log(Level.SEVERE, toe.getMessage(), toe);}
-		catch (WebDriverException ede){ logger.log(Level.SEVERE, ede.getMessage(), ede);}
+
+		catch (InvalidSelectorException ise) {
+			logger.log(Level.SEVERE, ise.getMessage(), ise);
+			assertTrue(false);
+		} catch (NoSuchElementException nsee) {
+			logger.log(Level.SEVERE, nsee.getMessage(), nsee);
+			assertTrue(false);
+		} catch (NotFoundException nfe) {
+			logger.log(Level.SEVERE, nfe.getMessage(), nfe);
+			assertTrue(false);
+		} catch (ElementNotVisibleException enve) {
+			logger.log(Level.SEVERE, enve.getMessage(), enve);
+			assertTrue(false);
+		} catch (TimeoutException toe) {
+			logger.log(Level.SEVERE, toe.getMessage(), toe);
+			assertTrue(false);
+		} catch (WebDriverException ede) {
+			logger.log(Level.SEVERE, ede.getMessage(), ede);
+			assertTrue(false);
+		}
 
 	}
-	
-	
-	
+
+	@Test
+	public void UC002_CT005_PD001_2() {
+		try {
+			this.pagina.visitar();
+			this.pagina.novo().preencher("00282/2009",
+					"0071200-63.2004.5.08.0201");/*
+													 * Número, N_Processo,
+													 * Situação, Devedor
+													 */
+			assertTrue(this.pagina.resultado("00282/2009", "0071200-63.2004.5.08.0201", "1ª VARA DO TRABALHO DE MACAPÁ",
+					"Precatório", "Alimentar"));
+
+		}
+
+		catch (InvalidSelectorException ise) {
+			logger.log(Level.SEVERE, ise.getMessage(), ise);
+			assertTrue(false);
+		} catch (NoSuchElementException nsee) {
+			logger.log(Level.SEVERE, nsee.getMessage(), nsee);
+			assertTrue(false);
+		} catch (NotFoundException nfe) {
+			logger.log(Level.SEVERE, nfe.getMessage(), nfe);
+			assertTrue(false);
+		} catch (ElementNotVisibleException enve) {
+			logger.log(Level.SEVERE, enve.getMessage(), enve);
+			assertTrue(false);
+		} catch (TimeoutException toe) {
+			logger.log(Level.SEVERE, toe.getMessage(), toe);
+			assertTrue(false);
+		} catch (WebDriverException ede) {
+			logger.log(Level.SEVERE, ede.getMessage(), ede);
+			assertTrue(false);
+		}
+
+	}
+
+	@Test
+	public void UC002_CT005_PD001_3() {
+		try {
+			this.pagina.visitar();
+			this.pagina.novo().preencher("00282/2009",
+					"0071200-63.2004.5.08.0201");/*
+													 * Numero, N_Processo,
+													 * Situação, Devedor
+													 */
+			assertTrue(this.pagina.resultado("00282/2009", "0071200-63.2004.5.08.0201", "1ª VARA DO TRABALHO DE MACAPÁ",
+					"Precatório", "Alimentar"));
+
+		}
+
+		catch (InvalidSelectorException ise) {
+			logger.log(Level.SEVERE, ise.getMessage(), ise);
+			assertTrue(false);
+		} catch (NoSuchElementException nsee) {
+			logger.log(Level.SEVERE, nsee.getMessage(), nsee);
+			assertTrue(false);
+		} catch (NotFoundException nfe) {
+			logger.log(Level.SEVERE, nfe.getMessage(), nfe);
+			assertTrue(false);
+		} catch (ElementNotVisibleException enve) {
+			logger.log(Level.SEVERE, enve.getMessage(), enve);
+			assertTrue(false);
+		} catch (TimeoutException toe) {
+			logger.log(Level.SEVERE, toe.getMessage(), toe);
+			assertTrue(false);
+		} catch (WebDriverException ede) {
+			logger.log(Level.SEVERE, ede.getMessage(), ede);
+			assertTrue(false);
+		}
+
+	}
+
 	@After
 	public void fechar() {
 		driver.close();
 	}
-	
-	
+
 }

@@ -100,7 +100,7 @@ public class Preenche {
 			// do
 			// if.
 
-	} // fim do metodo preenche.
+	} // fim do metodo preenche Beneficiário pessoa Fisica
 
 	public void preencher(String n_documento, String nome_Benficiario, String valor_Exeq_Liquido,
 			String valor_INSS_Beneficiario, String valor_INSS_Executado, String valor_IR, String Observacao)
@@ -153,7 +153,7 @@ public class Preenche {
 			// do
 			// if.
 
-	} // fim do metodo preenche.
+	} // fim do metodo preenche Beneficiário pessoa Juridica
 
 	public void preencher(String n_documento, String nome_Benficiario, String UF_OAB, String numero_OAB,
 			String tipo_OAB) throws NoSuchElementException, TimeoutException, WebDriverException {
@@ -178,29 +178,31 @@ public class Preenche {
 			driver.findElement(By.xpath(".//*[@id='inNmBenef']")).sendKeys(nome_Benficiario);
 		}
 
-		/*
-		 * logger.info("Foi deferido o benefício de prioridade processual?*");
-		 * if (prioridade) { fluentwait .until(ExpectedConditions
-		 * .elementToBeClickable(By.xpath(
-		 * ".//*[@id='cmbPrioridade']/tbody/tr/td[1]/div/div[2]/span")))
-		 * .click();
-		 * 
-		 * } else { fluentwait .until(ExpectedConditions
-		 * .elementToBeClickable(By.xpath(
-		 * ".//*[@id='cmbPrioridade']/tbody/tr/td[3]/div/div[2]/span")))
-		 * .click();
-		 * 
-		 * }
-		 * 
-		 */
-
 		if (isClickable(driver.findElement(By.xpath(".//*[@id='j_idt549']")))) {
 			System.out.println("Salvar");
 		} // fim
 			// do
 			// if.
 
-	} // fim do metodo preenche.
+	} // fim do metodo preenche Advogado
+
+	public void preencher(String n_documento) throws NoSuchElementException, TimeoutException, WebDriverException {
+
+		logger.info("Selecinando pessoa Juridica");
+		fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='cmbTpPessoa']"))).click();
+		fluentwait
+				.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='cmbTpPessoa_panel']/div/ul/li[3]")))
+				.click();
+
+		logger.info("Preenchendo numero do documento");
+		fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='inCnpjBenef']"))).clear();
+		driver.findElement(By.xpath(".//*[@id='inCnpjBenef']")).sendKeys(n_documento);
+
+		logger.info("Buscando nome do Beneficiario/Advogado");
+		driver.findElement(By.xpath(".//*[@id='j_idt507']")).click();
+
+	}
+	// fim do metodo preenche para Excecoes
 
 	public boolean isClickable(WebElement el) {
 		try {

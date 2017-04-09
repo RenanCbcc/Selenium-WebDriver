@@ -1,29 +1,25 @@
-package alterar_requisicao_pagamento;
-import static org.junit.Assert.assertTrue;
+package excluir_requisicao_pagamento;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.openqa.selenium.NotFoundException;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.openqa.selenium.ElementNotVisibleException;
-import org.openqa.selenium.InvalidSelectorException;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.NotFoundException;
-import org.openqa.selenium.TimeoutException;
+import org.junit.Ignore;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import incluir_requisicao_pagamento.Pagina;
-import incluir_requisicao_pagamento.Teste_Inclui;
-import consultar_requisicao_pagamento.Teste_Consulta;
+import static org.junit.Assert.assertTrue;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.ElementNotVisibleException;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriverException;
 
-public class Teste_Altera {
-	private Logger logger = Logger.getLogger(Teste_Inclui.class.getCanonicalName());
+public class Teste_Exclui {
+	private final static Logger logger = Logger.getLogger(Teste_Exclui.class.getCanonicalName());
 	private WebDriver driver;
-	private Pagina pagina; // esta classe visita a pagina de consulta e preenche os formulários
-	private Teste_Consulta consulta; // pre-requisito do caso de teste
+	private Pagina pagina; // esta classe visita a pagina de consulta e
+								// preenche os formulários
 
 	@Before
 	public void inicilizar() {
@@ -38,8 +34,6 @@ public class Teste_Altera {
 	@Test
 	public void UC002_CT002_PD002_1()
 	{
-		
-			
 		try{
 			this.pagina.visitar();
 /*Dados do Proceso*/		this.pagina.novo().preencher("00000/0000", "0000002-18.2008.5.08.0009","RPV","Alimentar",".//*[@id='tabGeral:cmbVara_panel']/div[2]/ul/li[2]","Teste case",
@@ -51,12 +45,11 @@ public class Teste_Altera {
 			assertTrue(pagina.resultado("Erro: org.hibernate.exception.ConstraintViolationException: could not execute statement"));
 			} 
 
-		catch (InvalidSelectorException ise){ logger.log(Level.SEVERE, ise.getMessage(), ise);assertTrue(false);}
-		catch (NoSuchElementException nsee){ logger.log(Level.SEVERE, nsee.getMessage(), nsee); assertTrue(false);}
-		catch (NotFoundException nfe){ logger.log(Level.SEVERE, nfe.getMessage(), nfe);assertTrue(false);}
-		catch (ElementNotVisibleException enve){ logger.log(Level.SEVERE, enve.getMessage(), enve);assertTrue(false);}
-		catch (TimeoutException toe){ logger.log(Level.SEVERE, toe.getMessage(), toe);assertTrue(false);}
-		catch (WebDriverException ede){ logger.log(Level.SEVERE, ede.getMessage(), ede);assertTrue(false);}
+		catch (NoSuchElementException nsee){ logger.log(Level.SEVERE, nsee.getMessage(), nsee); }
+		catch (NotFoundException nfe){ logger.log(Level.SEVERE, nfe.getMessage(), nfe);}
+		catch (ElementNotVisibleException enve){ logger.log(Level.SEVERE, enve.getMessage(), enve);}
+		catch (TimeoutException toe){ logger.log(Level.SEVERE, toe.getMessage(), toe);}
+		catch (WebDriverException ede){ logger.log(Level.SEVERE, ede.getMessage(), ede);}
 			
 	}
 	
@@ -72,12 +65,10 @@ public class Teste_Altera {
 			
 		}
 		
-		catch (InvalidSelectorException ise){ logger.log(Level.SEVERE, ise.getMessage(), ise);assertTrue(false);}
-		catch (NoSuchElementException nsee){ logger.log(Level.SEVERE, nsee.getMessage(), nsee); assertTrue(false);}
-		catch (NotFoundException nfe){ logger.log(Level.SEVERE, nfe.getMessage(), nfe);assertTrue(false);}
-		catch (ElementNotVisibleException enve){ logger.log(Level.SEVERE, enve.getMessage(), enve);assertTrue(false);}
-		catch (TimeoutException toe){ logger.log(Level.SEVERE, toe.getMessage(), toe);assertTrue(false);}
-		catch (WebDriverException ede){ logger.log(Level.SEVERE, ede.getMessage(), ede);assertTrue(false);}
+		catch (NoSuchElementException nsee){ logger.log(Level.SEVERE, nsee.getMessage(), nsee); }
+		catch (NotFoundException nfe){ logger.log(Level.SEVERE, nfe.getMessage(), nfe);}
+		catch (ElementNotVisibleException enve){ logger.log(Level.SEVERE, enve.getMessage(), enve);}
+		catch (TimeoutException toe){ logger.log(Level.SEVERE, toe.getMessage(), toe);}
 		
 	}
 	
@@ -97,12 +88,10 @@ public class Teste_Altera {
 			
 		}
 		
-		catch (InvalidSelectorException ise){ logger.log(Level.SEVERE, ise.getMessage(), ise);assertTrue(false);}
-		catch (NoSuchElementException nsee){ logger.log(Level.SEVERE, nsee.getMessage(), nsee); assertTrue(false);}
-		catch (NotFoundException nfe){ logger.log(Level.SEVERE, nfe.getMessage(), nfe);assertTrue(false);}
-		catch (ElementNotVisibleException enve){ logger.log(Level.SEVERE, enve.getMessage(), enve);assertTrue(false);}
-		catch (TimeoutException toe){ logger.log(Level.SEVERE, toe.getMessage(), toe);assertTrue(false);}
-		catch (WebDriverException ede){ logger.log(Level.SEVERE, ede.getMessage(), ede);assertTrue(false);}
+		catch (NoSuchElementException nsee){ logger.log(Level.SEVERE, nsee.getMessage(), nsee); }
+		catch (NotFoundException nfe){ logger.log(Level.SEVERE, nfe.getMessage(), nfe);}
+		catch (ElementNotVisibleException enve){ logger.log(Level.SEVERE, enve.getMessage(), enve);}
+		catch (TimeoutException toe){ logger.log(Level.SEVERE, toe.getMessage(), toe);}
 		
 	}
 	
@@ -123,12 +112,10 @@ public class Teste_Altera {
 			
 		}
 		
-		catch (InvalidSelectorException ise){ logger.log(Level.SEVERE, ise.getMessage(), ise);assertTrue(false);}
-		catch (NoSuchElementException nsee){ logger.log(Level.SEVERE, nsee.getMessage(), nsee); assertTrue(false);}
-		catch (NotFoundException nfe){ logger.log(Level.SEVERE, nfe.getMessage(), nfe);assertTrue(false);}
-		catch (ElementNotVisibleException enve){ logger.log(Level.SEVERE, enve.getMessage(), enve);assertTrue(false);}
-		catch (TimeoutException toe){ logger.log(Level.SEVERE, toe.getMessage(), toe);assertTrue(false);}
-		catch (WebDriverException ede){ logger.log(Level.SEVERE, ede.getMessage(), ede);assertTrue(false);}
+		catch (NoSuchElementException nsee){ logger.log(Level.SEVERE, nsee.getMessage(), nsee); }
+		catch (NotFoundException nfe){ logger.log(Level.SEVERE, nfe.getMessage(), nfe);}
+		catch (ElementNotVisibleException enve){ logger.log(Level.SEVERE, enve.getMessage(), enve);}
+		catch (TimeoutException toe){ logger.log(Level.SEVERE, toe.getMessage(), toe);}
 		
 	}
 	
@@ -138,5 +125,4 @@ public class Teste_Altera {
 	public void fechar() {
 		driver.close();
 	}
-
 }

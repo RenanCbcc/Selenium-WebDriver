@@ -1,4 +1,4 @@
-package incluir_requisicao_pagamento_beneficiario;
+package incluir_requisicao_pagamento_terceiro_interessado;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,7 +15,7 @@ import org.openqa.selenium.NoSuchElementException;
 public class Pagina {
 	private WebDriver driver;
 	private WebDriverWait wait;
-	private Logger logger = Logger.getLogger(Pagina.class.getCanonicalName());
+	private final static Logger logger = Logger.getLogger(Pagina.class.getCanonicalName());
 
 	public Pagina(WebDriver driver) {
 		this.driver = driver;
@@ -30,11 +30,11 @@ public class Pagina {
 		username.clear();
 		username.sendKeys("66258375391");
 		logger.info("Preenchendo campo Login");
-		driver.findElement(By.id("j_idt22")).click();
+		driver.findElement(By.xpath(".//*[@id='j_idt166']")).click();
 		logger.info("Autenticando no sistema");
 	}
 
-	public Preenche novo(String tipo,String numero, String processo)
+	public Preenche novo(String numero, String processo)
 			throws NoSuchElementException, ElementNotVisibleException, TimeoutException {
 
 		wait.until(ExpectedConditions.textToBePresentInElementLocated(By.className("ui-growl-item"), "Login realizado com sucesso!"));
@@ -53,9 +53,12 @@ public class Pagina {
 		actions.moveToElement(driver.findElement(By.xpath(".//*[@id='j_idt33']/ul/li[4]/ul/li[2]/a")));
 		logger.info("Requisicoes de Pagamento");
 		actions.moveToElement(driver.findElement(By.xpath(".//*[@id='j_idt33']/ul/li[4]/ul/li[2]/ul/li[1]/a"))).click().build().perform();
+				
 		
+		logger.info("Aguardando....");
+		// espera por tabela de requisicoes.
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tblRequisicoes']/div[1]")));
-
+		
 		logger.info("Preenchendo Numero requsicao de Pagamento");
 		driver.findElement(By.xpath(".//*[@id='inNrReq']")).clear();
 		driver.findElement(By.xpath(".//*[@id='inNrReq']")).sendKeys(numero);
@@ -63,7 +66,7 @@ public class Pagina {
 		logger.info("Preenchendo Numero processo");
 		driver.findElement(By.xpath(".//*[@id='inNrProc']")).clear();
 		driver.findElement(By.xpath(".//*[@id='inNrProc']")).sendKeys(processo);
-		driver.findElement(By.xpath(".//*[@id='j_idt125']")).click();// clica no
+		driver.findElement(By.xpath(".//*[@id='j_idt86']")).click();// clica no
 																		// botão
 		// buscar
 		// processo
@@ -73,15 +76,15 @@ public class Pagina {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tblRequisicoes']/div[1]")));
 
 		logger.info("Retificar Requisicoes de Pagamento");
-		driver.findElement(By.xpath(".//*[@id='tblRequisicoes:0:j_idt152']")).click();
+		driver.findElement(By.xpath(".//*[@id='tblRequisicoes:0:j_idt113']")).click();
 
-		logger.info("Aguardando....");
-		// espera por tabela de requisicoes.
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='tabGeral']/ul/li[2]/a"))).click();
+		
+		logger.info("Aba Terceiros Interessados");
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='tabGeral']/ul/li[3]/a"))).click();
+		
 		
 		
 		return new Preenche(driver);
-		
 	}
 
 	public boolean resultado(String resultado) throws TimeoutException {
@@ -95,4 +98,6 @@ public class Pagina {
 		return driver.getPageSource().contains(resultado);
 
 	}
+	
+	
 }

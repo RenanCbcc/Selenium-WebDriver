@@ -11,7 +11,7 @@ import java.util.logging.*;
 // Esta clase faz o preenchimento do formulario de buscas e os submete.
 public class Preenche {
 	private WebDriver driver;
-	private final static Logger logger = Logger.getLogger(Preenche.class.getCanonicalName());
+	private Logger logger = Logger.getLogger(Preenche.class.getCanonicalName());
 
 	public Preenche(WebDriver driver) {
 		this.driver = driver;

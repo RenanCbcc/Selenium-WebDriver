@@ -15,7 +15,7 @@ import org.openqa.selenium.NoSuchElementException;
 public class Pagina {
 	private WebDriver driver;
 	private WebDriverWait wait;
-	private final static Logger logger = Logger.getLogger(Pagina.class.getCanonicalName());
+	private Logger logger = Logger.getLogger(Pagina.class.getCanonicalName());
 
 	public Pagina(WebDriver driver) {
 		this.driver = driver;
@@ -43,15 +43,15 @@ public class Pagina {
 		driver.findElement(By.xpath("//*[@id='cmbPermissoes_panel']/div[2]/ul/li[1]")).click();
 		logger.info("Divisão de Precatórios | Diretor!");
 		
-		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//*[@id='j_idt72']/ul/li[4]/a"))); 
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='j_idt33']/ul/li[4]/a"))); 
 		
 		Actions actions = new Actions(driver);
 		logger.info("Opcoes de Requisisao de pagamento!");
-		actions.moveToElement(driver.findElement(By.xpath(".//*[@id='j_idt72']/ul/li[4]/a/span[3]")));
+		actions.moveToElement(driver.findElement(By.xpath(".//*[@id='j_idt33']/ul/li[4]/a")));
 		logger.info("Gerenciar");
-		actions.moveToElement(driver.findElement(By.xpath(".//*[@id='j_idt72']/ul/li[4]/ul/li[2]/a")));
+		actions.moveToElement(driver.findElement(By.xpath(".//*[@id='j_idt33']/ul/li[4]/ul/li[2]/a")));
 		logger.info("Requisicoes de Pagamento");
-		actions.moveToElement(driver.findElement(By.xpath(".//*[@id='j_idt72']/ul/li[4]/ul/li[2]/ul/li[1]/a/span"))).click().build().perform();
+		actions.moveToElement(driver.findElement(By.xpath(".//*[@id='j_idt33']/ul/li[4]/ul/li[2]/ul/li[1]/a"))).click().build().perform();
 				
 		
 		logger.info("Aguardando....");
