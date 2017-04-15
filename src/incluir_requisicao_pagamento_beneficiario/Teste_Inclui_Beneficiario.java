@@ -33,15 +33,21 @@ public class Teste_Inclui_Beneficiario {
 
 	}
 
-	@Ignore
+	@Ignore // Testato!
 	public void UC002_CT007_PD002_1()
 	{
 		try{
 			this.pagina.visitar();
-			this.pagina.novo("Beneficiario","00065/2009", "0147300-54.2007.5.08.0201").preencher("357.579.517-70","nome_Benficiario","1950",
+			this.pagina.novo("Beneficiario","00010/2017", "0128300-28.2008.5.08.0009").preencher("Pessoa Física","357.579.517-70","Nemo","1950",
 							false
 							,"1.000,00","100,00","100,00","100,00" 
-							,"Observacao");
+							,"Per aspera ad astra");
+
+			assertTrue(pagina.resultado("Operação Realizada com Sucesso"));
+			
+			this.pagina.visitar();
+			this.pagina.novo("Advogado","00010/2017", "0128300-28.2008.5.08.0009").preencher("670.198.542-49","ABEL DA SILVA PEREIRA",
+					"PA","000000000000","Advogado","Vana Dilma Roussef - 357.579.517-70");
 
 			assertTrue(pagina.resultado("Operação Realizada com Sucesso"));
 			} 
@@ -55,12 +61,32 @@ public class Teste_Inclui_Beneficiario {
 			
 	}
 	
+	@Test // Testato!
+	public void UC002_CT007_PD002_1_1()
+	{
+		try{
+			this.pagina.visitar();
+			this.pagina.novo("Advogado","00329/2013","0048800-41.2007.5.08.0010").preencher("222.785.402-20","ABEL DA SILVA PEREIRA",
+					"PA","000000000000","Advogado","Vana Dilma Roussef - 357.579.517-70");
+
+			assertTrue(pagina.resultado("Operação Realizada com Sucesso"));
+			} 
+
+		catch (InvalidSelectorException ise){ logger.log(Level.SEVERE, ise.getMessage(), ise);assertTrue(false);}
+		catch (NoSuchElementException nsee){ logger.log(Level.SEVERE, nsee.getMessage(), nsee); assertTrue(false);}
+		catch (NotFoundException nfe){ logger.log(Level.SEVERE, nfe.getMessage(), nfe);assertTrue(false);}
+		catch (ElementNotVisibleException enve){ logger.log(Level.SEVERE, enve.getMessage(), enve);assertTrue(false);}
+		catch (TimeoutException toe){ logger.log(Level.SEVERE, toe.getMessage(), toe);assertTrue(false);}
+		catch (WebDriverException ede){ logger.log(Level.SEVERE, ede.getMessage(), ede);assertTrue(false);}
+			
+	}
+
 	@Ignore
 	public void UC002_CT007_PD002_2()
 	{
 		try{
 			this.pagina.visitar();
-			this.pagina.novo("Beneficiario","00065/2009", "0147300-54.2007.5.08.0201").preencher("303.492.832-73");
+			this.pagina.novo("Beneficiario","00065/2009", "0147300-54.2007.5.08.0201").preencher("Pessoa Física","303.492.832-73");
 
 			assertTrue(pagina.resultado("Erro: Beneficiário informado já está cadastrado como Procurador. Operação não permitida."));
 			} 
@@ -79,7 +105,7 @@ public class Teste_Inclui_Beneficiario {
 	{
 		try{
 			this.pagina.visitar();
-			this.pagina.novo("Beneficiario","30000/2016", "0128300-28.2008.5.08.0009").preencher("07.954.480/0001-79");
+			this.pagina.novo("Beneficiario","30000/2016", "0128300-28.2008.5.08.0009").preencher("Pessoa Jurídica","07.954.480/0001-79");
 
 			assertTrue(pagina.resultado("Erro: Beneficiário informado já está cadastrado como Executado. Operação não permitida."));
 			} 
@@ -98,7 +124,7 @@ public class Teste_Inclui_Beneficiario {
 	{
 		try{
 			this.pagina.visitar();
-			this.pagina.novo("Advogado","35138/4313", "0000008-18.2011.5.12.0006").preencher("357.579.517-70");
+			this.pagina.novo("Advogado","35138/4313", "0000008-18.2011.5.12.0006").preencher("Pessoa Física","357.579.517-70");
 			assertTrue(pagina.resultado("Erro: Advogado informado já está cadastrado como Procurador. Operação não permitida."));
 			} 
 
@@ -116,7 +142,7 @@ public class Teste_Inclui_Beneficiario {
 	{
 		try{
 			this.pagina.visitar();
-			this.pagina.novo("Beneficiario","00065/2009", "0147300-54.2007.5.08.0201").preencher("909.882.642-34");
+			this.pagina.novo("Beneficiario","00065/2009", "0147300-54.2007.5.08.0201").preencher("Pessoa Física","909.882.642-34");
 
 			assertTrue(pagina.resultado("Erro: Registro duplicado. Já existe um benefício cadastrado para este CPF."));
 			} 
@@ -130,12 +156,12 @@ public class Teste_Inclui_Beneficiario {
 			
 	}
 	
-	@Test
+	@Ignore
 	public void UC002_CT007_PD002_6() 
 	{
 		try{
 			this.pagina.visitar();
-		this.pagina.novo("Advogado","00065/2009", "0147300-54.2007.5.08.0201").preencher("557.353.606-04");
+		this.pagina.novo("Advogado","00065/2009", "0147300-54.2007.5.08.0201").preencher("Pessoa Física","557.353.606-04");
 			assertTrue(pagina.resultado("Erro: Registro duplicado. Já existe um advogado cadastrado com este CPF."));
 			} 
 

@@ -30,7 +30,7 @@ public class Pagina {
 		username.clear();
 		username.sendKeys("66258375391");
 		logger.info("Preenchendo campo Login");
-		driver.findElement(By.id("j_idt22")).click();
+		driver.findElement(By.xpath(".//*[@id='j_idt166']")).click();
 		logger.info("Autenticando no sistema");
 	}
 
@@ -59,7 +59,7 @@ public class Pagina {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tblRequisicoes']/div[1]")));
 		
 		logger.info("Incluir Requisicoes de Pagamento");
-		driver.findElement(By.id("j_idt128")).click();
+		driver.findElement(By.xpath(".//*[@id='j_idt89']")).click();
 		
 		logger.info("Aguardando....");
 		// espera por tabela de requisicoes.

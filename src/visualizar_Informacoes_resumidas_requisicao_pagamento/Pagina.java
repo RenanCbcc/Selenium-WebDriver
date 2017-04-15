@@ -44,7 +44,7 @@ public class Pagina {
 		username.clear();
 		username.sendKeys("66258375391");
 		logger.info("Preenchendo campo Login");
-		driver.findElement(By.id("j_idt22")).click();
+		driver.findElement(By.xpath(".//*[@id='j_idt166']")).click();
 		logger.info("Autenticando no sistema");
 	}
 
