@@ -33,7 +33,7 @@ public class Teste_Inclui {
 
 	}
 
-	@Ignore
+	@Test
 	public void UC002_CT002_PD002_1() {
 		try {
 			this.pagina.visitar();
@@ -143,7 +143,7 @@ public class Teste_Inclui {
 
 	}
 
-	@Test
+	@Ignore
 	public void UC002_CT002_PD002_4() { // <<<<<<<<<<<<<Revisar esse caso de
 										// teste>;
 		try {

@@ -99,7 +99,7 @@ public class Preenche {
 			// do
 			// if.
 
-	} // fim do metodo preenche Beneficiário pessoa Fisica
+	} // Fim do metodo preenche Beneficiário pessoa Fisica.
 
 	public void preencher(String Tipo_Pessoa, String Documento_Fiscal, String Nome, String Exeq_Liquido,
 			String INSS_Beneficiario, String INSS_Executado, String IR, String Observacao)
@@ -146,14 +146,12 @@ public class Preenche {
 
 		if (isClickable(driver.findElement(By.xpath(".//*[@id='j_idt549']")))) {
 			System.out.println("Salvar");
-		} // fim
-			// do
-			// if.
+		} // fim do if.
 
 	} // fim do metodo preenche Beneficiário pessoa Juridica
 
-	public void preencher(String Documento_Fiscal, String Nome, String UF_OAB, String numero_OAB, String Tipo_OAB,
-			String Beneficiarios) throws NoSuchElementException, TimeoutException, WebDriverException {
+	public void preencher(String Documento_Fiscal, String Nome, String UF_OAB, String numero_OAB, String Tipo_OAB)
+			throws NoSuchElementException, TimeoutException, WebDriverException {
 
 		logger.info("Preenchendo numero do documento");
 		fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='inCpfAdv']"))).clear();
@@ -172,16 +170,19 @@ public class Preenche {
 			System.out.println("Nome Inativo");
 		}
 
-		if (isClickable(driver.findElement(By.xpath(".//*[@id='inUfOAB']")))) {
-			logger.info("Selecionando Unidade Federativa da OAB");
-			SelectFromDropdown(UF_OAB, ".//*[@id='inUfOAB_panel']/div/ul/li");
-			{
+		// Bug_Mr_Anderson, why do you persist?
+		{ // A funcao isClickable() retornarah sem True, por isso eh preciso
+			// outro if() <==========================================
+			driver.findElement(By.xpath(".//*[@id='inUfOAB']")).click();
+			if (driver.findElement(By.xpath(".//*[@id='inUfOAB_panel']/div/ul/li")).isDisplayed()) {
+				logger.info("Selecionando Unidade Federativa da OAB");
+				SelectFromDropdown(UF_OAB, ".//*[@id='inUfOAB_panel']/div/ul/li");
 				logger.info("Unidade Federativa Selecionada");
+			} else {
+				logger.info("Unidade Federativa Selecionada");
+				System.out.println("Unidade Federativa Inativo");
 			}
-		} else {
-			logger.info("Unidade Federativa Inativo");
-			System.out.println("Unidade Federativa Inativo");
-		}
+		} // Fim do Bug_Mr_Anderson.
 
 		if (fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='inNrOAB']")))
 				.isEnabled()) {
@@ -192,24 +193,30 @@ public class Preenche {
 			logger.info("Numero da OAB Inativo");
 			System.out.println("Numero da OAB Inativo");
 		}
-		
-		if (isClickable(driver.findElement(By.xpath(".//*[@id='inTpOAB']")))) {
-			logger.info("Selecionando Tipo de OAB");
-			SelectFromDropdown(Tipo_OAB, ".//*[@id='inTpOAB_panel']/div/ul/li");
-		} else {
-			logger.info("Tipo de OAB inativa");
-			System.out.println("Tipo de OAB Inativo");
-		}
-		
-		fluentwait.until(
-				ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='inBenef']/tbody/tr/td[1]/div/div[2]/span")))
-				.click();
+
+		// Bug_Mr_Anderson, why do you persist?
+		{ // A funcao isClickable() retornarah sem True, por isso eh preciso
+			// outro if() <==========================================
+			driver.findElement(By.xpath(".//*[@id='inTpOAB']")).click();
+			if (driver.findElement(By.xpath(".//*[@id='inTpOAB_panel']/div/ul/li")).isDisplayed()) {
+				logger.info("Selecionando Tipo de OAB");
+				SelectFromDropdown(Tipo_OAB, ".//*[@id='inTpOAB_panel']/div/ul/li");
+			} else {
+				logger.info("Tipo de OAB inativa");
+				System.out.println("Tipo de OAB Inativo");
+			}
+
+		} // Fim do Bug_Mr_Anderson.
+
+		logger.info("Selecionando como Beneficiario o primeiro da lista"); // Clica
+																			// sempre
+																			// no
+																			// primeiro.
+		// isClickable(fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='inBenef']/tbody/tr[1]/td[1]/div/div[2]/span"))));
 
 		if (isClickable(driver.findElement(By.xpath(".//*[@id='j_idt490']")))) {
 			System.out.println("Salvar");
-		} // fim
-			// do
-			// if.
+		} // fim do if.
 
 	}
 
@@ -229,8 +236,7 @@ public class Preenche {
 		logger.info("Buscando nome do Beneficiario/Advogado");
 		driver.findElement(By.xpath(".//*[@id='j_idt507']")).click();
 
-	}
-	// fim do metodo preenche para Excecoes
+	}// Fim do metodo preenche para Excecoes.
 
 	public boolean isClickable(WebElement el) {
 		try {
@@ -250,7 +256,7 @@ public class Preenche {
 				return;
 			}
 		}
-		throw new NoSuchElementException("Can't find " + option + " in dropdown");
+		throw new NoSuchElementException("Cannot find " + option + " in dropdown");
 	}
 
 }
