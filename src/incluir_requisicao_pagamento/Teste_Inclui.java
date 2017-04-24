@@ -36,7 +36,6 @@ public class Teste_Inclui {
 
 	@Test
 	public void UC002_CT002_PD002_1() {
-		try {
 		
 			/* Dados do Proceso */ this.pagina.novo().preencher("10000/1000", "0000002-18.2008.5.08.0009", "RPV",
 					"Alimentar", "VARA DO TRABALHO DE ALTAMIRA", "Teste case",
@@ -48,28 +47,7 @@ public class Teste_Inclui {
 
 			assertTrue(pagina.resultado(
 					"Erro: org.hibernate.exception.ConstraintViolationException: could not execute statement"));
-		}
-
-		catch (InvalidSelectorException ise) {
-			logger.log(Level.SEVERE, ise.getMessage(), ise);
-			assertTrue(false);
-		} catch (NoSuchElementException nsee) {
-			logger.log(Level.SEVERE, nsee.getMessage(), nsee);
-			assertTrue(false);
-		} catch (NotFoundException nfe) {
-			logger.log(Level.SEVERE, nfe.getMessage(), nfe);
-			assertTrue(false);
-		} catch (ElementNotVisibleException enve) {
-			logger.log(Level.SEVERE, enve.getMessage(), enve);
-			assertTrue(false);
-		} catch (TimeoutException toe) {
-			logger.log(Level.SEVERE, toe.getMessage(), toe);
-			assertTrue(false);
-		} catch (WebDriverException ede) {
-			logger.log(Level.SEVERE, ede.getMessage(), ede);
-			assertTrue(false);
-		}
-
+		
 	}
 
 	@Ignore

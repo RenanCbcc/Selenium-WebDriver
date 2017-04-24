@@ -36,8 +36,7 @@ public class Teste_Consulta {
 
 	@Test
 	public void UC002_CT001_PD001_1() {
-		try {
-
+		
 			this.pagina.novo().preencher("00010/2017", "0128300-28.2008.5.08.0009",
 					"Parcialmente Paga");/*
 											 * Numero, N_Processo, Situacao,
@@ -45,29 +44,7 @@ public class Teste_Consulta {
 											 */
 			assertTrue(pagina.resultado("00010/2017", "0128300-28.2008.5.08.0009", "VARA DO TRABALHO DE ALTAMIRA",
 					"Precatório", "Alimentar", "07/02/2017", "Parcialmente Paga", "Sim"));
-		}
-
-		catch (InvalidSelectorException ise) {
-			logger.log(Level.SEVERE, ise.getMessage(), ise);
-			assertTrue(false);
-		} catch (NoSuchElementException nsee) {
-			logger.log(Level.SEVERE, nsee.getMessage(), nsee);
-			assertTrue(false);
-		} catch (NotFoundException nfe) {
-			logger.log(Level.SEVERE, nfe.getMessage(), nfe);
-			assertTrue(false);
-		} catch (ElementNotVisibleException enve) {
-			logger.log(Level.SEVERE, enve.getMessage(), enve);
-			assertTrue(false);
-		} catch (TimeoutException toe) {
-			logger.log(Level.SEVERE, toe.getMessage(), toe);
-			assertTrue(false);
-		} catch (WebDriverException ede) {
-			logger.log(Level.SEVERE, ede.getMessage(), ede);
-			assertTrue(false);
-		}
-
-	}
+			}
 
 	@Test
 	public void UC002_CT002_PD001_2() {
