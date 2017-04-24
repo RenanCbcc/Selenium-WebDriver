@@ -18,6 +18,7 @@ public class Pagina {
 	public Pagina(WebDriver driver) {
 		this.driver = driver;
 		this.wait = new WebDriverWait(this.driver, 10);
+		
 	}
 
 	public Preenche novo() throws NoSuchElementException, ElementNotVisibleException, TimeoutException {

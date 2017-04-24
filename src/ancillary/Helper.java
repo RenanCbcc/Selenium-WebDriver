@@ -23,7 +23,7 @@ public class Helper {
 	public static Wait<WebDriver> fluentwait;
 	public static Logger logger = Logger.getLogger(Helper.class.getCanonicalName());
 	public static WebDriver driver;
-	
+
 	public static void Init(WebDriver drive) {
 		driver = drive;
 		fluentwait = new FluentWait<WebDriver>(driver).withTimeout(10, TimeUnit.SECONDS)
@@ -31,10 +31,11 @@ public class Helper {
 				.ignoring(StaleElementReferenceException.class).ignoring(WebDriverException.class);
 	}
 
-	public static boolean IsClickable(WebElement el) {
+	public static boolean isClickable(String xpath) {
 		try {
 			// espera que o elemento esja visivel e clickavel.
-			fluentwait.until(ExpectedConditions.elementToBeClickable(el)).click();
+			fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath))).click();
+			
 			return true;
 		} catch (TimeoutException e) {
 			return false;
@@ -49,10 +50,10 @@ public class Helper {
 				return;
 			}
 		}
-		throw new NoSuchElementException("Can't find " + option + " in dropdown");
+		throw new NoSuchElementException("Cannot find " + option + " in dropdown");
 	}
 
-	public static void PageSearcher()
+	public static void pageSearcher()
 			throws NotFoundException, NoSuchElementException, ElementNotVisibleException, TimeoutException {
 		logger.info("Acessando à página: " + driver.getTitle());
 		driver.get("http://10.8.17.214:8080/gep_teste");

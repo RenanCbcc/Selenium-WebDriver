@@ -1,5 +1,5 @@
 package visualizar_Informacoes_resumidas_requisicao_pagamento;
-
+import ancillary.Helper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
@@ -36,36 +36,10 @@ public class Pagina {
                 .ignoring(WebDriverException.class);
 	}
 
-	public void visitar() throws NotFoundException {
-		logger.info("Acessando à página: " + this.driver.getTitle());
-		driver.get("http://10.8.17.214:8080/gep_teste");
-		driver.manage().window().maximize();
-		WebElement username = driver.findElement(By.id("name"));
-		username.clear();
-		username.sendKeys("66258375391");
-		logger.info("Preenchendo campo Login");
-		driver.findElement(By.xpath(".//*[@id='j_idt166']")).click();
-		logger.info("Autenticando no sistema");
-	}
 
 	public Preenche novo() throws NoSuchElementException,ElementNotVisibleException,TimeoutException  {
 		
-		fluentwait.until(ExpectedConditions.textToBePresentInElementLocated(By.className("ui-growl-item"), "Login realizado com sucesso!"));
-		logger.info("Login realizado com sucesso!");
-		
-		driver.findElement(By.xpath(".//*[@id='cmbPermissoes_label']")).click(); 
-		driver.findElement(By.xpath("//*[@id='cmbPermissoes_panel']/div[2]/ul/li[1]")).click();
-		logger.info("Divisão de Precatórios | Diretor!");
-		
-		fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='j_idt33']/ul/li[4]/a"))); 
-		
-		Actions actions = new Actions(driver);
-		logger.info("Opcoes de Requisisao de pagamento!");
-		actions.moveToElement(driver.findElement(By.xpath(".//*[@id='j_idt33']/ul/li[4]/a")));
-		logger.info("Gerenciar");
-		actions.moveToElement(driver.findElement(By.xpath(".//*[@id='j_idt33']/ul/li[4]/ul/li[2]/a")));
-		logger.info("Requisicoes de Pagamento");
-		actions.moveToElement(driver.findElement(By.xpath(".//*[@id='j_idt33']/ul/li[4]/ul/li[2]/ul/li[1]/a"))).click().build().perform();
+		Helper.pageSearcher();
 		
 		return new Preenche(driver);
 	} // fim do metodo novo()

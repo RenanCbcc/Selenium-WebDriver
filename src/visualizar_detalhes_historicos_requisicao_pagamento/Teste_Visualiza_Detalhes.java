@@ -2,7 +2,6 @@ package visualizar_detalhes_historicos_requisicao_pagamento;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.lang.AssertionError;
 import org.openqa.selenium.NotFoundException;
 import org.junit.After;
 import org.junit.Before;
@@ -40,7 +39,7 @@ public class Teste_Visualiza_Detalhes {
 	@Test
 	public void UC002_CT006_PD001_1() {
 		try {
-			this.pagina.visitar();
+
 			this.pagina.novo().preencher("20000/2016",
 					"0128300-28.2008.5.08.0009");/*
 													 * Número, N_Processo,

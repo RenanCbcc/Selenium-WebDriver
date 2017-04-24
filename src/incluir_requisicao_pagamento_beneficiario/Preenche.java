@@ -1,7 +1,6 @@
 package incluir_requisicao_pagamento_beneficiario;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
@@ -10,8 +9,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriverException;
-
-import java.util.List;
+import ancillary.Helper;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.*;
 
@@ -35,7 +33,7 @@ public class Preenche {
 
 		logger.info("Selecinando Tipo Pessoa");
 		fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='cmbTpPessoa']"))).click();
-		SelectFromDropdown(Tipo_Pessoa, ".//*[@id='cmbTpPessoa_panel']/div/ul/li");
+		Helper.SelectFromDropdown(Tipo_Pessoa, ".//*[@id='cmbTpPessoa_panel']/div/ul/li");
 
 		logger.info("Preenchendo numero do documento");
 		fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='inCpfBenef']"))).clear();
@@ -93,7 +91,7 @@ public class Preenche {
 		driver.findElement(By.xpath(".//*[@id='j_idt547']")).clear();
 		driver.findElement(By.xpath(".//*[@id='j_idt547']")).sendKeys(Observacao);
 
-		if (isClickable(driver.findElement(By.xpath(".//*[@id='j_idt549']")))) {
+		if (Helper.isClickable(".//*[@id='j_idt549']")) {
 			System.out.println("Salvar");
 		} // fim
 			// do
@@ -107,7 +105,7 @@ public class Preenche {
 
 		logger.info("Selecinando Tipo Pessoa");
 		fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='cmbTpPessoa']"))).click();
-		SelectFromDropdown(Tipo_Pessoa, ".//*[@id='cmbTpPessoa_panel']/div/ul/li");
+		Helper.SelectFromDropdown(Tipo_Pessoa, ".//*[@id='cmbTpPessoa_panel']/div/ul/li");
 
 		logger.info("Preenchendo numero do documento");
 		fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='inCnpjBenef']"))).clear();
@@ -144,7 +142,7 @@ public class Preenche {
 		driver.findElement(By.xpath(".//*[@id='j_idt547']")).clear();
 		driver.findElement(By.xpath(".//*[@id='j_idt547']")).sendKeys(Observacao);
 
-		if (isClickable(driver.findElement(By.xpath(".//*[@id='j_idt549']")))) {
+		if (Helper.isClickable(".//*[@id='j_idt549']")) {
 			System.out.println("Salvar");
 		} // fim do if.
 
@@ -176,7 +174,7 @@ public class Preenche {
 			driver.findElement(By.xpath(".//*[@id='inUfOAB']")).click();
 			if (driver.findElement(By.xpath(".//*[@id='inUfOAB_panel']/div/ul/li")).isDisplayed()) {
 				logger.info("Selecionando Unidade Federativa da OAB");
-				SelectFromDropdown(UF_OAB, ".//*[@id='inUfOAB_panel']/div/ul/li");
+				Helper.SelectFromDropdown(UF_OAB, ".//*[@id='inUfOAB_panel']/div/ul/li");
 				logger.info("Unidade Federativa Selecionada");
 			} else {
 				logger.info("Unidade Federativa Selecionada");
@@ -200,7 +198,7 @@ public class Preenche {
 			driver.findElement(By.xpath(".//*[@id='inTpOAB']")).click();
 			if (driver.findElement(By.xpath(".//*[@id='inTpOAB_panel']/div/ul/li")).isDisplayed()) {
 				logger.info("Selecionando Tipo de OAB");
-				SelectFromDropdown(Tipo_OAB, ".//*[@id='inTpOAB_panel']/div/ul/li");
+				Helper.SelectFromDropdown(Tipo_OAB, ".//*[@id='inTpOAB_panel']/div/ul/li");
 			} else {
 				logger.info("Tipo de OAB inativa");
 				System.out.println("Tipo de OAB Inativo");
@@ -214,7 +212,7 @@ public class Preenche {
 																			// primeiro.
 		// isClickable(fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='inBenef']/tbody/tr[1]/td[1]/div/div[2]/span"))));
 
-		if (isClickable(driver.findElement(By.xpath(".//*[@id='j_idt490']")))) {
+		if (Helper.isClickable(".//*[@id='j_idt490']")) {
 			System.out.println("Salvar");
 		} // fim do if.
 
@@ -237,26 +235,5 @@ public class Preenche {
 		driver.findElement(By.xpath(".//*[@id='j_idt507']")).click();
 
 	}// Fim do metodo preenche para Excecoes.
-
-	public boolean isClickable(WebElement el) {
-		try {
-			// espera que o elemento esja visivel e clickavel.
-			fluentwait.until(ExpectedConditions.elementToBeClickable(el)).click();
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
-	public void SelectFromDropdown(String option, String path) {
-		List<WebElement> options = driver.findElements(By.xpath(path));
-		for (WebElement opt : options) {
-			if (opt.getText().equals(option)) {
-				opt.click();
-				return;
-			}
-		}
-		throw new NoSuchElementException("Cannot find " + option + " in dropdown");
-	}
 
 }

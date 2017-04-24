@@ -37,7 +37,7 @@ public class Teste_Consulta {
 	@Test
 	public void UC002_CT001_PD001_1() {
 		try {
-			this.pagina.visitar_Pagina();
+
 			this.pagina.novo().preencher("00010/2017", "0128300-28.2008.5.08.0009",
 					"Parcialmente Paga");/*
 											 * Numero, N_Processo, Situacao,
@@ -72,7 +72,7 @@ public class Teste_Consulta {
 	@Test
 	public void UC002_CT002_PD001_2() {
 		try {
-			this.pagina.visitar_Pagina();
+
 			this.pagina.novo().preencher("00000/0000", "",
 					"");/* Numero, N_Processo, Situacao, Devedor */
 			assertTrue(pagina.resultado("Nenhum registro encontrado."));
@@ -104,7 +104,7 @@ public class Teste_Consulta {
 	@Test
 	public void UC002_CT001_PD001_3() {
 		try {
-			this.pagina.visitar_Pagina();
+
 			this.pagina.novo().preencher("00254/2009", "0109400-24.2004.5.08.0013",
 					"Autuada");/* Numero, N_Processo, Situacao, Devedor */
 			assertTrue(pagina.resultado("00254/2009", "0109400-24.2004.5.08.0013", "13ª VARA DO TRABALHO DE BELÉM",
@@ -138,16 +138,16 @@ public class Teste_Consulta {
 		}
 
 	}
-	
-	@Ignore
-	public static boolean consultar(String numero,String Finalizado,WebDriver driver){
-		Pagina pagina = new Pagina(driver);
-		pagina.visitar_Pagina();
-		pagina.novo().preencher(numero);/* Numero, N_Processo, Situacao, Devedor */
-		
-		return pagina.resultado("00254/2009","Não");
-	}
 
+	@Ignore
+	public static boolean consultar(String numero, String Finalizado, WebDriver driver) {
+		Pagina pagina = new Pagina(driver);
+
+		pagina.novo()
+				.preencher(numero);/* Numero, N_Processo, Situacao, Devedor */
+
+		return pagina.resultado("00254/2009", "Não");
+	}
 
 	@After
 	public void fechar() {

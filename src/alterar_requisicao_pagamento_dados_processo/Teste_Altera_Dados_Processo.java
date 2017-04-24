@@ -28,18 +28,19 @@ public class Teste_Altera_Dados_Processo {
 		System.setProperty("webdriver.gecko.driver", "C:\\geckodriver.exe");
 		DesiredCapabilities capabilities = DesiredCapabilities.firefox();
 		capabilities.setCapability("marionette", false);
+		capabilities.setCapability("overlappingCheckDisabled", true);
 		this.driver = new FirefoxDriver(capabilities);
 
 	}
 
-	@Ignore
-	public void UC002_CT002_PD002_1() {
+	@Test
+	public void UC002_CT003_PD002_1() {
 		try {
 
 			assertTrue(Teste_Consulta.consultar("00254/2009", "Não", this.driver));
 			this.pagina = new Pagina(this.driver);
 
-			/* Dados do Proceso */ this.pagina.novo().preencher("00000/0000", "0000002-18.2008.5.08.0009", "RPV",
+			/* Dados do Proceso */ this.pagina.novo().preencher("00000/0000", "0000002-18.2008.5.08.0009", "Precatório",
 					"Alimentar", "VARA DO TRABALHO DE ALTAMIRA", "Teste case",
 					/* Datas de Referência */ "01/01/2016", "08/10/2016", "09/10/2016", "10/10/2016", "11/10/2016",
 					"12/10/2016"
@@ -72,13 +73,13 @@ public class Teste_Altera_Dados_Processo {
 
 	}
 
-	@Test
-	public void UC002_CT002_PD002_2() {
+	@Ignore
+	public void UC002_CT003_PD002_2() {
 		try {
 
 			assertTrue(Teste_Consulta.consultar("00254/2009", "Não", this.driver));
 			this.pagina = new Pagina(this.driver);
-			
+
 			this.pagina.novo().preencher("00010/2017");
 
 			assertTrue(pagina.resultado("Erro: Registro duplicado. Já existe uma RP cadastrada com este número."));
@@ -107,9 +108,10 @@ public class Teste_Altera_Dados_Processo {
 
 	}
 
-	// *****************************Revisar TODOS os caso de teste abaixo*****************************//
+	// *****************************Revisar TODOS os caso de teste
+	// abaixo*****************************//
 	@Ignore
-	public void UC002_CT002_PD002_3() {
+	public void UC002_CT003_PD002_3() {
 		try {
 
 			assertTrue(Teste_Consulta.consultar("00254/2009", "Não", this.driver));
@@ -151,7 +153,7 @@ public class Teste_Altera_Dados_Processo {
 	}
 
 	@Ignore
-	public void UC002_CT002_PD002_4() { 
+	public void UC002_CT003_PD002_4() {
 		try {
 
 			assertTrue(Teste_Consulta.consultar("00254/2009", "Não", this.driver));
@@ -193,7 +195,7 @@ public class Teste_Altera_Dados_Processo {
 	}
 
 	@Ignore
-	public void UC002_CT002_PD002_5() { 
+	public void UC002_CT003_PD002_5() {
 		try {
 
 			assertTrue(Teste_Consulta.consultar("00254/2009", "Não", this.driver));
@@ -207,8 +209,8 @@ public class Teste_Altera_Dados_Processo {
 					/* Dados do Devedor */ , "UNIVERSIDADE FEDERAL DO PARA - 34.621.748/0001-23", "Regra Geral"
 					/* Dados do procurador */ , "071.275.546-25");
 
-			assertTrue(pagina
-					.resultado("Erro: Executado informado já está cadastrado como Beneficiário. Operação não permitida."));
+			assertTrue(pagina.resultado(
+					"Erro: Executado informado já está cadastrado como Beneficiário. Operação não permitida."));
 
 		}
 
@@ -233,9 +235,9 @@ public class Teste_Altera_Dados_Processo {
 		}
 
 	}
-	
+
 	@Ignore
-	public void UC002_CT002_PD002_6() { 
+	public void UC002_CT003_PD002_6() {
 		try {
 
 			assertTrue(Teste_Consulta.consultar("00254/2009", "Não", this.driver));
@@ -275,9 +277,9 @@ public class Teste_Altera_Dados_Processo {
 		}
 
 	}
-	
+
 	@Ignore
-	public void UC002_CT002_PD002_7() { 
+	public void UC002_CT003_PD002_7() {
 		try {
 
 			assertTrue(Teste_Consulta.consultar("00254/2009", "Não", this.driver));
@@ -291,8 +293,8 @@ public class Teste_Altera_Dados_Processo {
 					/* Dados do Devedor */ , "UNIVERSIDADE FEDERAL DO PARA - 34.621.748/0001-23", "Regra Geral"
 					/* Dados do procurador */ , "303.492.832-73");
 
-			assertTrue(pagina
-					.resultado("Erro: Procurador informado já está cadastrado como Terceiro Interessado. Operação não permitida."));
+			assertTrue(pagina.resultado(
+					"Erro: Procurador informado já está cadastrado como Terceiro Interessado. Operação não permitida."));
 
 		}
 
@@ -317,9 +319,9 @@ public class Teste_Altera_Dados_Processo {
 		}
 
 	}
-	
+
 	@Ignore
-	public void UC002_CT002_PD002_8() { 
+	public void UC002_CT003_PD002_8() {
 		try {
 
 			assertTrue(Teste_Consulta.consultar("00254/2009", "Não", this.driver));
@@ -333,8 +335,8 @@ public class Teste_Altera_Dados_Processo {
 					/* Dados do Devedor */ , "UNIVERSIDADE FEDERAL DO PARA - 34.621.748/0001-23", "Regra Geral"
 					/* Dados do procurador */ , "303.492.832-73");
 
-			assertTrue(pagina
-					.resultado("Erro: Executado informado já está cadastrado como Terceiro Interessado. Operação não permitida"));
+			assertTrue(pagina.resultado(
+					"Erro: Executado informado já está cadastrado como Terceiro Interessado. Operação não permitida"));
 
 		}
 
@@ -359,9 +361,9 @@ public class Teste_Altera_Dados_Processo {
 		}
 
 	}
-	
+
 	@Ignore
-	public void UC002_CT002_PD002_9() { 
+	public void UC002_CT003_PD002_9() {
 		try {
 
 			assertTrue(Teste_Consulta.consultar("00254/2009", "Não", this.driver));
@@ -375,8 +377,8 @@ public class Teste_Altera_Dados_Processo {
 					/* Dados do Devedor */ , "UNIVERSIDADE FEDERAL DO PARA - 34.621.748/0001-23", "Regra Geral"
 					/* Dados do procurador */ , "303.492.832-73");
 
-			assertTrue(pagina
-					.resultado("Erro: Executado informado já está cadastrado como Terceiro Interessado. Operação não permitida"));
+			assertTrue(pagina.resultado(
+					"Erro: Executado informado já está cadastrado como Terceiro Interessado. Operação não permitida"));
 
 		}
 
@@ -401,10 +403,10 @@ public class Teste_Altera_Dados_Processo {
 		}
 
 	}
-	
+
 	@After
 	public void fechar() {
 		driver.close();
 	}
-	
+
 }

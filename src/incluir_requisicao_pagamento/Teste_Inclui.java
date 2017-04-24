@@ -28,6 +28,7 @@ public class Teste_Inclui {
 		System.setProperty("webdriver.gecko.driver", "C:\\geckodriver.exe");
 		DesiredCapabilities capabilities = DesiredCapabilities.firefox();
 		capabilities.setCapability("marionette", false);
+		capabilities.setCapability("overlappingCheckDisabled", true);
 		this.driver = new FirefoxDriver(capabilities);
 		this.pagina = new Pagina(this.driver);
 
@@ -36,8 +37,8 @@ public class Teste_Inclui {
 	@Test
 	public void UC002_CT002_PD002_1() {
 		try {
-			this.pagina.visitar();
-			/* Dados do Proceso */ this.pagina.novo().preencher("00000/0000", "0000002-18.2008.5.08.0009", "RPV",
+		
+			/* Dados do Proceso */ this.pagina.novo().preencher("10000/1000", "0000002-18.2008.5.08.0009", "RPV",
 					"Alimentar", "VARA DO TRABALHO DE ALTAMIRA", "Teste case",
 					/* Datas de Referência */ "01/01/2016", "08/10/2016", "09/10/2016", "10/10/2016", "11/10/2016",
 					"12/10/2016"
@@ -74,9 +75,8 @@ public class Teste_Inclui {
 	@Ignore
 	public void UC002_CT002_PD002_2() {
 		try {
-			this.pagina.visitar();
+			
 			this.pagina.novo().preencher("00010/2017");
-
 			assertTrue(pagina.resultado("Erro: Registro duplicado. Já existe uma RP cadastrada com este número."));
 
 		}
@@ -107,7 +107,7 @@ public class Teste_Inclui {
 	public void UC002_CT002_PD002_3() {
 		try {
 
-			this.pagina.visitar();
+			
 			/* Dados do Proceso */ this.pagina.novo().preencher("00000/0000", "0000002-18.2008.5.08.0009", "RPV",
 					"Alimentar", "VARA DO TRABALHO DE ALTAMIRA", "Teste case",
 					/* Datas de Referência */ "01/01/2016", "01/09/2016", "01/10/2016", "10/10/2016", "11/10/2016",
@@ -148,7 +148,7 @@ public class Teste_Inclui {
 										// teste>;
 		try {
 
-			this.pagina.visitar();
+			
 			/* Dados do Proceso */ this.pagina.novo().preencher("00000/0000", "0000002-18.2008.5.08.0009", "RPV",
 					"Alimentar", "VARA DO TRABALHO DE ALTAMIRA", "Teste case",
 					/* Datas de Referência */ "01/01/2016", "08/10/2016", "09/10/2016", "10/10/2016", "11/10/2016",

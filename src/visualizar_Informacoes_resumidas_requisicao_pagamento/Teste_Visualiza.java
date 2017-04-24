@@ -2,7 +2,6 @@ package visualizar_Informacoes_resumidas_requisicao_pagamento;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.lang.AssertionError;
 import org.openqa.selenium.NotFoundException;
 import org.junit.After;
 import org.junit.Before;
@@ -38,7 +37,6 @@ public class Teste_Visualiza {
 	@Test
 	public void UC002_CT005_PD001_1() {
 		try {
-			this.pagina.visitar();
 			this.pagina.novo().preencher("00010/2017",
 					"0128300-28.2008.5.08.0009");/*
 													 * Número, N_Processo,
@@ -74,7 +72,7 @@ public class Teste_Visualiza {
 	@Test
 	public void UC002_CT005_PD001_2() {
 		try {
-			this.pagina.visitar();
+
 			this.pagina.novo().preencher("00282/2009",
 					"0071200-63.2004.5.08.0201");/*
 													 * Número, N_Processo,
@@ -110,7 +108,7 @@ public class Teste_Visualiza {
 	@Test
 	public void UC002_CT005_PD001_3() {
 		try {
-			this.pagina.visitar();
+
 			this.pagina.novo().preencher("00282/2009",
 					"0071200-63.2004.5.08.0201");/*
 													 * Numero, N_Processo,

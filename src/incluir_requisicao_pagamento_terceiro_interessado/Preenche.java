@@ -1,7 +1,6 @@
 package incluir_requisicao_pagamento_terceiro_interessado;
-
+import ancillary.Helper;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
@@ -10,8 +9,6 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriverException;
-
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.*;
 
@@ -38,7 +35,7 @@ public class Preenche {
 
 		logger.info("Preenchendo Tipo Honorario");
 		fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='cmbTpTerceiro']"))).click();
-		SelectFromDropdown(Tipo_honorario, ".//*[@id='cmbTpTerceiro_panel']/div/ul/li");
+		Helper.SelectFromDropdown(Tipo_honorario, ".//*[@id='cmbTpTerceiro_panel']/div/ul/li");
 
 		logger.info("Preenchendo numero do documento");
 		fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='inCpfTerceiro']"))).clear();
@@ -54,10 +51,9 @@ public class Preenche {
 			driver.findElement(By.xpath(".//*[@id='inNmTerceiro']")).sendKeys(Nome);
 		}
 
-		if (isClickable(
-				fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='inUfOABTerceiro']"))))) {
+		if (Helper.isClickable(".//*[@id='inUfOABTerceiro']")) {
 			logger.info("Selecionando Unidade Federativa da OAB");
-			SelectFromDropdown(UF_OAB, ".//*[@id='inUfOABTerceiro_panel']/div/ul/li");
+			Helper.SelectFromDropdown(UF_OAB, ".//*[@id='inUfOABTerceiro_panel']/div/ul/li");
 		}
 
 		logger.info("Preenchendo numero da OAB");
@@ -67,10 +63,9 @@ public class Preenche {
 			driver.findElement(By.xpath(".//*[@id='inNrOABTerceiro']")).sendKeys(Numero_OAB);
 		}
 
-		if (isClickable(
-				fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='inTpOABTerceiro']"))))) {
+		if (Helper.isClickable(".//*[@id='inTpOABTerceiro']")) {
 			logger.info("Selecionando Tipo da OAB");
-			SelectFromDropdown(Tipo_OAB, ".//*[@id='inTpOABTerceiro_panel']/div/ul/li");
+			Helper.SelectFromDropdown(Tipo_OAB, ".//*[@id='inTpOABTerceiro_panel']/div/ul/li");
 		}
 
 		logger.info("Preenchendo Valor Líquido*");
@@ -87,7 +82,7 @@ public class Preenche {
 		driver.findElement(By.xpath(".//*[@id='j_idt602']")).clear();
 		driver.findElement(By.xpath(".//*[@id='j_idt602']")).sendKeys(Observacao);
 
-		if (isClickable(driver.findElement(By.xpath(".//*[@id='j_idt604']")))) {
+		if (Helper.isClickable(".//*[@id='j_idt604']")) {
 			System.out.println("Salvar");
 		}
 
@@ -103,14 +98,14 @@ public class Preenche {
 		logger.info("Preenchendo Tipo Honorario");
 		fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='cmbTpTerceiro']"))).click();
 
-		SelectFromDropdown(Tipo_honorario, ".//*[@id='cmbTpTerceiro_panel']/div/ul/li");
+		Helper.SelectFromDropdown(Tipo_honorario, ".//*[@id='cmbTpTerceiro_panel']/div/ul/li");
 
 		// Perguntar se é Pessoa Física ou Juridica
 		if (Tipo_honorario.equals("Honorários Periciais") || Tipo_honorario.equals("Outros")) {
 			logger.info("Preenchendo Tipo Pessoa");
 			fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='cmbTpPessoaTerceiro']")))
 					.click();
-			SelectFromDropdown(Tipo_Pessoa, ".//*[@id='cmbTpPessoaTerceiro_panel']/div/ul/li");
+			Helper.SelectFromDropdown(Tipo_Pessoa, ".//*[@id='cmbTpPessoaTerceiro_panel']/div/ul/li");
 		}
 
 		logger.info("Preenchendo numero do documento");
@@ -141,7 +136,7 @@ public class Preenche {
 		driver.findElement(By.xpath(".//*[@id='j_idt602']")).clear();
 		driver.findElement(By.xpath(".//*[@id='j_idt602']")).sendKeys(Observacao);
 
-		if (isClickable(driver.findElement(By.xpath(".//*[@id='j_idt604']")))) {
+		if (Helper.isClickable(".//*[@id='j_idt604']")) {
 			System.out.println("Salvar");
 		}
 
@@ -155,14 +150,14 @@ public class Preenche {
 
 		logger.info("Preenchendo Tipo Honorario");
 		fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='cmbTpTerceiro']"))).click();
-		SelectFromDropdown(Tipo_honorario, ".//*[@id='cmbTpTerceiro_panel']/div/ul/li");
+		Helper.SelectFromDropdown(Tipo_honorario, ".//*[@id='cmbTpTerceiro_panel']/div/ul/li");
 
 		// Perguntar se é Pessoa Física ou Juridica
 		if (Tipo_honorario.equals("Honorários Periciais") || Tipo_honorario.equals("Outros")) {
 			logger.info("Preenchendo Tipo Pessoa");
 			fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='cmbTpPessoaTerceiro']")))
 					.click();
-			SelectFromDropdown(Tipo_Pessoa, ".//*[@id='cmbTpPessoaTerceiro_panel']/div/ul/li");
+			Helper.SelectFromDropdown(Tipo_Pessoa, ".//*[@id='cmbTpPessoaTerceiro_panel']/div/ul/li");
 			if (Tipo_Pessoa.length() < 15) {
 				logger.info("Preenchendo CPF do Terceiro Interessado");
 				fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='inCpfTerceiro']")))
@@ -183,26 +178,6 @@ public class Preenche {
 
 	} // Fim do metodo Preenche para Excecoes
 
-	public boolean isClickable(WebElement el) {
-		try {
-			// espera que o elemento esja visivel e clickavel.
-			fluentwait.until(ExpectedConditions.elementToBeClickable(el)).click();
-
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
-	public void SelectFromDropdown(String option, String path) {
-		List<WebElement> options = driver.findElements(By.xpath(path));
-		for (WebElement opt : options) {
-			if (opt.getText().equals(option)) {
-				opt.click();
-				return;
-			}
-		}
-		throw new NoSuchElementException("Can't find " + option + " in dropdown");
-	}
+	
 
 }

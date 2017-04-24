@@ -36,14 +36,14 @@ public class Teste_Inclui_Beneficiario {
 	@Ignore // Testato!
 	public void UC002_CT007_PD002_1() {
 		try {
-			this.pagina.visitar();
+			
 			this.pagina.novo("Beneficiario", "00010/2017", "0128300-28.2008.5.08.0009").preencher("Pessoa Física",
 					"357.579.517-70", "Nemo", "1950", false, "1.000,00", "100,00", "100,00", "100,00",
 					"Per aspera ad astra");
 
 			assertTrue(pagina.resultado("Operação Realizada com Sucesso"));
 
-			this.pagina.visitar();
+			
 			this.pagina.novo("Advogado", "00010/2017", "0128300-28.2008.5.08.0009").preencher("670.198.542-49",
 					"ABEL DA SILVA PEREIRA", "PA", "000000000000", "Advogado");
 
@@ -75,7 +75,7 @@ public class Teste_Inclui_Beneficiario {
 	@Test // Testando advogado!
 	public void UC002_CT007_PD002_1_1() {
 		try {
-			this.pagina.visitar();
+			
 			this.pagina.novo("Advogado", "30000/2016", "0128300-28.2008.5.08.0009").preencher("052.430.784-92",
 					"ABEL DA SILVA PEREIRA", "PA", "000000000000", "Advogado");
 
@@ -107,7 +107,7 @@ public class Teste_Inclui_Beneficiario {
 	@Ignore
 	public void UC002_CT007_PD002_2() {
 		try {
-			this.pagina.visitar();
+			
 			this.pagina.novo("Beneficiario", "00010/2017","0128300-28.2008.5.08.0009").preencher("Pessoa Física",
 					"729.673.582-15");
 
@@ -140,7 +140,7 @@ public class Teste_Inclui_Beneficiario {
 	@Ignore
 	public void UC002_CT007_PD002_3() {
 		try {
-			this.pagina.visitar();
+			
 			this.pagina.novo("Beneficiario","00010/2017","0128300-28.2008.5.08.0009").preencher("Pessoa Jurídica",
 					"05.054.861/0001-76");
 
@@ -173,7 +173,7 @@ public class Teste_Inclui_Beneficiario {
 	@Ignore
 	public void UC002_CT007_PD002_4() {
 		try {
-			this.pagina.visitar();
+		
 			this.pagina.novo("Advogado","00010/2017","0128300-28.2008.5.08.0009").preencher("Pessoa Física",
 					"729.673.582-15");
 			assertTrue(pagina
@@ -205,7 +205,7 @@ public class Teste_Inclui_Beneficiario {
 	@Ignore
 	public void UC002_CT007_PD002_5() {
 		try {
-			this.pagina.visitar();
+			
 			this.pagina.novo("Beneficiario","00010/2017","0128300-28.2008.5.08.0009").preencher("Pessoa Física",
 					"357.579.517-70");
 
@@ -237,7 +237,7 @@ public class Teste_Inclui_Beneficiario {
 	@Ignore
 	public void UC002_CT007_PD002_6() {
 		try {
-			this.pagina.visitar();
+		
 			this.pagina.novo("Advogado","00010/2017","0128300-28.2008.5.08.0009").preencher("Pessoa Física",
 					"670.198.542-49");
 			assertTrue(pagina.resultado("Erro: Registro duplicado. Já existe um advogado cadastrado com este CPF."));

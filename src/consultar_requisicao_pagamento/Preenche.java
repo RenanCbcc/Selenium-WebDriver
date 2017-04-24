@@ -1,14 +1,12 @@
 package consultar_requisicao_pagamento;
-
+import ancillary.Helper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
-
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
-import java.util.List;
 import java.util.logging.*;
 
 // Esta clase faz o preenchimento do formulario de buscas e os submete.
@@ -42,7 +40,7 @@ public class Preenche {
 		} else {
 			logger.info("Preenchendo o campo Situação");
 			driver.findElement(By.xpath(".//*[@id='cmbSituacao']")).click();
-			SelectFromDropdown(situacao, ".//*[@id='cmbSituacao_panel']/div/ul/li");
+			Helper.SelectFromDropdown(situacao, ".//*[@id='cmbSituacao_panel']/div/ul/li");
 			driver.findElement(By.xpath(".//*[@id='j_idt86']")).click();
 		}
 
@@ -56,15 +54,6 @@ public class Preenche {
 		driver.findElement(By.xpath(".//*[@id='j_idt86']")).click();
 	}
 
-	public void SelectFromDropdown(String option, String path) {
-		List<WebElement> options = driver.findElements(By.xpath(path));
-		for (WebElement opt : options) {
-			if (opt.getText().equals(option)) {
-				opt.click();
-				return;
-			}
-		}
-		throw new NoSuchElementException("Can't find " + option + " in dropdown");
-	}
+	
 
 }
