@@ -17,7 +17,7 @@ public class ExceptionAspect {
 	 @Pointcut("execution(* consultar_requisicao_pagamento.Teste_Consulta.*(..))")
 	 private void NSEexception(){}
 	
-	 
+	
 		
 	 @AfterThrowing(
 		      pointcut = "execution(* consultar_requisicao_pagamento.Teste_Consulta.*(..))",
@@ -36,6 +36,28 @@ public class ExceptionAspect {
 		 	logger.info("Local : " + joinPoint.getSignature().getName());
 		 	logger.log(Level.SEVERE, error.getMessage(), error);
 		    }
+
+	 @AfterThrowing(
+		      pointcut = "execution(* alterar_requisicao_pagamento_dados_processo.Teste_Altera_Dados_Processo.*(..))",
+		      throwing= "error")
+		    public void afterThrowing_Teste_Altera_Dados_Processo(JoinPoint joinPoint, Throwable error) {
+		 	logger.info("logAfterThrowing() is running!");
+		 	logger.info("Local : " + joinPoint.getSignature().getName());
+		 	logger.log(Level.SEVERE, error.getMessage(), error);
+		    }
+
+	 @AfterThrowing(
+		      pointcut = "execution(* incluir_requisicao_pagamento_beneficiario.Teste_Inclui_Beneficiario.*(..))",
+		      throwing= "error")
+		    public void afterThrowing_Teste_Inclui_Beneficiario(JoinPoint joinPoint, Throwable error) {
+		 	logger.info("logAfterThrowing() is running!");
+		 	logger.info("Local : " + joinPoint.getSignature().getName());
+		 	logger.log(Level.SEVERE, error.getMessage(), error);
+		    }
+
+	 
+
 	
+
 
 	}

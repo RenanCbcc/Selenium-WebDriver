@@ -7,15 +7,9 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-
-
-import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.TimeoutException;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.*;
@@ -39,7 +33,7 @@ public class Pagina {
 
 	public Preenche novo() throws NoSuchElementException,ElementNotVisibleException,TimeoutException  {
 		
-		Helper.pageSearcher();
+		Helper.pageSearcher(this.driver);
 		
 		return new Preenche(driver);
 	} // fim do metodo novo()

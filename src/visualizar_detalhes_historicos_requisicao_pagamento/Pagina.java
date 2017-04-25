@@ -23,7 +23,6 @@ public class Pagina {
 
 	public Pagina(WebDriver driver) {
 		this.driver = driver;
-		Helper.Init(this.driver);
 		fluentwait = new FluentWait<WebDriver>(driver).withTimeout(10, TimeUnit.SECONDS)
 				.pollingEvery(2, TimeUnit.SECONDS).ignoring(NoSuchElementException.class)
 				.ignoring(StaleElementReferenceException.class).ignoring(WebDriverException.class)
@@ -33,7 +32,7 @@ public class Pagina {
 
 	public Preenche novo() throws NoSuchElementException, ElementNotVisibleException, TimeoutException {
 
-		Helper.pageSearcher();
+		Helper.pageSearcher(this.driver);
 		return new Preenche(driver);
 
 	} // fim do metodo novo()

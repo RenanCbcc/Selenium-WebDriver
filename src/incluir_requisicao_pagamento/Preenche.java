@@ -1,4 +1,5 @@
 package incluir_requisicao_pagamento;
+
 import ancillary.Helper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,15 +16,18 @@ import java.util.logging.*;
 
 // Esta clase faz o preenchimento do formulario de buscas e os submete.
 public class Preenche {
-	private WebDriver driver;
+	public WebDriver driver; 
 	private Wait<WebDriver> fluentwait;
 	private Logger logger = Logger.getLogger(Preenche.class.getCanonicalName());
 
 	public Preenche(WebDriver driver) {
 		this.driver = driver;
-		fluentwait = new FluentWait<WebDriver>(driver).withTimeout(10, TimeUnit.SECONDS)
-				.pollingEvery(2, TimeUnit.SECONDS).ignoring(NoSuchElementException.class)
-				.ignoring(StaleElementReferenceException.class).ignoring(WebDriverException.class);
+		this.fluentwait = new FluentWait<WebDriver>(this.driver)
+				.withTimeout(10, TimeUnit.SECONDS)
+				.pollingEvery(2, TimeUnit.SECONDS)
+				.ignoring(NoSuchElementException.class)
+				.ignoring(StaleElementReferenceException.class)
+				.ignoring(WebDriverException.class);
 
 	}
 
@@ -53,8 +57,6 @@ public class Preenche {
 		// buscar
 		// processo
 
-		
-
 		if (Tipo_Requisicao.equals("RPV")) {
 			logger.info("Preenchendo Tipo de Requisicao");
 			if (Helper.isClickable(".//*[@id='tabGeral:cmbAssuntos']/tbody/tr/td[1]/div/div[2]/span")) {
@@ -65,8 +67,8 @@ public class Preenche {
 				driver.findElement(By.xpath(".//*[@id='tabGeral:cmbAssuntos']/tbody/tr/td[1]/div/div[2]/span")).click();
 			}
 		} else {
-		
-			if (	Helper.isClickable(".//*[@id='tabGeral:cmbAssuntos']/tbody/tr/td[1]/div/div[2]/span")) {
+
+			if (Helper.isClickable(".//*[@id='tabGeral:cmbAssuntos']/tbody/tr/td[1]/div/div[2]/span")) {
 				logger.info("Tipo de Requisicao Precatorio jah selecionado");
 
 			} else {
@@ -75,7 +77,6 @@ public class Preenche {
 			}
 		}
 
-		
 		if (Natureza_Credito.equals("Alimentar")) {
 			logger.info("Preenchendo Natureza do Credito");
 			System.out.println("Preenchendo Natureza do Credito");
@@ -87,8 +88,8 @@ public class Preenche {
 
 			} else {
 				logger.info("Natureza do Credito Alimentar selecionado");
-				driver.findElement(By.xpath(".//*[@id='tabGeral:cmbNaturezas']/tbody/tr/td[1]/div/div[2]/span"))
-						.click();
+				Helper.retryingFindClick(".//*[@id='tabGeral:cmbNaturezas']/tbody/tr/td[1]/div/div[2]/span");
+				//driver.findElement(By.xpath(".//*[@id='tabGeral:cmbNaturezas']/tbody/tr/td[1]/div/div[2]/span")).click();
 			}
 		} else {
 
@@ -100,23 +101,22 @@ public class Preenche {
 
 			} else {
 				logger.info("Natureza do Credito Comum selecionado");
-				driver.findElement(By.xpath(".//*[@id='tabGeral:cmbNaturezas']/tbody/tr/td[3]/div/div[2]/span"))
-						.click();
+				Helper.retryingFindClick(".//*[@id='tabGeral:cmbNaturezas']/tbody/tr/td[3]/div/div[2]/span");
+				//driver.findElement(By.xpath(".//*[@id='tabGeral:cmbNaturezas']/tbody/tr/td[3]/div/div[2]/span")).click();
 			}
 		}
-		
+
 		logger.info("Preenchendo ou nao Observacao");
-		WebElement campo_bservacao = driver.findElement(By.id("tabGeral:inObs"));
-		if (campo_bservacao.isEnabled()) {
-			campo_bservacao.clear();
-			campo_bservacao.sendKeys(Observaco);
+		if (fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.id("tabGeral:inObs"))).isEnabled()) {
+			driver.findElement(By.id("tabGeral:inObs")).clear();
+			driver.findElement(By.id("tabGeral:inObs")).sendKeys(Observaco);
 		}
 
 		logger.info("Preenchendo ou nao Data do ajuizamento do processo de conhecimento");
-		WebElement campo_data_ordem0 = driver.findElement(By.id("tabGeral:inDdtAjuiz_input"));
-		if (campo_data_ordem0.isEnabled()) {
-			campo_data_ordem0.clear();
-			campo_data_ordem0.sendKeys(data_ordem0);
+		if (fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.id("tabGeral:inDdtAjuiz_input")))
+				.isSelected()) {
+			driver.findElement(By.id("tabGeral:inDdtAjuiz_input")).clear();
+			driver.findElement(By.id("tabGeral:inDdtAjuiz_input")).sendKeys(data_ordem0);
 		}
 
 		logger.info("Preenchendo ou nao Data do trânsito em julgado do processo de conhecimento");
@@ -165,8 +165,11 @@ public class Preenche {
 																	// nome do
 																	// ececutador
 
-			logger.info("Preenchendo Esfera do Executado");
-			if (Helper.isClickable(".//*[@id='tabGeral:cmbEsfera']")) {
+			
+			
+			if (isClickable(".//*[@id='tabGeral:cmbEsfera']")) {
+				//driver.findElement(By.xpath(".//*[@id='tabGeral:cmbEsfera']")).click();
+				logger.info("Preenchendo Esfera do Executado");
 				Helper.SelectFromDropdown(Esfera, ".//*[@id='tabGeral:cmbEsfera_panel']/div/ul/li");
 				{
 					logger.info("Esfera do Executado Selecionada ");
@@ -185,11 +188,14 @@ public class Preenche {
 				System.out.println("Admistracao do Executado Inativo");
 			}
 
-		} // fim do if.
+		} // fim do if..
 
 		logger.info("Preenchendo Ente Devedor (Responsavel pelo Pagamento)");
-		fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tabGeral:cmbDevedor']")));
-		if (Helper.isClickable(".//*[@id='tabGeral:cmbDevedor']")) {
+		
+		if (fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='tabGeral:cmbDevedor']"))).isEnabled()) {
+			driver.findElement(By.xpath(".//*[@id='tabGeral:cmbDevedor']")).click();
+			driver.findElement(By.xpath(".//*[@id='tabGeral:cmbDevedor']")).click();
+			
 			logger.info("Ente Devedor selesionado");
 			Helper.SelectFromDropdown(Nome_Dev, ".//*[@id='tabGeral:cmbDevedor_panel']/div/ul/li");
 
@@ -208,7 +214,7 @@ public class Preenche {
 		} // fim do if.
 
 		logger.info("Preenchendo ou nao Dados do procurador");
-		if (Helper.isClickable(".//*[@id='tabGeral:inCpfProc']")) {
+		if (Helper.retryingFindClick(".//*[@id='tabGeral:inCpfProc']")) {
 			driver.findElement(By.id("tabGeral:inCpfProc")).clear();
 			driver.findElement(By.id("tabGeral:inCpfProc")).sendKeys(CPF);
 			driver.findElement(By.id("tabGeral:j_idt172")).click();
@@ -216,11 +222,13 @@ public class Preenche {
 			logger.info("Dados do procurador Inativo");
 			System.out.println("Dados do procurador Inativo");
 		}
-		
-	
-		if (Helper.isClickable(".//*[@id='tabGeral:j_idt190']")) {
+
+		if (Helper.retryingFindClick(".//*[@id='tabGeral:j_idt190']")) {
 			System.out.println("Salvar e Continuar");
-		} else{fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tabGeral:j_idt190']"))).click();}
+		} else {
+			fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tabGeral:j_idt190']")))
+					.click();
+		}
 
 	} // fim do metodo preenche.
 
@@ -237,7 +245,16 @@ public class Preenche {
 		// RP
 
 	}
-
 	
-
+	
+	private boolean isClickable(String  xpath) {
+		try {
+			// espera que o elemento esja visivel e clickavel.
+			WebElement el = this.fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
+			el.click();
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 }

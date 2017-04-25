@@ -16,7 +16,6 @@ public class Pagina {
 
 	public Pagina(WebDriver driver) {
 		this.driver = driver;
-		Helper.Init(this.driver);
 		this.wait = new WebDriverWait(driver, 10);
 	}
 
@@ -26,7 +25,7 @@ public class Pagina {
 
 		
 				
-		Helper.pageSearcher();
+		Helper.pageSearcher(this.driver);
 		logger.info("Aguardando....");
 		// espera por tabela de requisicoes.
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tblRequisicoes']/div[1]")));

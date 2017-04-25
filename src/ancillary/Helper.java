@@ -31,11 +31,25 @@ public class Helper {
 				.ignoring(StaleElementReferenceException.class).ignoring(WebDriverException.class);
 	}
 
+	public static boolean retryingFindClick(String xpath) {
+		boolean result = false;
+		int attempts = 0;
+		while (attempts < 3) {
+			try {
+				driver.findElement(By.xpath(xpath)).click();
+				result = true;
+				break;
+			} catch (StaleElementReferenceException e) {
+			}
+			attempts++;
+		}
+		return result;
+	}
+
 	public static boolean isClickable(String xpath) {
 		try {
 			// espera que o elemento esja visivel e clickavel.
-			fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath))).click();
-			
+			fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath))).click();	
 			return true;
 		} catch (TimeoutException e) {
 			return false;
@@ -53,8 +67,10 @@ public class Helper {
 		throw new NoSuchElementException("Cannot find " + option + " in dropdown");
 	}
 
-	public static void pageSearcher()
+	public static void pageSearcher(WebDriver driver)
+
 			throws NotFoundException, NoSuchElementException, ElementNotVisibleException, TimeoutException {
+		Init(driver);
 		logger.info("Acessando à página: " + driver.getTitle());
 		driver.get("http://10.8.17.214:8080/gep_teste");
 		driver.manage().window().maximize();

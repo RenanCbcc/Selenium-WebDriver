@@ -1,4 +1,5 @@
 package consultar_requisicao_pagamento;
+
 import ancillary.Helper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
@@ -19,26 +20,22 @@ public class Pagina {
 	Wait<WebDriver> fluentwait;
 	private Logger logger = Logger.getLogger(Pagina.class.getCanonicalName());
 
-
 	public Pagina(WebDriver driver) {
 		this.driver = driver;
-		Helper.Init(this.driver);
 		fluentwait = new FluentWait<WebDriver>(driver).withTimeout(10, TimeUnit.SECONDS)
 				.pollingEvery(2, TimeUnit.SECONDS).ignoring(NoSuchElementException.class)
 				.ignoring(StaleElementReferenceException.class).ignoring(WebDriverException.class);
 	}
 
-
-
 	public Preenche novo() throws NoSuchElementException, ElementNotVisibleException, TimeoutException {
 
-		Helper.pageSearcher();
+		Helper.pageSearcher(this.driver);
 
 		logger.info("Aguardando....");
 		// espera por tabela de requisicoes.
 		fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tblRequisicoes']/div[1]")));
 
-		return new Preenche(driver);
+		return new Preenche(this.driver);
 	} // fim do metodo novo()
 
 	public boolean resultado(String numero, String processo, String vara, String requsicao, String credito, String data,
@@ -75,8 +72,8 @@ public class Pagina {
 		return Arrays.equals(args, tabela);
 
 	} // fim do metodo resultado()
-	
-	public boolean resultado(String numero,String cadastro) throws TimeoutException {
+
+	public boolean resultado(String numero, String cadastro) throws TimeoutException {
 
 		// List<String> argumentos = new
 		// ArrayList<String>(Arrays.asList(numero,processo, vara, requsicao,
@@ -97,12 +94,9 @@ public class Pagina {
 			}
 
 		}
-		
-			tabela[0] = driver.findElement(By.xpath(".//*[@id='tblRequisicoes_data']/tr/td[1]"))
-					.getText();
-			tabela[1] = driver.findElement(By.xpath(".//*[@id='tblRequisicoes_data']/tr/td[8]"))
-					.getText();
-		
+
+		tabela[0] = driver.findElement(By.xpath(".//*[@id='tblRequisicoes_data']/tr/td[1]")).getText();
+		tabela[1] = driver.findElement(By.xpath(".//*[@id='tblRequisicoes_data']/tr/td[8]")).getText();
 
 		Arrays.sort(args);
 		Arrays.sort(tabela);
