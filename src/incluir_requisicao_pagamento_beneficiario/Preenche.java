@@ -9,7 +9,8 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriverException;
-import ancillary.Helper;
+import org.openqa.selenium.WebElement;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.*;
 
@@ -33,7 +34,7 @@ public class Preenche {
 
 		logger.info("Selecinando Tipo Pessoa");
 		fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='cmbTpPessoa']"))).click();
-		Helper.SelectFromDropdown(Tipo_Pessoa, ".//*[@id='cmbTpPessoa_panel']/div/ul/li");
+		selectFromDropdown(Tipo_Pessoa, ".//*[@id='cmbTpPessoa_panel']/div/ul/li");
 
 		logger.info("Preenchendo numero do documento");
 		fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='inCpfBenef']"))).clear();
@@ -55,7 +56,7 @@ public class Preenche {
 			driver.findElement(By.xpath(".//*[@id='inDdtNasc_input']")).sendKeys(Data_Nascimento);
 		}
 
-		logger.info("Foi deferido o benefÌcio de prioridade processual?*");
+		logger.info("Foi deferido o benef√≠cio de prioridade processual?*");
 		if (Prioridade) {
 			fluentwait
 					.until(ExpectedConditions
@@ -70,7 +71,7 @@ public class Preenche {
 
 		}
 
-		logger.info("Preenchendo Exeq. LÌquido*");
+		logger.info("Preenchendo Exeq. L√≠quido*");
 		fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='inVlLiquido_input']")))
 				.clear();
 		driver.findElement(By.xpath(".//*[@id='inVlLiquido_input']")).sendKeys(Exeq_Liquido);
@@ -91,13 +92,15 @@ public class Preenche {
 		driver.findElement(By.xpath(".//*[@id='j_idt547']")).clear();
 		driver.findElement(By.xpath(".//*[@id='j_idt547']")).sendKeys(Observacao);
 
-		if (Helper.isClickable(".//*[@id='j_idt549']")) {
+		if (isClickable(".//*[@id='j_idt549']")) {
 			System.out.println("Salvar");
 		} // fim
 			// do
 			// if.
 
-	} // Fim do metodo preenche Benefici·rio pessoa Fisica.
+	} // Fim do metodo preenche Benefici√°rio pessoa Fisica.
+
+	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 
 	public void preencher(String Tipo_Pessoa, String Documento_Fiscal, String Nome, String Exeq_Liquido,
 			String INSS_Beneficiario, String INSS_Executado, String IR, String Observacao)
@@ -105,7 +108,7 @@ public class Preenche {
 
 		logger.info("Selecinando Tipo Pessoa");
 		fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='cmbTpPessoa']"))).click();
-		Helper.SelectFromDropdown(Tipo_Pessoa, ".//*[@id='cmbTpPessoa_panel']/div/ul/li");
+		selectFromDropdown(Tipo_Pessoa, ".//*[@id='cmbTpPessoa_panel']/div/ul/li");
 
 		logger.info("Preenchendo numero do documento");
 		fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='inCnpjBenef']"))).clear();
@@ -121,7 +124,7 @@ public class Preenche {
 			driver.findElement(By.xpath(".//*[@id='inNmBenef']")).sendKeys(Nome);
 		}
 
-		logger.info("Preenchendo Exeq. LÌquido*");
+		logger.info("Preenchendo Exeq. L√≠quido*");
 		fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='inVlLiquido_input']")))
 				.clear();
 		driver.findElement(By.xpath(".//*[@id='inVlLiquido_input']")).sendKeys(Exeq_Liquido);
@@ -142,11 +145,12 @@ public class Preenche {
 		driver.findElement(By.xpath(".//*[@id='j_idt547']")).clear();
 		driver.findElement(By.xpath(".//*[@id='j_idt547']")).sendKeys(Observacao);
 
-		if (Helper.isClickable(".//*[@id='j_idt549']")) {
+		if (isClickable(".//*[@id='j_idt549']")) {
 			System.out.println("Salvar");
 		} // fim do if.
 
-	} // fim do metodo preenche Benefici·rio pessoa Juridica
+	} // fim do metodo preenche Benefici√°rio pessoa Juridica
+		// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 
 	public void preencher(String Documento_Fiscal, String Nome, String UF_OAB, String numero_OAB, String Tipo_OAB)
 			throws NoSuchElementException, TimeoutException, WebDriverException {
@@ -168,19 +172,17 @@ public class Preenche {
 			System.out.println("Nome Inativo");
 		}
 
-		// Bug_Mr_Anderson, why do you persist?
-		{ // A funcao isClickable() retornarah sem True, por isso eh preciso
-			// outro if() <==========================================
-			driver.findElement(By.xpath(".//*[@id='inUfOAB']")).click();
-			if (driver.findElement(By.xpath(".//*[@id='inUfOAB_panel']/div/ul/li")).isDisplayed()) {
-				logger.info("Selecionando Unidade Federativa da OAB");
-				Helper.SelectFromDropdown(UF_OAB, ".//*[@id='inUfOAB_panel']/div/ul/li");
+		if (isClickable(".//*[@id='inUfOAB_input']")) {
+			logger.info("Selecionando Unidade Federativa da OAB");
+			selectFromDropdown(UF_OAB, ".//*[@id='tabGeral:cmbEsfera_panel']/div/ul/li");
+			{
 				logger.info("Unidade Federativa Selecionada");
-			} else {
-				logger.info("Unidade Federativa Selecionada");
-				System.out.println("Unidade Federativa Inativo");
+				System.out.println("Unidade Federativa Selecionada");
 			}
-		} // Fim do Bug_Mr_Anderson.
+		} else {
+			logger.info("Unidade Federativa Inativa");
+			System.out.println("Unidade Federativa Inativa");
+		}
 
 		if (fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='inNrOAB']")))
 				.isEnabled()) {
@@ -192,19 +194,17 @@ public class Preenche {
 			System.out.println("Numero da OAB Inativo");
 		}
 
-		// Bug_Mr_Anderson, why do you persist?
-		{ // A funcao isClickable() retornarah sem True, por isso eh preciso
-			// outro if() <==========================================
-			driver.findElement(By.xpath(".//*[@id='inTpOAB']")).click();
-			if (driver.findElement(By.xpath(".//*[@id='inTpOAB_panel']/div/ul/li")).isDisplayed()) {
-				logger.info("Selecionando Tipo de OAB");
-				Helper.SelectFromDropdown(Tipo_OAB, ".//*[@id='inTpOAB_panel']/div/ul/li");
-			} else {
-				logger.info("Tipo de OAB inativa");
-				System.out.println("Tipo de OAB Inativo");
+		if (isClickable(".//*[@id='inTpOAB_input']")) {
+			logger.info("Selecionando Tipo de OAB");
+			selectFromDropdown(Tipo_OAB, ".//*[@id='inTpOAB_panel']/div/ul/li");
+			{
+				logger.info("Tipo de OAB Selecionada");
+				System.out.println("Tipo de OAB Selecionada");
 			}
-
-		} // Fim do Bug_Mr_Anderson.
+		} else {
+			logger.info("Tipo de OAB inativa");
+			System.out.println("Tipo de OAB Inativo");
+		}
 
 		logger.info("Selecionando como Beneficiario o primeiro da lista"); // Clica
 																			// sempre
@@ -212,11 +212,12 @@ public class Preenche {
 																			// primeiro.
 		// isClickable(fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='inBenef']/tbody/tr[1]/td[1]/div/div[2]/span"))));
 
-		if (Helper.isClickable(".//*[@id='j_idt490']")) {
+		if (isClickable(".//*[@id='j_idt490']")) {
 			System.out.println("Salvar");
 		} // fim do if.
 
 	}
+	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 
 	public void preencher(String Tipo_Pessoa, String Documento_Fiscal)
 			throws NoSuchElementException, TimeoutException, WebDriverException {
@@ -235,5 +236,27 @@ public class Preenche {
 		driver.findElement(By.xpath(".//*[@id='j_idt507']")).click();
 
 	}// Fim do metodo preenche para Excecoes.
+		// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 
+	private boolean isClickable(String xpath) {
+		try {
+			// espera que o elemento esja visivel e clickavel.
+			fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath))).click();
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+
+	private void selectFromDropdown(String option, String path) {
+		List<WebElement> options = driver.findElements(By.xpath(path));
+		for (WebElement opt : options) {
+			if (opt.getText().equals(option)) {
+				opt.click();
+				return;
+			}
+		}
+		throw new NoSuchElementException("Cannot find " + option + " in dropdown");
+	}
 }
