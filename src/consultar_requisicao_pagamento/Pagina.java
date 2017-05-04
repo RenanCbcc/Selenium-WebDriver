@@ -1,8 +1,8 @@
 package consultar_requisicao_pagamento;
-
-import ancillary.Helper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.*;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.NotFoundException;
 
 public class Pagina {
 	private WebDriver driver;
@@ -27,15 +28,44 @@ public class Pagina {
 				.ignoring(StaleElementReferenceException.class).ignoring(WebDriverException.class);
 	}
 
-	public Preenche novo() throws NoSuchElementException, ElementNotVisibleException, TimeoutException {
+	private void visitar() throws NotFoundException {
+		logger.info("Acessando à página: " + this.driver.getTitle());
+		driver.get("http://10.8.17.214:8080/gep_teste");
+		driver.manage().window().maximize();
+		WebElement username = driver.findElement(By.id("name"));
+		username.clear();
+		username.sendKeys("66258375391");
+		logger.info("Preenchendo campo Login");
+		driver.findElement(By.xpath(".//*[@id='j_idt166']")).click();
+		logger.info("Autenticando no sistema");
+	}
 
-		Helper.pageSearcher(this.driver);
+	public Preenche novo() throws NoSuchElementException, ElementNotVisibleException, TimeoutException {
+		visitar();
+		fluentwait.until(ExpectedConditions.textToBePresentInElementLocated(By.className("ui-growl-item"),
+				"Login realizado com sucesso!"));
+		logger.info("Login realizado com sucesso!");
+
+		driver.findElement(By.xpath(".//*[@id='cmbPermissoes_label']")).click();
+		driver.findElement(By.xpath("//*[@id='cmbPermissoes_panel']/div[2]/ul/li[1]")).click();
+		logger.info("Divisão de Precatórios | Diretor!");
+
+		fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='j_idt33']/ul/li[4]/a")));
+
+		Actions actions = new Actions(driver);
+		logger.info("Opcoes de Requisisao de pagamento!");
+		actions.moveToElement(driver.findElement(By.xpath(".//*[@id='j_idt33']/ul/li[4]/a")));
+		logger.info("Gerenciar");
+		actions.moveToElement(driver.findElement(By.xpath(".//*[@id='j_idt33']/ul/li[4]/ul/li[2]/a")));
+		logger.info("Requisicoes de Pagamento");
+		actions.moveToElement(driver.findElement(By.xpath(".//*[@id='j_idt33']/ul/li[4]/ul/li[2]/ul/li[1]/a"))).click()
+				.build().perform();
 
 		logger.info("Aguardando....");
 		// espera por tabela de requisicoes.
 		fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tblRequisicoes']/div[1]")));
 
-		return new Preenche(this.driver);
+		return new Preenche(driver);
 	} // fim do metodo novo()
 
 	public boolean resultado(String numero, String processo, String vara, String requsicao, String credito, String data,
@@ -81,7 +111,7 @@ public class Pagina {
 		String[] args = { numero, cadastro };
 		String[] tabela = new String[args.length];
 
-		logger.info("verifica se existem resultados na listagem");
+		logger.info("Verifica se existem resultados na listagem");
 
 		// espera por tabela de requisicoes.
 		{ // este bloco eh uma maneira de garantir uma espera, porém muito
@@ -100,6 +130,8 @@ public class Pagina {
 
 		Arrays.sort(args);
 		Arrays.sort(tabela);
+		
+		logger.info("Retornando Resultado");
 		return Arrays.equals(args, tabela);
 
 	} // fim do metodo resultado()
@@ -122,5 +154,7 @@ public class Pagina {
 	public void print(String s) {
 		System.out.println(s);
 	}
+	
+	
 
 }

@@ -30,11 +30,11 @@ public class Preenche {
 	public void preencher(String numero,String n_processo) 
 					throws NoSuchElementException, TimeoutException, WebDriverException {
 		
-		fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.id("inNrReq")));
+		fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='inNrReq']")));
 		
 		// 1ª linha
-		WebElement campo_numero = driver.findElement(By.id("inNrReq"));
-		WebElement capo_n_processo = driver.findElement(By.id("inNrProc"));
+		WebElement campo_numero = driver.findElement(By.xpath(".//*[@id='inNrReq']"));
+		WebElement capo_n_processo = driver.findElement(By.xpath(".//*[@id='inNrProc']"));
 		
 		logger.info("Preenchendo ou nao campo o Numero");
 		campo_numero.clear();
@@ -45,8 +45,12 @@ public class Preenche {
 		capo_n_processo.clear();
 		capo_n_processo.sendKeys(n_processo);
 
+		logger.info("Buscado Processo");
+		driver.findElement(By.xpath(".//*[@id='j_idt86']")).click();
 		
-		driver.findElement(By.xpath(".//*[@id='j_idt125']")).click();
+		logger.info("Mais Informações da Requisição de Pagamento");
+		driver.findElement(By.xpath(".//*[@id='tblRequisicoes:0:j_idt111']")).click();
+		
 		
 			
 		

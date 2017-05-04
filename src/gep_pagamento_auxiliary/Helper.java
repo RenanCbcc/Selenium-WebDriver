@@ -1,4 +1,4 @@
-package ancillary;
+package gep_pagamento_auxiliary;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -21,17 +21,17 @@ import org.openqa.selenium.support.ui.Wait;
 public class Helper {
 
 	public static Wait<WebDriver> fluentwait;
-	public static Logger logger = Logger.getLogger(Helper.class.getCanonicalName());
+	private static Logger logger = Logger.getLogger(Helper.class.getCanonicalName());
 	public static WebDriver driver;
 
-	public static void Init(WebDriver drive) {
+	private static void init(WebDriver drive) {
 		driver = drive;
 		fluentwait = new FluentWait<WebDriver>(driver).withTimeout(10, TimeUnit.SECONDS)
 				.pollingEvery(2, TimeUnit.SECONDS).ignoring(NoSuchElementException.class)
 				.ignoring(StaleElementReferenceException.class).ignoring(WebDriverException.class);
 	}
 
-	public static boolean retryingFindClick(String xpath) {
+	public static boolean attemptingEncounterClick(String xpath) {
 		boolean result = false;
 		int attempts = 0;
 		while (attempts < 3) {
@@ -42,6 +42,7 @@ public class Helper {
 			} catch (StaleElementReferenceException e) {
 			}
 			attempts++;
+			System.out.println(attempts);
 		}
 		return result;
 	}
@@ -49,14 +50,14 @@ public class Helper {
 	public static boolean isClickable(String xpath) {
 		try {
 			// espera que o elemento esja visivel e clickavel.
-			fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath))).click();	
+			fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath))).click();
 			return true;
 		} catch (TimeoutException e) {
 			return false;
 		}
 	}
 
-	public static void SelectFromDropdown(String option, String path) {
+	public static void selectFromDropdown(String option, String path) {
 		List<WebElement> options = driver.findElements(By.xpath(path));
 		for (WebElement opt : options) {
 			if (opt.getText().equals(option)) {
@@ -70,7 +71,7 @@ public class Helper {
 	public static void pageSearcher(WebDriver driver)
 
 			throws NotFoundException, NoSuchElementException, ElementNotVisibleException, TimeoutException {
-		Init(driver);
+		init(driver);
 		logger.info("Acessando à página: " + driver.getTitle());
 		driver.get("http://10.8.17.214:8080/gep_teste");
 		driver.manage().window().maximize();
@@ -78,7 +79,7 @@ public class Helper {
 		username.clear();
 		username.sendKeys("66258375391");
 		logger.info("Preenchendo campo Login");
-		driver.findElement(By.xpath(".//*[@id='j_idt166']")).click();
+		driver.findElement(By.xpath(".//*[@id='j_idt22']")).click();
 		logger.info("Autenticando no sistema");
 
 		fluentwait.until(ExpectedConditions.textToBePresentInElementLocated(By.className("ui-growl-item"),
@@ -89,15 +90,14 @@ public class Helper {
 		driver.findElement(By.xpath("//*[@id='cmbPermissoes_panel']/div[2]/ul/li[1]")).click();
 		logger.info("Divisão de Precatórios | Diretor!");
 
-		fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='j_idt33']/ul/li[4]/a")));
-
 		Actions actions = new Actions(driver);
 		logger.info("Opcoes de Requisisao de pagamento!");
-		actions.moveToElement(driver.findElement(By.xpath(".//*[@id='j_idt33']/ul/li[4]/a")));
+		actions.moveToElement(fluentwait
+				.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='j_idt72']/ul/li[4]/a"))));
 		logger.info("Gerenciar");
-		actions.moveToElement(driver.findElement(By.xpath(".//*[@id='j_idt33']/ul/li[4]/ul/li[2]/a")));
+		actions.moveToElement(driver.findElement(By.xpath(".//*[@id='j_idt72']/ul/li[4]/ul/li[2]/a")));
 		logger.info("Requisicoes de Pagamento");
-		actions.moveToElement(driver.findElement(By.xpath(".//*[@id='j_idt33']/ul/li[4]/ul/li[2]/ul/li[1]/a"))).click()
+		actions.moveToElement(driver.findElement(By.xpath(".//*[@id='j_idt72']/ul/li[4]/ul/li[2]/ul/li[1]/a"))).click()
 				.build().perform();
 	}
 

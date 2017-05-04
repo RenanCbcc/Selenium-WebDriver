@@ -1,6 +1,5 @@
 package visualizar_detalhes_historicos_requisicao_pagamento;
 
-import ancillary.Helper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
@@ -12,9 +11,13 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.TimeoutException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.*;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.NotFoundException;
 
 public class Pagina {
 	private WebDriver driver;
@@ -30,47 +33,123 @@ public class Pagina {
 
 	}
 
+	private void visitar() throws NotFoundException {
+		logger.info("Acessando à página: " + this.driver.getTitle());
+		driver.get("http://10.8.17.214:8080/gep_teste");
+		driver.manage().window().maximize();
+		WebElement username = driver.findElement(By.id("name"));
+		username.clear();
+		username.sendKeys("66258375391");
+		logger.info("Preenchendo campo Login");
+		driver.findElement(By.xpath(".//*[@id='j_idt166']")).click();
+		logger.info("Autenticando no sistema");
+	}
+
 	public Preenche novo() throws NoSuchElementException, ElementNotVisibleException, TimeoutException {
+		visitar();
+		fluentwait.until(ExpectedConditions.textToBePresentInElementLocated(By.className("ui-growl-item"),
+				"Login realizado com sucesso!"));
+		logger.info("Login realizado com sucesso!");
 
-		Helper.pageSearcher(this.driver);
+		driver.findElement(By.xpath(".//*[@id='cmbPermissoes_label']")).click();
+		driver.findElement(By.xpath("//*[@id='cmbPermissoes_panel']/div[2]/ul/li[1]")).click();
+		logger.info("Divisão de Precatórios | Diretor!");
+
+		fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='j_idt33']/ul/li[4]/a")));
+
+		Actions actions = new Actions(driver);
+		logger.info("Opcoes de Requisisao de pagamento!");
+		actions.moveToElement(driver.findElement(By.xpath(".//*[@id='j_idt33']/ul/li[4]/a")));
+		logger.info("Gerenciar");
+		actions.moveToElement(driver.findElement(By.xpath(".//*[@id='j_idt33']/ul/li[4]/ul/li[2]/a")));
+		logger.info("Requisicoes de Pagamento");
+		actions.moveToElement(driver.findElement(By.xpath(".//*[@id='j_idt33']/ul/li[4]/ul/li[2]/ul/li[1]/a"))).click()
+				.build().perform();
+
+		logger.info("Aguardando....");
+		// espera por tabela de requisicoes.
+		fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tblRequisicoes']/div[1]")));
+
 		return new Preenche(driver);
+	} // fim do metodo novo()do metodo novo()
 
-	} // fim do metodo novo()
-
-	public boolean resultado(String numero, String processo, String requsicao, String credito, String vara,
-			String situacao, String situacao_calculos, String data_envio, String data_recebmento,
+	public boolean resultado(String Numero, String Nº_Processo, String Tipo_Requisição, String Natureza_Credito,
+			String Vara_Origem, String Situacao, String Situacao_calculos, String data_envio, String data_recebmento,
 			String data_atualizacao, String resp_atualizacao, String lista_beneficiarios, String doc_fical,
 			String prioridade, String data_atualizacao_beneficiario) throws TimeoutException {
-
-		// Bug_Mr_Anderson, why do you persist?
-		// <==========================================
-		{
-
-			WebElement Bug_Mr_Anderson = fluentwait
-					.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='tblRequisicoes:0:j_idt150']")));
-
-			Actions actions = new Actions(driver);
-			Integer iBottom = Bug_Mr_Anderson.getSize().height;
-			Integer iRight = Bug_Mr_Anderson.getSize().width;
-			actions.moveToElement(Bug_Mr_Anderson, iRight / 2, iBottom / 2).click().perform();
-			System.out.println("Bug_Mr_Anderson, why do you persist?");
-
-		} // fim do bloco Bug_Mr_Anderson.
-
+		
+		String[] args = { Numero, Nº_Processo, Tipo_Requisição, Natureza_Credito, Vara_Origem, Situacao,
+				Situacao_calculos, data_envio, data_recebmento, data_atualizacao, resp_atualizacao,
+				lista_beneficiarios, doc_fical, prioridade, data_atualizacao_beneficiario };
+		
+		List<String> aux = new ArrayList<String>();
+		
+		
+		
 		fluentwait.until(ExpectedConditions.textToBePresentInElementLocated(
 				By.xpath(".//*[@id='dlgInformacoesRequisicaoPagamento_title']"),
 				"Mais informações da Requisição de Pagamento"));
 
 		logger.info("verifica se existem resultados na listagem");
-		return driver.getPageSource().contains(numero) && driver.getPageSource().contains(processo)
-				&& driver.getPageSource().contains(vara) && driver.getPageSource().contains(requsicao)
-				&& driver.getPageSource().contains(credito) && driver.getPageSource().contains(situacao)
-				&& driver.getPageSource().contains(data_envio) && driver.getPageSource().contains(data_recebmento)
-				&& driver.getPageSource().contains(data_atualizacao)
-				&& driver.getPageSource().contains(resp_atualizacao) && driver.getPageSource().contains(doc_fical)
-				&& driver.getPageSource().contains(prioridade) && driver.getPageSource().contains(prioridade)
-				&& driver.getPageSource().contains(data_atualizacao_beneficiario);
+
+		// espera por tabela de requisicoes.
+		{ // este bloco eh uma maneira de garantir uma espera, porém muito
+			// instavel. Se removido, gera 'AssertException'.
+			try {
+				fluentwait.until(ExpectedConditions
+						.textToBePresentInElementLocated(By.xpath(".//*[@id='tblRequisicoes_data']/tr/td[1]"), Numero));
+			} catch (TimeoutException toe) {
+				print("Numero de RP diferentes, prosseguindo");
+			}
+
+		}
+
+		for (int i = 1; i <= 4; i++) {
+
+			aux.add(driver.findElement(By.xpath(".//*[@id='j_idt123']/tbody/tr[" + i + "]/td[2]")).getText());
+			
+			aux.add(driver.findElement(By.xpath(".//*[@id='tblBeneficiosAtualizacao_data']/tr/td[" + i + "]"))
+					.getText());
+		}
+		
+		
+		for (int i = 1; i <= 2; i++) {
+			
+			aux.add(driver.findElement(By.xpath(".//*[@id='j_idt158']/tbody/tr[" + i + "]/td[2]")).getText());
+			aux.add(driver.findElement(By.xpath(".//*[@id='j_idt123']/tbody/tr[" + i + "]/td[4]"))
+					.getText());
+		}
+		
+		aux.add(driver.findElement(By.xpath(".//*[@id='j_idt158']/tbody/tr[3]/td[2]")).getText());
+		aux.add(driver.findElement(By.xpath(".//*[@id='j_idt158']/tbody/tr[2]/td[4]")).getText());
+		aux.add(driver.findElement(By.xpath(".//*[@id='j_idt158']/tbody/tr[3]/td[4]")).getText());
+		
+		String[] rsut = aux.toArray(new String[args.length]);
+		
+	
+		Arrays.sort(args);
+		Arrays.sort(rsut);
+		
+		for (int i = 0; i < args.length; i++){
+			print(args[i]);
+			print(rsut[i]);
+		}
+		
+		return Arrays.equals(args, rsut);
+		
+		
 
 	} // fim do metodo resultado()
 
+	public void print(String s) {
+		System.out.println(s);
+	}
+	
+	public void print(boolean s) {
+		System.out.println(s);
+	}
+	
+	public void print(int s) {
+		System.out.println(s);
+	}
 }

@@ -40,7 +40,7 @@ public class Preenche {
 		capo_n_processo.sendKeys(n_processo);
 
 		
-		driver.findElement(By.xpath(".//*[@id='j_idt125']")).click();
+		driver.findElement(By.xpath(".//*[@id='j_idt86']")).click();
 			
 
 	}

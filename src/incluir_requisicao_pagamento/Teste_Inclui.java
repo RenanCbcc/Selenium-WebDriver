@@ -10,7 +10,8 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import static org.junit.Assert.assertTrue;
 
 public class Teste_Inclui {
-	private static WebDriver driver;
+
+	private WebDriver driver;
 	private Pagina pagina; // esta classe visita a pagina de consulta e
 	// preenche os formulários
 
@@ -19,16 +20,16 @@ public class Teste_Inclui {
 		System.setProperty("webdriver.gecko.driver", "C:\\geckodriver.exe");
 		DesiredCapabilities capabilities = DesiredCapabilities.firefox();
 		capabilities.setCapability("marionette", false);
-		capabilities.setCapability("overlappingCheckDisabled", true);
-		driver = new FirefoxDriver(capabilities);
-		this.pagina = new Pagina(driver);
+		//capabilities.setCapability("overlappingCheckDisabled", true);
+		this.driver = new FirefoxDriver(capabilities);
+		this.pagina = new Pagina(this.driver);
 
 	}
 
 	@Test
 	public void UC002_CT002_PD002_1() {
 
-		/* Dados do Proceso */ this.pagina.novo().preencher("10000/1000", "0000002-18.2008.5.08.0009", "RPV",
+		/* Dados do Proceso */ this.pagina.novo().preencher("00214/2017", "0000006-55.2008.5.08.0009", "RPV",
 				"Alimentar", "VARA DO TRABALHO DE ALTAMIRA", "Teste case",
 				/* Datas de Referência */ "01/01/2016", "08/10/2016", "09/10/2016", "10/10/2016", "11/10/2016",
 				"12/10/2016"
@@ -45,6 +46,7 @@ public class Teste_Inclui {
 	public void UC002_CT002_PD002_2() {
 
 		this.pagina.novo().preencher("00010/2017");
+
 		assertTrue(pagina.resultado("Erro: Registro duplicado. Já existe uma RP cadastrada com este número."));
 
 	}
@@ -52,10 +54,10 @@ public class Teste_Inclui {
 	@Ignore
 	public void UC002_CT002_PD002_3() {
 
-		/* Dados do Proceso */ this.pagina.novo().preencher("00000/0000", "0000002-18.2008.5.08.0009", "RPV",
+		/* Dados do Proceso */ this.pagina.novo().preencher("00214/2017", "0000008-25.2008.5.08.0009", "RPV",
 				"Alimentar", "VARA DO TRABALHO DE ALTAMIRA", "Teste case",
-				/* Datas de Referência */ "01/01/2016", "01/09/2016", "01/10/2016", "10/10/2016", "11/10/2016",
-				"12/10/2016"
+				/* Datas de Referência */ "01/01/2016", "01/01/2016", "01/01/2016", "01/01/2016", "01/01/2016",
+				"01/01/2016"
 				/* Dados do Executado */ , "34.621.748/0001-23", "UNIVERSIDADE FEDERAL DO PARA", "Federal", "Administração Direta"
 				/* Dados do Devedor */ , "UNIVERSIDADE FEDERAL DO PARA - 34.621.748/0001-23", "Regra Geral"
 				/* Dados do procurador */ , "557.353.606-04");
@@ -66,19 +68,98 @@ public class Teste_Inclui {
 	}
 
 	@Ignore
-	public void UC002_CT002_PD002_4() { // <<<<<<<<<<<<<Revisar esse caso de
-										// teste>;
+	public void UC002_CT002_PD002_4() {
 
-		/* Dados do Proceso */ this.pagina.novo().preencher("00000/0000", "0000002-18.2008.5.08.0009", "RPV",
+		/* Dados do Proceso */ this.pagina.novo().preencher("00214/2017", "0000008-25.2008.5.08.0009", "RPV",
+				"Alimentar", "VARA DO TRABALHO DE ALTAMIRA", "Teste case",
+				/* Datas de Referência */ "01/01/2016", "08/11/2016", "09/12/2016", "10/01/2017", "11/02/2017",
+				"12/03/2017"
+				/* Dados do Executado */ , "34.621.748/0001-23", "UNIVERSIDADE FEDERAL DO PARA", "Federal", "Administração Direta"
+				/* Dados do Devedor */ , "UNIVERSIDADE FEDERAL DO PARA - 34.621.748/0001-23", "Regra Geral"
+				/* Dados do procurador */ , "052.430.784-92");
+
+		assertTrue(
+				pagina.resultado("Procurador informado já está cadastrado como Beneficiário. Operação não permitida."));
+
+	}
+
+	@Ignore
+	public void UC002_CT003_PD002_5() {
+
+		/* Dados do Proceso */ this.pagina.novo().preencher("00254/2017", "0000008-25.2008.5.08.0009", "RPV",
 				"Alimentar", "VARA DO TRABALHO DE ALTAMIRA", "Teste case",
 				/* Datas de Referência */ "01/01/2016", "08/10/2016", "09/10/2016", "10/10/2016", "11/10/2016",
 				"12/10/2016"
-				/* Dados do Executado */ , "34.621.748/0001-23", "UNIVERSIDADE FEDERAL DO PARA", "Federal", "Administração Direta"
+				/* Dados do Executado */ , "01.175.497/0001-41", "AGENCIA BRASILEIRA DE INTELIGENCIA-ABIN/GSI/PR", "Federal", "Administração Direta"
 				/* Dados do Devedor */ , "UNIVERSIDADE FEDERAL DO PARA - 34.621.748/0001-23", "Regra Geral"
-				/* Dados do procurador */ , "670.198.542-49");
+				/* Dados do procurador */ , "01.175.497/0001-41");
 
 		assertTrue(pagina
-				.resultado(" Procurador informado já está cadastrado como Beneficiário. Operação não permitida."));
+				.resultado("Erro: Executado informado já está cadastrado como Beneficiário. Operação não permitida."));
+
+	}
+
+	@Ignore
+	public void UC002_CT003_PD002_6() {
+
+		/* Dados do Proceso */ this.pagina.novo().preencher("00214/2017", "0000008-25.2008.5.08.0009", "RPV",
+				"Alimentar", "VARA DO TRABALHO DE ALTAMIRA", "Teste case",
+				/* Datas de Referência */ "01/01/2016", "08/10/2016", "09/10/2016", "10/10/2016", "11/10/2016",
+				"12/10/2016"
+				/* Dados do Executado */ , "01.175.497/0001-41", "AGENCIA BRASILEIRA DE INTELIGENCIA-ABIN/GSI/PR", "Federal", "Administração Direta"
+				/* Dados do Devedor */ , "UNIVERSIDADE FEDERAL DO PARA - 34.621.748/0001-23", "Regra Geral"
+				/* Dados do procurador */ , "303.492.832-73");
+
+		assertTrue(pagina
+				.resultado("Erro: Procurador informado já está cadastrado como Advogado. Operação não permitida."));
+
+	}
+
+	@Ignore
+	public void UC002_CT003_PD002_7() {
+
+		/* Dados do Proceso */ this.pagina.novo().preencher("00214/2017", "0109400-24.2004.5.08.0013", "RPV",
+				"Alimentar", "VARA DO TRABALHO DE ALTAMIRA", "Teste case",
+				/* Datas de Referência */ "01/01/2016", "08/10/2016", "09/10/2016", "10/10/2016", "11/10/2016",
+				"12/10/2016"
+				/* Dados do Executado */ , "01.175.497/0001-41", "AGENCIA BRASILEIRA DE INTELIGENCIA-ABIN/GSI/PR", "Federal", "Administração Direta"
+				/* Dados do Devedor */ , "UNIVERSIDADE FEDERAL DO PARA - 34.621.748/0001-23", "Regra Geral"
+				/* Dados do procurador */ , "303.492.832-73");
+
+		assertTrue(pagina.resultado(
+				"Erro: Procurador informado já está cadastrado como Terceiro Interessado. Operação não permitida."));
+
+	}
+
+	@Ignore
+	public void UC002_CT003_PD002_8() {
+
+		/* Dados do Proceso */ this.pagina.novo().preencher("00214/2017", "0109400-24.2004.5.08.0013", "RPV",
+				"Alimentar", "VARA DO TRABALHO DE ALTAMIRA", "Teste case",
+				/* Datas de Referência */ "01/01/2016", "08/10/2016", "09/10/2016", "10/10/2016", "11/10/2016",
+				"12/10/2016"
+				/* Dados do Executado */ , "04.902.979/0001-44", "BANCO DA AMAZONIA S.A. (BASA)", "Federal", "Administração Direta"
+				/* Dados do Devedor */ , "UNIVERSIDADE FEDERAL DO PARA - 34.621.748/0001-23", "Regra Geral"
+				/* Dados do procurador */ , "303.492.832-73");
+
+		assertTrue(pagina.resultado(
+				"Erro: Executado informado já está cadastrado como Terceiro Interessado. Operação não permitida"));
+
+	}
+
+	@Ignore
+	public void UC002_CT003_PD002_9() {
+
+		/* Dados do Proceso */ this.pagina.novo().preencher("00214/2017", "0109400-24.2004.5.08.0013", "RPV",
+				"Alimentar", "VARA DO TRABALHO DE ALTAMIRA", "Teste case",
+				/* Datas de Referência */ "01/01/2016", "08/10/2016", "09/10/2016", "10/10/2016", "11/10/2016",
+				"12/10/2016"
+				/* Dados do Executado */ , "04.902.979/0001-44", "BANCO DA AMAZONIA S.A. (BASA)", "Federal", "Administração Direta"
+				/* Dados do Devedor */ , "UNIVERSIDADE FEDERAL DO PARA - 34.621.748/0001-23", "Regra Geral"
+				/* Dados do procurador */ , "303.492.832-73");
+
+		assertTrue(pagina.resultado(
+				"Erro: Executado informado já está cadastrado como Terceiro Interessado. Operação não permitida"));
 
 	}
 

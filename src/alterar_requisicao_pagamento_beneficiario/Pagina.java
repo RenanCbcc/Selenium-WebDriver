@@ -1,11 +1,9 @@
-package incluir_requisicao_pagamento;
+package alterar_requisicao_pagamento_beneficiario;
 
 import org.openqa.selenium.WebDriver;
+
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import gep_pagamento_auxiliary.Helper;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.TimeoutException;
@@ -22,16 +20,31 @@ public class Pagina {
 		this.wait = new WebDriverWait(driver, 10);
 	}
 
-	public Preenche novo() throws NoSuchElementException, ElementNotVisibleException, TimeoutException {
-		Helper.pageSearcher(this.driver);
-		logger.info("Incluir Requisicoes de Pagamento");
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='j_idt126']"))).click();
-
+	public Preenche novo(String tipo) throws NoSuchElementException, ElementNotVisibleException, TimeoutException {
+		
 		logger.info("Aguardando....");
 		// espera por tabela de requisicoes.
-	
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tblRequisicoes']/div[1]")));
 
-		return new Preenche(this.driver);
+		logger.info("Alterar Requisicoes de Pagamento");
+		driver.findElement(By.xpath(".//*[@id='tblRequisicoes:0:j_idt112']")).click();
+
+		logger.info("Selecionando Aba Beneficiario");
+		// espera por tabela de requisicoes.
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='tabGeral']/ul/li[2]/a"))).click();
+
+		if (tipo.equals("Beneficiario")) {
+			logger.info("Alterar Beneficiario....");
+			wait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='tabGeral:tblBeneficios:0:j_idt219']"))).click();
+		}
+
+		else {
+			logger.info("Alterar Advogado....");
+			wait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='tabGeral:tblAdvogados:0:j_idt248']"))).click();
+		}
+
+		return new Preenche(driver);
+
 	}
 
 	public boolean resultado(String resultado) throws TimeoutException {

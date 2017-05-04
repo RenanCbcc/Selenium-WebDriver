@@ -1,9 +1,11 @@
 package consultar_requisicao_pagamento;
-import ancillary.Helper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Wait;
+
+import gep_pagamento_auxiliary.Helper;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -40,7 +42,7 @@ public class Preenche {
 		} else {
 			logger.info("Preenchendo o campo Situação");
 			driver.findElement(By.xpath(".//*[@id='cmbSituacao']")).click();
-			Helper.SelectFromDropdown(situacao, ".//*[@id='cmbSituacao_panel']/div/ul/li");
+			Helper.selectFromDropdown(situacao, ".//*[@id='cmbSituacao_panel']/div/ul/li");
 			driver.findElement(By.xpath(".//*[@id='j_idt86']")).click();
 		}
 

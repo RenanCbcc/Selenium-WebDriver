@@ -1,12 +1,8 @@
-package ancillary;
+package gep.pagamento.auxiliary;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.Pointcut;
-
-
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.AfterThrowing;
 
@@ -14,8 +10,7 @@ import org.aspectj.lang.annotation.AfterThrowing;
 public class ExceptionAspect {
 	private Logger logger = Logger.getLogger(ExceptionAspect.class.getCanonicalName());
 
-	 @Pointcut("execution(* consultar_requisicao_pagamento.Teste_Consulta.*(..))")
-	 private void NSEexception(){}
+	
 	
 	 @AfterThrowing(
 		      pointcut = "execution(* alterar_requisicao_pagamento_beneficiario.Teste_Altera_Beneficiario.*(..))",
@@ -102,4 +97,9 @@ public class ExceptionAspect {
 		    }
  
 
-}
+	 
+
+	
+
+
+	}
