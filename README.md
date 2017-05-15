@@ -5,4 +5,4 @@
 * Test Case
 * AspectJ
 ### Print de Execução
-![GitHub Logo](Prints/Teste_Inclui.png)
+![GitHub Logo](Prints/Teste_Inclui_Terceiros_Interessados.png)
