@@ -1,9 +1,5 @@
 package incluir_requisicao_pagamento_terceiro_interessado;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.openqa.selenium.NotFoundException;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,15 +7,20 @@ import org.junit.Ignore;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+
+import consultar_requisicao_pagamento.Teste_Consulta;
+import gep_pagamento_auxiliary.Documents;
+
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.ElementNotVisibleException;
-import org.openqa.selenium.InvalidSelectorException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriverException;
 
 public class Teste_Inclui_Terceiros_Interessados {
-	private final static Logger logger = Logger.getLogger(Teste_Inclui_Terceiros_Interessados.class.getCanonicalName());
+
 	private WebDriver driver;
 	private Pagina pagina; // esta classe visita a pagina de consulta e
 							// preenche os formulários
@@ -29,238 +30,153 @@ public class Teste_Inclui_Terceiros_Interessados {
 		System.setProperty("webdriver.gecko.driver", "C:\\geckodriver.exe");
 		DesiredCapabilities capabilities = DesiredCapabilities.firefox();
 		capabilities.setCapability("marionette", false);
-		capabilities.setCapability("overlappingCheckDisabled", true);
+		// capabilities.setCapability("overlappingCheckDisabled", true);
 		this.driver = new FirefoxDriver(capabilities);
 		this.pagina = new Pagina(this.driver);
 
 	}
 
+	@Test
+	public void UC002_CT009_PD009_1() throws NoSuchElementException, ElementNotVisibleException, TimeoutException,
+			WebDriverException, InterruptedException {
+
+		this.pagina.novo("00204/2016", "0000480-85.2015.5.08.0007").preencher("Honorários Periciais", "Pessoa Física",
+				Documents.getCPF(), "Aurelio Consuelo Bruno", "10.000,00", "3.000,00", "Per aspera ad astra");
+
+		assertTrue(pagina.resultado("Operação Realizada com Sucesso"));
+
+	}
+
+	@Test
+	public void UC002_CT009_PD009_2() throws NoSuchElementException, ElementNotVisibleException, TimeoutException,
+			WebDriverException, InterruptedException {
+
+		this.pagina.novo("00204/2016", "0000480-85.2015.5.08.0007").preencher("Honorários Advocatícios",
+				Documents.getCPF(), "Helene Corina Alexandra", "Rio de Janeiro", "0000000", "Advogado", "10.000,00",
+				"3.000,00", "Pecunia non olet tomba");
+
+		assertTrue(pagina.resultado("Operação Realizada com Sucesso"));
+
+	}
+
+	@Test
+	public void UC002_CT009_PD009_3() throws NoSuchElementException, ElementNotVisibleException, TimeoutException,
+			WebDriverException, InterruptedException {
+
+		if (!Teste_Consulta.consultar("00000/2017", "Não", this.driver)) {
+			fail("Processo nao pode ser alterado");
+
+		}
+
+		this.pagina.novo().preencher("Honorários Periciais", "Pessoa Física", "874.816.504-20");
+
+		assertTrue(pagina.resultado(
+				"Erro: Terceiro interessado informado já está cadastrado como Procurador. Operação não permitida"));
+
+	}
+
+	@Test
+	public void UC002_CT009_PD009_4() throws NoSuchElementException, ElementNotVisibleException, TimeoutException,
+			WebDriverException, InterruptedException {
+
+		if (!Teste_Consulta.consultar("00000/2017", "Não", this.driver)) {
+			fail("Processo nao pode ser alterado");
+
+		}
+
+		this.pagina.novo().preencher("Honorários Advocatícios", "", "874.816.504-20");
+
+		assertTrue(pagina
+				.resultado("Erro: Advogado informado já está cadastrado como Procurador. Operação não permitida."));
+
+	}
+
+	@Test
+	public void UC002_CT009_PD009_5() throws NoSuchElementException, ElementNotVisibleException, TimeoutException,
+			WebDriverException, InterruptedException {
+		if (!Teste_Consulta.consultar("00000/2017", "Não", this.driver)) {
+			fail("Processo nao pode ser alterado");
+
+		}
+		this.pagina.novo().preencher("Honorários Periciais", "Pessoa Jurídica", "06.553.481/0001-49");
+		assertTrue(pagina.resultado(
+				"Erro: Terceiro interessado informado já está cadastrado como Executado. Operação não permitida."));
+
+	}
+
+	@Test
+	public void UC002_CT009_PD009_6() throws NoSuchElementException, ElementNotVisibleException, TimeoutException,
+			WebDriverException, InterruptedException {
+
+		if (!Teste_Consulta.consultar("00000/2017", "Não", this.driver)) {
+			fail("Processo nao pode ser alterado");
+
+		}
+		this.pagina.novo().preencher("Outros", "Pessoa Jurídica", "06.553.481/0001-49");
+		assertTrue(pagina.resultado(
+				"Erro: Terceiro interessado informado já está cadastrado como Executado. Operação não permitida."));
+
+	}
+
+	@Test
+	public void UC002_CT009_PD009_7() throws NoSuchElementException, ElementNotVisibleException, TimeoutException,
+			WebDriverException, InterruptedException {
+
+		if (!Teste_Consulta.consultar("00000/2017", "Não", this.driver)) {
+			fail("Processo nao pode ser alterado");
+
+		}
+		this.pagina.novo().preencher("Honorários Periciais", "Pessoa Física", "448.985.451-06");
+		assertTrue(pagina
+				.resultado("Erro: Registro duplicado. Já existe um terceiro interessado cadastrado para este CPF."));
+
+	}
+
+	@Test
+	public void UC002_CT009_PD009_8() throws NoSuchElementException, ElementNotVisibleException, TimeoutException,
+			WebDriverException, InterruptedException {
+
+		if (!Teste_Consulta.consultar("00000/2017", "Não", this.driver)) {
+			fail("Processo nao pode ser alterado");
+
+		}
+		this.pagina.novo().preencher("Honorários Advocatícios", "Pessoa Física", "448.985.451-06");
+		assertTrue(pagina
+				.resultado("Erro: Registro duplicado. Já existe um terceiro interessado cadastrado com este CPF."));
+
+	}
+
+	/**
+	 * Method used to include a 'Terceiro_Interessado'
+	 * 
+	 * @see {@link incluir_requisicao_pagamento_terceiro_interessado.Preenche#preencher(String, String, String, String, String, String, String)}
+	 * 
+	 * @param driver
+	 * @param Tipo_honorario
+	 * @param Tipo_Pessoa
+	 * @param Documento_Fiscal
+	 * @param Nome
+	 * @param valorILiquido
+	 * @param valor_IR
+	 * @param Observacao
+	 * @return boolean
+	 * @throws NoSuchElementException
+	 * @throws ElementNotVisibleException
+	 * @throws TimeoutException
+	 * @throws WebDriverException
+	 * @throws InterruptedException
+	 */
 	@Ignore
-	public void UC002_CT007_PD002_1() {
-		try {
+	public static boolean incluir_Terceiro_Interessado(WebDriver driver, String Tipo_honorario, String Tipo_Pessoa,
+			String Documento_Fiscal, String Nome, String valorILiquido, String valor_IR, String Observacao)
+			throws NoSuchElementException, ElementNotVisibleException, TimeoutException, WebDriverException,
+			InterruptedException {
+		Pagina pagina = new Pagina(driver);
 
-			this.pagina.novo("00001/1979", "0000008-18.2011.5.12.0006").preencher("Honorários Periciais",
-					"Pessoa Física", "520.153.602-63", "Paulo Sergio Costa da Silva ", "10.000,00", "3.000,00",
-					"Per aspera ad astra");
+		pagina.novo().preencher(Tipo_honorario, Tipo_Pessoa, Documento_Fiscal, Nome, valorILiquido, valor_IR,
+				Observacao);
 
-			assertTrue(pagina.resultado("Operação Realizada com Sucesso"));
-		}
-
-		catch (InvalidSelectorException ise) {
-			logger.log(Level.SEVERE, ise.getMessage(), ise);
-			assertTrue(false);
-		} catch (NoSuchElementException nsee) {
-			logger.log(Level.SEVERE, nsee.getMessage(), nsee);
-			assertTrue(false);
-		} catch (NotFoundException nfe) {
-			logger.log(Level.SEVERE, nfe.getMessage(), nfe);
-			assertTrue(false);
-		} catch (ElementNotVisibleException enve) {
-			logger.log(Level.SEVERE, enve.getMessage(), enve);
-			assertTrue(false);
-		} catch (TimeoutException toe) {
-			logger.log(Level.SEVERE, toe.getMessage(), toe);
-			assertTrue(false);
-		} catch (WebDriverException ede) {
-			logger.log(Level.SEVERE, ede.getMessage(), ede);
-			assertTrue(false);
-		}
-
-	}
-
-	@Test
-	public void UC002_CT007_PD002_2() {
-		try {
-
-			this.pagina.novo("00001/1979", "0000008-18.2011.5.12.0006").preencher("Honorários Advocatícios",
-					"557.353.606-04", "Henrique Fernando Cardoso", "000000000000", "Rio de Janeiro", "Advogado",
-					"10.000,00", "3.000,00", "Pecunia non olet tomba");
-
-			assertTrue(pagina.resultado("Operação Realizada com Sucesso"));
-		}
-
-		catch (InvalidSelectorException ise) {
-			logger.log(Level.SEVERE, ise.getMessage(), ise);
-			assertTrue(false);
-		} catch (NoSuchElementException nsee) {
-			logger.log(Level.SEVERE, nsee.getMessage(), nsee);
-			assertTrue(false);
-		} catch (NotFoundException nfe) {
-			logger.log(Level.SEVERE, nfe.getMessage(), nfe);
-			assertTrue(false);
-		} catch (ElementNotVisibleException enve) {
-			logger.log(Level.SEVERE, enve.getMessage(), enve);
-			assertTrue(false);
-		} catch (TimeoutException toe) {
-			logger.log(Level.SEVERE, toe.getMessage(), toe);
-			assertTrue(false);
-		} catch (WebDriverException ede) {
-			logger.log(Level.SEVERE, ede.getMessage(), ede);
-			assertTrue(false);
-		}
-
-	}
-
-	@Test
-	public void UC002_CT007_PD002_3() {
-		try {
-
-			this.pagina.novo("00001/1979", "0000008-18.2011.5.12.0006").preencher("Honorários Perícias",
-					"Pessoa Física", "557.353.606-04");
-
-			assertTrue(pagina.resultado("Operação Realizada com Sucesso"));
-		}
-
-		catch (InvalidSelectorException ise) {
-			logger.log(Level.SEVERE, ise.getMessage(), ise);
-			assertTrue(false);
-		} catch (NoSuchElementException nsee) {
-			logger.log(Level.SEVERE, nsee.getMessage(), nsee);
-			assertTrue(false);
-		} catch (NotFoundException nfe) {
-			logger.log(Level.SEVERE, nfe.getMessage(), nfe);
-			assertTrue(false);
-		} catch (ElementNotVisibleException enve) {
-			logger.log(Level.SEVERE, enve.getMessage(), enve);
-			assertTrue(false);
-		} catch (TimeoutException toe) {
-			logger.log(Level.SEVERE, toe.getMessage(), toe);
-			assertTrue(false);
-		} catch (WebDriverException ede) {
-			logger.log(Level.SEVERE, ede.getMessage(), ede);
-			assertTrue(false);
-		}
-
-	}
-
-	@Test
-	public void UC002_CT007_PD002_4() {
-		try {
-
-			this.pagina.novo("00001/1979", "0000008-18.2011.5.12.0006").preencher("Honorários Advocatícios", "",
-					"339.666.538-42");
-
-			assertTrue(pagina
-					.resultado("Erro: Advogado informado já está cadastrado como Procurador. Operação não permitida."));
-		}
-
-		catch (InvalidSelectorException ise) {
-			logger.log(Level.SEVERE, ise.getMessage(), ise);
-			assertTrue(false);
-		} catch (NoSuchElementException nsee) {
-			logger.log(Level.SEVERE, nsee.getMessage(), nsee);
-			assertTrue(false);
-		} catch (NotFoundException nfe) {
-			logger.log(Level.SEVERE, nfe.getMessage(), nfe);
-			assertTrue(false);
-		} catch (ElementNotVisibleException enve) {
-			logger.log(Level.SEVERE, enve.getMessage(), enve);
-			assertTrue(false);
-		} catch (TimeoutException toe) {
-			logger.log(Level.SEVERE, toe.getMessage(), toe);
-			assertTrue(false);
-		} catch (WebDriverException ede) {
-			logger.log(Level.SEVERE, ede.getMessage(), ede);
-			assertTrue(false);
-		}
-
-	}
-
-	@Test
-	public void UC002_CT007_PD002_5() {
-		try {
-
-			this.pagina.novo("35138/4313", "0000008-18.2011.5.12.0006").preencher("Honorários Perícias",
-					"Pessoa Física", "071.275.546-25");
-			assertTrue(pagina
-					.resultado("Erro: Advogado informado já está cadastrado como Procurador. Operação não permitida."));
-		}
-
-		catch (InvalidSelectorException ise) {
-			logger.log(Level.SEVERE, ise.getMessage(), ise);
-			assertTrue(false);
-		} catch (NoSuchElementException nsee) {
-			logger.log(Level.SEVERE, nsee.getMessage(), nsee);
-			assertTrue(false);
-		} catch (NotFoundException nfe) {
-			logger.log(Level.SEVERE, nfe.getMessage(), nfe);
-			assertTrue(false);
-		} catch (ElementNotVisibleException enve) {
-			logger.log(Level.SEVERE, enve.getMessage(), enve);
-			assertTrue(false);
-		} catch (TimeoutException toe) {
-			logger.log(Level.SEVERE, toe.getMessage(), toe);
-			assertTrue(false);
-		} catch (StaleElementReferenceException sere) {
-			logger.log(Level.SEVERE, sere.getMessage(), sere);
-			assertTrue(false);
-		} catch (WebDriverException ede) {
-			logger.log(Level.SEVERE, ede.getMessage(), ede);
-			assertTrue(false);
-		}
-
-	}
-
-	@Test
-	public void UC002_CT007_PD002_6() {
-		try {
-
-			this.pagina.novo("00065/2009", "0147300-54.2007.5.08.0201").preencher("Honorários Advocatícios",
-					"Pessoa Física", "303.492.832-73");
-
-			assertTrue(pagina.resultado("Erro: Registro duplicado. Já existe um benefício cadastrado para este CPF."));
-		}
-
-		catch (InvalidSelectorException ise) {
-			logger.log(Level.SEVERE, ise.getMessage(), ise);
-			assertTrue(false);
-		} catch (NoSuchElementException nsee) {
-			logger.log(Level.SEVERE, nsee.getMessage(), nsee);
-			assertTrue(false);
-		} catch (NotFoundException nfe) {
-			logger.log(Level.SEVERE, nfe.getMessage(), nfe);
-			assertTrue(false);
-		} catch (ElementNotVisibleException enve) {
-			logger.log(Level.SEVERE, enve.getMessage(), enve);
-			assertTrue(false);
-		} catch (TimeoutException toe) {
-			logger.log(Level.SEVERE, toe.getMessage(), toe);
-			assertTrue(false);
-		} catch (WebDriverException ede) {
-			logger.log(Level.SEVERE, ede.getMessage(), ede);
-			assertTrue(false);
-		}
-
-	}
-
-	@Test
-	public void UC002_CT007_PD002_7() {
-		try {
-
-			this.pagina.novo("00065/2009", "0147300-54.2007.5.08.0201").preencher("Honorários Perícias",
-					"Pessoa Física", "071.275.546-25");
-			assertTrue(pagina.resultado("Erro: Registro duplicado. Já existe um advogado cadastrado com este CPF."));
-		}
-
-		catch (InvalidSelectorException ise) {
-			logger.log(Level.SEVERE, ise.getMessage(), ise);
-			assertTrue(false);
-		} catch (NoSuchElementException nsee) {
-			logger.log(Level.SEVERE, nsee.getMessage(), nsee);
-			assertTrue(false);
-		} catch (NotFoundException nfe) {
-			logger.log(Level.SEVERE, nfe.getMessage(), nfe);
-			assertTrue(false);
-		} catch (ElementNotVisibleException enve) {
-			logger.log(Level.SEVERE, enve.getMessage(), enve);
-			assertTrue(false);
-		} catch (TimeoutException toe) {
-			logger.log(Level.SEVERE, toe.getMessage(), toe);
-			assertTrue(false);
-		} catch (WebDriverException ede) {
-			logger.log(Level.SEVERE, ede.getMessage(), ede);
-			assertTrue(false);
-		}
+		return pagina.resultado("Operação Realizada com Sucesso");
 
 	}
 

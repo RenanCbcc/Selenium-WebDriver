@@ -1,14 +1,16 @@
 package alterar_requisicao_pagamento_dados_processo;
-
 import consultar_requisicao_pagamento.Teste_Consulta;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.openqa.selenium.ElementNotVisibleException;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -22,22 +24,22 @@ public class Teste_Altera_Dados_Processo {
 		System.setProperty("webdriver.gecko.driver", "C:\\geckodriver.exe");
 		DesiredCapabilities capabilities = DesiredCapabilities.firefox();
 		capabilities.setCapability("marionette", false);
-		capabilities.setCapability("overlappingCheckDisabled", true);
+		//capabilities.setCapability("overlappingCheckDisabled", true);
 		driver = new FirefoxDriver(capabilities);
 		this.pagina = new Pagina(driver);
 	}
 
-	@Ignore // Erro no GEP
-	public void UC002_CT003_PD003_1() {
+	@Test // Erro no GEP
+	public void UC002_CT003_PD003_1() throws NoSuchElementException, ElementNotVisibleException, TimeoutException, WebDriverException, InterruptedException {
 		
 		
-		if (!Teste_Consulta.consultar("00000/0000", "Não", this.driver)) {
+		if (!Teste_Consulta.consultar("00000/2017", "Não", this.driver)) {
 			fail("Processo nao pode ser alterado");
 
 		}
 	
 
-		/* Dados do Proceso */ this.pagina.novo().preencher("00000/0000", "0000002-18.2008.5.08.0009", "Precatório",
+		/* Dados do Proceso */ this.pagina.novo().preencher("00000/0000", "0001414-43.2015.5.08.0007", "Precatório",
 				"Alimentar", "VARA DO TRABALHO DE ALTAMIRA", "Teste case",
 				/* Datas de Referência */ "01/01/2016", "08/10/2016", "09/10/2016", "10/10/2016", "11/10/2016",
 				"12/10/2016"
@@ -49,8 +51,8 @@ public class Teste_Altera_Dados_Processo {
 
 	}
 
-	@Test // Testado e Funcionando!
-	public void UC002_CT003_PD003_2() {
+	@Ignore 
+	public void UC002_CT003_PD003_2() throws NoSuchElementException, ElementNotVisibleException, TimeoutException, WebDriverException, InterruptedException {
 
 		if (!Teste_Consulta.consultar("00000/0000", "Não", this.driver)) {
 			fail("Processo nao pode ser alterado");
@@ -63,7 +65,7 @@ public class Teste_Altera_Dados_Processo {
 	}
 
 	@Ignore // Erro no GEP
-	public void UC002_CT003_PD003_3() {
+	public void UC002_CT003_PD003_3() throws NoSuchElementException, ElementNotVisibleException, TimeoutException, WebDriverException, InterruptedException {
 
 		if (!Teste_Consulta.consultar("00000/0000", "Não", this.driver)) {
 			fail("Processo nao pode ser alterado");
@@ -83,8 +85,8 @@ public class Teste_Altera_Dados_Processo {
 
 	}
 
-	@Test
-	public void UC002_CT003_PD003_4() {
+	@Ignore
+	public void UC002_CT003_PD003_4() throws NoSuchElementException, ElementNotVisibleException, TimeoutException, WebDriverException, InterruptedException {
 
 		if (!Teste_Consulta.consultar("00000/0000", "Não", this.driver)) {
 			fail("Processo nao pode ser alterado");
@@ -103,27 +105,27 @@ public class Teste_Altera_Dados_Processo {
 
 	}
 
-	@Test
-	public void UC002_CT003_PD003_5() {
+	@Ignore
+	public void UC002_CT003_PD003_5() throws NoSuchElementException, ElementNotVisibleException, TimeoutException, WebDriverException, InterruptedException {
 
-		if (!Teste_Consulta.consultar("00000/0000", "Não", this.driver)) {
+		if (!Teste_Consulta.consultar("00000/2017", "Não", this.driver)) {
 			fail("Processo nao pode ser alterado");
 
 		}
 
-		/* Dados do Proceso */ this.pagina.novo().preencher("00000/0000", "0109400-24.2004.5.08.0013", "RPV",
+		/* Dados do Proceso */ this.pagina.novo().preencher("00000/2017", "0109400-24.2004.5.08.0013", "RPV",
 				"Alimentar", "VARA DO TRABALHO DE ALTAMIRA", "Teste case",
 				/* Datas de Referência */ "01/01/2016", "08/10/2016", "09/10/2016", "10/10/2016", "11/10/2016",
 				"12/10/2016"
-				/* Dados do Executado */ , "01.175.497/0001-41", "AGENCIA BRASILEIRA DE INTELIGENCIA-ABIN/GSI/PR");
+				/* Dados do Executado */ , "01.175.497/0001-41");
 
 		assertTrue(pagina
 				.resultado("Erro: Executado informado já está cadastrado como Beneficiário. Operação não permitida."));
 
 	}
 
-	@Test
-	public void UC002_CT003_PD003_6() {
+	@Ignore
+	public void UC002_CT003_PD003_6() throws NoSuchElementException, ElementNotVisibleException, TimeoutException, WebDriverException, InterruptedException {
 
 		if (!Teste_Consulta.consultar("00000/0000", "Não", this.driver)) {
 			fail("Processo nao pode ser alterado");
@@ -143,7 +145,7 @@ public class Teste_Altera_Dados_Processo {
 	}
 
 	@Ignore
-	public void UC002_CT003_PD003_7() {
+	public void UC002_CT003_PD003_7() throws NoSuchElementException, ElementNotVisibleException, TimeoutException, WebDriverException, InterruptedException {
 
 		if (!Teste_Consulta.consultar("00000/0000", "Não", this.driver)) {
 			fail("Processo nao pode ser alterado");
@@ -163,8 +165,8 @@ public class Teste_Altera_Dados_Processo {
 
 	}
 
-	@Test
-	public void UC002_CT003_PD003_8() {
+	@Ignore
+	public void UC002_CT003_PD003_8() throws NoSuchElementException, ElementNotVisibleException, TimeoutException, WebDriverException, InterruptedException {
 
 		if (!Teste_Consulta.consultar("00000/0000", "Não", this.driver)) {
 			fail("Processo nao pode ser alterado");
@@ -174,15 +176,15 @@ public class Teste_Altera_Dados_Processo {
 				"Alimentar", "VARA DO TRABALHO DE ALTAMIRA", "Teste case",
 				/* Datas de Referência */ "01/01/2016", "08/10/2016", "09/10/2016", "10/10/2016", "11/10/2016",
 				"12/10/2016"
-				/* Dados do Executado */ , "04.902.979/0001-44", "BANCO DA AMAZONIA S.A. (BASA)");
+				/* Dados do Executado */ , "04.902.979/0001-44");
 
 		assertTrue(pagina.resultado(
 				"Erro: Executado informado já está cadastrado como Terceiro Interessado. Operação não permitida"));
 
 	}
 
-	@Test
-	public void UC002_CT003_PD003_9() {
+	@Ignore
+	public void UC002_CT003_PD003_9() throws NoSuchElementException, ElementNotVisibleException, TimeoutException, WebDriverException, InterruptedException {
 
 		if (!Teste_Consulta.consultar("00000/0000", "Não", this.driver)) {
 			fail("Processo nao pode ser alterado");
@@ -192,7 +194,7 @@ public class Teste_Altera_Dados_Processo {
 				"Alimentar", "VARA DO TRABALHO DE ALTAMIRA", "Teste case",
 				/* Datas de Referência */ "01/01/2016", "08/10/2016", "09/10/2016", "10/10/2016", "11/10/2016",
 				"12/10/2016"
-				/* Dados do Executado */ , "04.902.979/0001-44", "BANCO DA AMAZONIA S.A. (BASA)");
+				/* Dados do Executado */ , "04.902.979/0001-44");
 
 		assertTrue(pagina.resultado(
 				"Erro: Executado informado já está cadastrado como Terceiro Interessado. Operação não permitida"));

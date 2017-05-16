@@ -1,4 +1,5 @@
 package alterar_requisicao_pagamento_terceiro_interessado;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -32,9 +33,10 @@ public class Preenche {
 			throws NoSuchElementException, TimeoutException, WebDriverException {
 
 		logger.info("Alterar Terceiro Interessado");
-		fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='tabGeral:tblTerceiros:0:j_idt281']"))).click();
+		fluentwait.until(
+				ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='tabGeral:tblTerceiros:0:j_idt281']")))
+				.click();
 
-		
 		logger.info("Preenchendo Valor Líquido*");
 		fluentwait
 				.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='inVlLiquidoTerceiro_input']")))
@@ -51,10 +53,9 @@ public class Preenche {
 
 		driver.findElement(By.xpath(".//*[@id='j_idt604']")).click();
 		System.out.println("Salvar");
-		
 
-	} 
-	
+	}
+
 	public void preencher(String Tipo_honorario, String Tipo_Pessoa, String Documento_Fiscal, String Nome,
 			String valorILiquido, String valor_IR, String Observacao)
 			throws NoSuchElementException, TimeoutException, WebDriverException {
@@ -104,13 +105,8 @@ public class Preenche {
 		driver.findElement(By.xpath(".//*[@id='j_idt602']")).sendKeys(Observacao);
 
 		driver.findElement(By.xpath(".//*[@id='j_idt604']")).click();
-			System.out.println("Salvar");
-		
+		System.out.println("Salvar");
 
 	} // Fim do metodo Preenche para Honorários Periciais e Outros.
-
-	
-
-	
 
 }

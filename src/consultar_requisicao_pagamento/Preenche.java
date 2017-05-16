@@ -19,6 +19,7 @@ public class Preenche {
 
 	public Preenche(WebDriver driver) {
 		this.driver = driver;
+	
 	}
 
 	public void preencher(String numero, String n_processo, String situacao)
@@ -38,12 +39,13 @@ public class Preenche {
 
 		if (situacao.isEmpty()) {
 			logger.info("Buscando...");
-			driver.findElement(By.xpath(".//*[@id='j_idt86']")).click();
+			driver.findElement(By.xpath(".//*[@id='j_idt84']")).click();
 		} else {
 			logger.info("Preenchendo o campo Situação");
-			driver.findElement(By.xpath(".//*[@id='cmbSituacao']")).click();
+			
+			Helper.isClickable(".//*[@id='cmbSituacao_label']");
 			Helper.selectFromDropdown(situacao, ".//*[@id='cmbSituacao_panel']/div/ul/li");
-			driver.findElement(By.xpath(".//*[@id='j_idt86']")).click();
+			driver.findElement(By.xpath(".//*[@id='j_idt84']")).click();
 		}
 
 	}
@@ -53,7 +55,7 @@ public class Preenche {
 		logger.info("Preenchendo ou nao campo o Numero");
 		campo_numero.clear();
 		campo_numero.sendKeys(numero);
-		driver.findElement(By.xpath(".//*[@id='j_idt86']")).click();
+		driver.findElement(By.xpath(".//*[@id='j_idt84']")).click();
 	}
 
 	

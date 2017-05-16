@@ -9,7 +9,6 @@ import org.openqa.selenium.TimeoutException;
 import java.util.logging.*;
 import org.openqa.selenium.NoSuchElementException;
 
-
 public class Pagina {
 	private WebDriver driver;
 	private WebDriverWait wait;
@@ -20,8 +19,14 @@ public class Pagina {
 		this.wait = new WebDriverWait(driver, 10);
 	}
 
-	public Preenche novo()
-			throws NoSuchElementException, ElementNotVisibleException, TimeoutException {
+	/**
+	 * 
+	 * @return
+	 * @throws NoSuchElementException
+	 * @throws ElementNotVisibleException
+	 * @throws TimeoutException
+	 */
+	public Preenche novo() throws NoSuchElementException, ElementNotVisibleException, TimeoutException {
 
 		logger.info("Alterar Requisicoes de Pagamento");
 		driver.findElement(By.xpath(".//*[@id='tblRequisicoes:0:j_idt112']")).click();

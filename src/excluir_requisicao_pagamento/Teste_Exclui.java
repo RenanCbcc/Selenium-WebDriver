@@ -9,7 +9,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import consultar_requisicao_pagamento.Teste_Consulta;
-
+/**
+ * 
+ * @author 01578093236
+ *
+ */
 public class Teste_Exclui {
 	private WebDriver driver;
 	private Pagina pagina;

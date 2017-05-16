@@ -15,7 +15,9 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriverException;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.*;
+
 // Esta clase faz o preenchimento do formulario de buscas e os submete.
+
 public class Preenche {
 	private WebDriver driver;
 	private Wait<WebDriver> fluentwait;
@@ -29,31 +31,50 @@ public class Preenche {
 
 	}
 
+	/**
+	 * Method fill in used to test the standard test case.
+	 * 
+	 * @param Nº_RP
+	 * @param Nº_Processo
+	 * @param Tipo_Requisicao
+	 * @param Natureza_Credito
+	 * @param Vara_Origem
+	 * @param Observaco
+	 * @param data_ordem0
+	 * @param data_ordem1
+	 * @param data_ordem2
+	 * @param data_ordem3
+	 * @param data_ordem4
+	 * @param data_ordem5
+	 * @param CNPJ
+	 * @param Nome_Exe
+	 * @param Esfera
+	 * @param Tipo_Administracao
+	 * @param Nome_Dev
+	 * @param Lei_Amparo
+	 * @param CPF
+	 * @throws NoSuchElementException
+	 * @throws TimeoutException
+	 * @throws WebDriverException
+	 * @throws InterruptedException
+	 */
 	public void preencher(String Nº_RP, String Nº_Processo, String Tipo_Requisicao, String Natureza_Credito,
 			String Vara_Origem, String Observaco, String data_ordem0, String data_ordem1, String data_ordem2,
 			String data_ordem3, String data_ordem4, String data_ordem5, String CNPJ, String Nome_Exe, String Esfera,
 			String Tipo_Administracao, String Nome_Dev, String Lei_Amparo, String CPF)
-			throws NoSuchElementException, TimeoutException, WebDriverException {
+			throws NoSuchElementException, TimeoutException, WebDriverException, InterruptedException {
 
 		logger.info("Preenchendo Numero requsicao de Pagamento");
 		fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tabGeral:inNrReq']")))
 				.clear();
 		driver.findElement(By.xpath(".//*[@id='tabGeral:inNrReq']")).sendKeys(Nº_RP);
-		driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt81']")).click();// clica
-																				// no
-																				// botão
-		// buscar numero
-		// RP
+		driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt81']")).click();
 
 		logger.info("Preenchendo Numero processo");
 		fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tabGeral:inNrProc']")))
 				.clear();
 		driver.findElement(By.xpath(".//*[@id='tabGeral:inNrProc']")).sendKeys(Nº_Processo);
-		driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt87']")).click();// clica
-																				// no
-																				// botão
-		// buscar
-		// processo
+		driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt87']")).click();
 
 		logger.info("Preenchendo Tipo de Requisicao");
 		if (Tipo_Requisicao.equals("RPV")) {
@@ -71,13 +92,11 @@ public class Preenche {
 
 		logger.info("Preenchendo Natureza do Credito");
 		if (Natureza_Credito.equals("Alimentar")) {
-			try {
-				Thread.sleep(5000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			Helper.attemptingEncounterClick(".//*[@id='tabGeral:cmbNaturezas']/tbody/tr/td[1]/div/div[2]/span");
+			// TODO At this case, Thread is a bad programming practice. It must
+			// be replaced.
+			Thread.sleep(5000);
+
+			Helper.isClickable(".//*[@id='tabGeral:cmbNaturezas']/tbody/tr/td[1]/div/div[2]/span");
 			logger.info("Natureza do Credito Alimentar");
 
 		} else {
@@ -86,9 +105,8 @@ public class Preenche {
 			Helper.isClickable(".//*[@id='tabGeral:cmbNaturezas']/tbody/tr/td[3]/div/div[2]/span");
 
 		}
-		
 
-		if (Helper.isClickable(".//*[@id='tabGeral:cmbVara']")) {
+		if (Helper.isClickable(".//*[@id='tabGeral:cmbVara_input']")) {
 			logger.info("Preenchendo Vara de Origem");
 			Helper.selectFromDropdown(Vara_Origem, ".//*[@id='tabGeral:cmbVara_panel']/div[2]/ul/li");
 			{
@@ -155,9 +173,7 @@ public class Preenche {
 			campo_cnpj_Exec.clear();
 			campo_cnpj_Exec.sendKeys(CNPJ);
 			logger.info("Buscando nome do Executado");
-			driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt149']")).click(); // busca o
-																	// nome do
-																	// ececutador
+			driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt149']")).click();
 
 			logger.info("Preenchendo Esfera do Executado");
 			if (Helper.isClickable(".//*[@id='tabGeral:cmbEsfera_input']")) {
@@ -182,11 +198,17 @@ public class Preenche {
 		} // fim do if.
 
 		logger.info("Preenchendo Ente Devedor (Responsavel pelo Pagamento)");
+
 		if (Helper.isClickable(".//*[@id='tabGeral:cmbDevedor_label']")) {
 			logger.info("Ente Devedor selesionado");
 			Helper.selectFromDropdown(Nome_Dev, ".//*[@id='tabGeral:cmbDevedor_panel']/div/ul/li");
+			fluentwait.until(
+					ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tabGeral:cmbLegislacao']")));
 
-			if (Helper.isClickable(".//*[@id='tabGeral:cmbLegislacao_label']")) {
+			// TODO Thread is a bad programming practice. It must be replaced.
+			Thread.sleep(5000);
+
+			if (Helper.isClickable(".//*[@id='tabGeral:cmbLegislacao']")) {
 				Helper.selectFromDropdown(Lei_Amparo, ".//*[@id='tabGeral:cmbLegislacao_panel']/div/ul/li");
 				{
 					logger.info("Lei de Amparo selesionada");
@@ -202,23 +224,32 @@ public class Preenche {
 
 		logger.info("Preenchendo ou nao Dados do procurador");
 		if (Helper.isClickable(".//*[@id='tabGeral:inCpfProc']")) {
-			driver.findElement(By.id("tabGeral:inCpfProc")).clear();
-			driver.findElement(By.id("tabGeral:inCpfProc")).sendKeys(CPF);
-			driver.findElement(By.id("tabGeral:j_idt172")).click();
+			driver.findElement(By.xpath(".//*[@id='tabGeral:inCpfProc']")).clear();
+			driver.findElement(By.xpath(".//*[@id='tabGeral:inCpfProc']")).sendKeys(CPF);
+			driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt170']")).click();
 		} else {
 			logger.info("Dados do procurador Inativo");
 			System.out.println("Dados do procurador Inativo");
 		}
+		
+		// TODO Thread is a bad programming practice. It must be replaced.
+		Thread.sleep(3000);
+		System.out.println("Salvar e Continuar");
+		driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt188']")).click();
+		
+	
+		
 
-		if (Helper.isClickable(".//*[@id='tabGeral:j_idt190']")) {
-			System.out.println("Salvar e Continuar");
-		} else {
-			fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tabGeral:j_idt190']")))
-					.click();
-		}
+	} // End of method fill in.
 
-	} // fim do metodo preenche.
-
+	/**
+	 * Method fill in used to test the exception "Registro duplicado"
+	 * 
+	 * @param Nº_RP
+	 * @throws NoSuchElementException
+	 * @throws TimeoutException
+	 * @throws WebDriverException
+	 */
 	public void preencher(String Nº_RP) throws NoSuchElementException, TimeoutException, WebDriverException {
 
 		logger.info("Preenchendo Numero requsicao de Pagamento");
@@ -232,5 +263,6 @@ public class Preenche {
 		// RP
 
 	}
-
+	
+	
 }

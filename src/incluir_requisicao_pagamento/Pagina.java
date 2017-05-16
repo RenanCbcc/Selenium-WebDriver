@@ -25,7 +25,7 @@ public class Pagina {
 	public Preenche novo() throws NoSuchElementException, ElementNotVisibleException, TimeoutException {
 		Helper.pageSearcher(this.driver);
 		logger.info("Incluir Requisicoes de Pagamento");
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='j_idt126']"))).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='j_idt87']"))).click();
 
 		logger.info("Aguardando....");
 		// espera por tabela de requisicoes.
@@ -34,8 +34,15 @@ public class Pagina {
 		return new Preenche(this.driver);
 	}
 
+	/**
+	 * 
+	 * @param resultado
+	 * @return <code>boolean</code>
+	 * @throws TimeoutException
+	 */
 	public boolean resultado(String resultado) throws TimeoutException {
-
+		
+		
 		// espera por tabela de requisicoes.
 		wait.until(ExpectedConditions.textToBePresentInElementLocated(By.className("ui-growl-item"), resultado));
 

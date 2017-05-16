@@ -12,10 +12,10 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 public class Teste_Consulta {
 	private WebDriver driver;
 	private Pagina pagina; // esta classe visita a pagina de consulta e
-							// preenche os formulários
+							// preenche os formul?rios
 
 	@Before
-	private void inicilizar() {
+	public void inicilizar() {
 		System.setProperty("webdriver.gecko.driver", "C:\\geckodriver.exe");
 		DesiredCapabilities capabilities = DesiredCapabilities.firefox();
 		capabilities.setCapability("marionette", false);
@@ -27,16 +27,16 @@ public class Teste_Consulta {
 	@Test
 	public void UC002_CT001_PD001_1() {
 
-		this.pagina.novo().preencher("00010/2017", "0128300-28.2008.5.08.0009",
-				"Parcialmente Paga");/*
-										 * Numero, N_Processo, Situacao, Devedor
-										 */
-		assertTrue(pagina.resultado("00010/2017", "0128300-28.2008.5.08.0009", "VARA DO TRABALHO DE ALTAMIRA",
-				"Precatório", "Alimentar", "07/02/2017", "Parcialmente Paga", "Sim"));
+		this.pagina.novo().preencher("00000/2017", "0001414-43.2015.5.08.0007",
+				"Autuada");/*
+							 * Numero, N_Processo, Situacao, Devedor
+							 */
+		assertTrue(pagina.resultado("00000/2017", "0001414-43.2015.5.08.0007", "VARA DO TRABALHO DE ALTAMIRA", "RPV",
+				"Comum", "04/05/2017", "Autuada", "Não"));
 	}
 
-	@Test
-	public void UC002_CT002_PD001_2() {
+	@Ignore
+	public void UC002_CT002_PD001_2()  {
 
 		this.pagina.novo().preencher("00001/0000", "",
 				"");/* Numero, N_Processo, Situacao, Devedor */
@@ -44,27 +44,34 @@ public class Teste_Consulta {
 
 	}
 
-	@Test
-	public void UC002_CT001_PD001_3() {
+	@Ignore
+	public void UC002_CT001_PD001_3()  {
 
 		this.pagina.novo().preencher("00254/2009", "0109400-24.2004.5.08.0013",
 				"Autuada");/* Numero, N_Processo, Situacao, Devedor */
-		assertTrue(pagina.resultado("00254/2009", "0109400-24.2004.5.08.0013", "13ª VARA DO TRABALHO DE BELÉM",
-				"Precatório", "Alimentar", "07/03/2016", "Autuada", "Não"));
+		assertTrue(pagina.resultado("00254/2009", "0109400-24.2004.5.08.0013", "13? VARA DO TRABALHO DE BEL?M",
+				"Precat?rio", "Alimentar", "07/03/2016", "Autuada", "Não"));
 
 	}
 
 	@Ignore
-	public static boolean consultar(String numero, String Finalizado, WebDriver driver) {
+	/**
+	 * Static method used as precondition of other test. 
+	 * @param numero
+	 * @param Finalizado
+	 * @param driver
+	 * @return
+	 */
+	public static boolean consultar(String numero, String finalizado, WebDriver driver) {
 		Pagina pagina = new Pagina(driver);
 
 		pagina.novo().preencher(numero);
 
-		return pagina.resultado(numero, Finalizado);
+		return pagina.resultado(numero, finalizado);
 	}
 
 	@After
-	private void fechar() {
+	public void fechar() {
 		System.out.println("Fechando...");
 		driver.close();
 	}

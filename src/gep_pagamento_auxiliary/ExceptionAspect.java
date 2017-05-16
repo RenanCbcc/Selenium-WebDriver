@@ -1,4 +1,4 @@
-package gep.pagamento.auxiliary;
+package gep_pagamento_auxiliary;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -96,6 +96,15 @@ public class ExceptionAspect {
 		 	logger.log(Level.SEVERE, error.getMessage(), error);
 		    }
  
+
+	 @AfterThrowing(
+		      pointcut = "call(* gep_pagamento_auxiliary.Helper.*(..))",
+		      throwing= "error")
+		    public void afterThrowing_Helper(JoinPoint joinPoint, Throwable error) {
+		 	logger.info("logAfterThrowing() is running!");
+		 	logger.info("Local : " + joinPoint.getSignature().getName());
+		 	logger.log(Level.SEVERE, error.getMessage(), error);
+		    }
 
 	 
 
