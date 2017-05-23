@@ -14,7 +14,6 @@ import org.openqa.selenium.WebDriverException;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.*;
 
-// Esta clase faz o preenchimento do formulario de buscas e os submete.
 public class Preenche {
 	private WebDriver driver;
 	private Wait<WebDriver> fluentwait;
@@ -28,9 +27,9 @@ public class Preenche {
 
 	}
 
-	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 	/**
-	 * Method fill in used to test the test case.
+	 * Method alter fill in used to test the standard test case.
+	 * 
 	 * @param Nº_RP
 	 * @param Nº_Processo
 	 * @param Tipo_Requisicao
@@ -65,17 +64,17 @@ public class Preenche {
 		fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tabGeral:inNrReq']")))
 				.clear();
 		driver.findElement(By.xpath(".//*[@id='tabGeral:inNrReq']")).sendKeys(Nº_RP);
-		driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt81']")).click();// click at the button and search the number
-		
+		driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt81']")).click();
 
 		logger.info("Preenchendo Numero processo");
 		fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tabGeral:inNrProc']")))
 				.clear();
 		driver.findElement(By.xpath(".//*[@id='tabGeral:inNrProc']")).sendKeys(Nº_Processo);
-		driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt87']")).click();// click at the button and search the process
+		driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt87']")).click();
 
 		logger.info("Preenchendo Tipo de Requisicao");
 		if (Tipo_Requisicao.equals("RPV")) {
+			Thread.sleep(2000);
 
 			if (Helper.isClickable(".//*[@id='tabGeral:cmbAssuntos']/tbody/tr/td[3]/div/div[2]/span")) {
 				logger.info("Tipo de Requisicao RPV");
@@ -90,9 +89,9 @@ public class Preenche {
 
 		logger.info("Preenchendo Natureza do Credito");
 		if (Natureza_Credito.equals("Alimentar")) {
-			//TODO Thread is a bad programming practice. It must be replaced.
-			Thread.sleep(5000);
-			
+			// TODO At this case, Thread is a bad programming practice. It must
+			// be replaced.
+			Thread.sleep(2000);
 
 			Helper.isClickable(".//*[@id='tabGeral:cmbNaturezas']/tbody/tr/td[1]/div/div[2]/span");
 			logger.info("Natureza do Credito Alimentar");
@@ -104,7 +103,7 @@ public class Preenche {
 
 		}
 
-		if (Helper.isClickable(".//*[@id='tabGeral:cmbVara']")) {
+		if (Helper.isClickable(".//*[@id='tabGeral:cmbVara_input']")) {
 			logger.info("Preenchendo Vara de Origem");
 			Helper.selectFromDropdown(Vara_Origem, ".//*[@id='tabGeral:cmbVara_panel']/div[2]/ul/li");
 			{
@@ -171,10 +170,7 @@ public class Preenche {
 			campo_cnpj_Exec.clear();
 			campo_cnpj_Exec.sendKeys(CNPJ);
 			logger.info("Buscando nome do Executado");
-			driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt149']")).click(); // busca
-																					// o
-			// nome do
-			// ececutador
+			driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt149']")).click();
 
 			logger.info("Preenchendo Esfera do Executado");
 			if (Helper.isClickable(".//*[@id='tabGeral:cmbEsfera_input']")) {
@@ -199,11 +195,16 @@ public class Preenche {
 		} // fim do if.
 
 		logger.info("Preenchendo Ente Devedor (Responsavel pelo Pagamento)");
+
 		if (Helper.isClickable(".//*[@id='tabGeral:cmbDevedor_label']")) {
 			logger.info("Ente Devedor selesionado");
 			Helper.selectFromDropdown(Nome_Dev, ".//*[@id='tabGeral:cmbDevedor_panel']/div/ul/li");
-			//TODO Thread is an bad programming practice. It must be replaced.
-			Thread.sleep(5000);
+			fluentwait.until(
+					ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tabGeral:cmbLegislacao']")));
+
+			// TODO Thread is a bad programming practice. It must be replaced.
+			Thread.sleep(3000);
+
 			if (Helper.isClickable(".//*[@id='tabGeral:cmbLegislacao']")) {
 				Helper.selectFromDropdown(Lei_Amparo, ".//*[@id='tabGeral:cmbLegislacao_panel']/div/ul/li");
 				{
@@ -228,15 +229,18 @@ public class Preenche {
 			System.out.println("Dados do procurador Inativo");
 		}
 
-		if (Helper.isClickable(".//*[@id='tabGeral:j_idt188']")) {
-			System.out.println("Salvar e Continuar");
-		}
+		// TODO Thread is a bad programming practice. It must be replaced.
+		Thread.sleep(3000);
+		System.out.println("Salvar e Continuar");
+		driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt188']")).click();
 
-	} // end of method 'fill in'.
+	} // End of method fill in.
+
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
-	
+
 	/**
 	 * Method fill in used to test the exception at the point 'Procurador'
+	 * 
 	 * @param Nº_RP
 	 * @param Nº_Processo
 	 * @param Tipo_Requisicao
@@ -262,30 +266,29 @@ public class Preenche {
 	public void preencher(String Nº_RP, String Nº_Processo, String Tipo_Requisicao, String Natureza_Credito,
 			String Vara_Origem, String Observaco, String data_ordem0, String data_ordem1, String data_ordem2,
 			String data_ordem3, String data_ordem4, String data_ordem5, String CNPJ, String Nome_Exe, String Esfera,
-			String Tipo_Administracao,String CPF)
+			String Tipo_Administracao, String CPF)
 			throws NoSuchElementException, TimeoutException, WebDriverException, InterruptedException {
 
 		logger.info("Preenchendo Numero requsicao de Pagamento");
 		fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tabGeral:inNrReq']")))
 				.clear();
 		driver.findElement(By.xpath(".//*[@id='tabGeral:inNrReq']")).sendKeys(Nº_RP);
-		driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt81']")).click();// click at the button and search the number
-		
+		driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt81']")).click();
 
 		logger.info("Preenchendo Numero processo");
 		fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tabGeral:inNrProc']")))
 				.clear();
 		driver.findElement(By.xpath(".//*[@id='tabGeral:inNrProc']")).sendKeys(Nº_Processo);
-		driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt87']")).click();// click at the button and search the process
+		driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt87']")).click();
 
 		logger.info("Preenchendo Tipo de Requisicao");
 		if (Tipo_Requisicao.equals("RPV")) {
-
+			Thread.sleep(2000);
 			if (Helper.isClickable(".//*[@id='tabGeral:cmbAssuntos']/tbody/tr/td[3]/div/div[2]/span")) {
 				logger.info("Tipo de Requisicao RPV");
 			}
 		} else {
-
+			Thread.sleep(2000);
 			if (Helper.isClickable(".//*[@id='tabGeral:cmbAssuntos']/tbody/tr/td[1]/div/div[2]/span")) {
 				logger.info("Tipo de Requisição Precatorio");
 			}
@@ -294,21 +297,21 @@ public class Preenche {
 
 		logger.info("Preenchendo Natureza do Credito");
 		if (Natureza_Credito.equals("Alimentar")) {
-			//TODO Thread is a bad programming practice. It must be replaced.
-			Thread.sleep(5000);
-			
-			
+			// TODO At this case, Thread is a bad programming practice. It must
+			// be replaced.
+			Thread.sleep(2000);
+
 			Helper.isClickable(".//*[@id='tabGeral:cmbNaturezas']/tbody/tr/td[1]/div/div[2]/span");
 			logger.info("Natureza do Credito Alimentar");
 
 		} else {
-
+			Thread.sleep(2000);
 			logger.info("Natureza do Credito Comum");
 			Helper.isClickable(".//*[@id='tabGeral:cmbNaturezas']/tbody/tr/td[3]/div/div[2]/span");
 
 		}
 
-		if (Helper.isClickable(".//*[@id='tabGeral:cmbVara']")) {
+		if (Helper.isClickable(".//*[@id='tabGeral:cmbVara_input']")) {
 			logger.info("Preenchendo Vara de Origem");
 			Helper.selectFromDropdown(Vara_Origem, ".//*[@id='tabGeral:cmbVara_panel']/div[2]/ul/li");
 			{
@@ -375,7 +378,7 @@ public class Preenche {
 			campo_cnpj_Exec.clear();
 			campo_cnpj_Exec.sendKeys(CNPJ);
 			logger.info("Buscando nome do Executado");
-			driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt149']")).click(); 
+			driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt149']")).click();
 
 			logger.info("Preenchendo Esfera do Executado");
 			if (Helper.isClickable(".//*[@id='tabGeral:cmbEsfera_input']")) {
@@ -399,7 +402,6 @@ public class Preenche {
 
 		} // fim do if.
 
-		
 		logger.info("Preenchendo ou nao Dados do procurador");
 		if (Helper.isClickable(".//*[@id='tabGeral:inCpfProc']")) {
 			driver.findElement(By.xpath(".//*[@id='tabGeral:inCpfProc']")).clear();
@@ -410,13 +412,12 @@ public class Preenche {
 			System.out.println("Dados do procurador Inativo");
 		}
 
-
 	} // end of method E13 UC002_CT003_PD002_4()
-
 
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 	/**
 	 * Method fill in used to test the exception at the point 'Executado'
+	 * 
 	 * @param Nº_RP
 	 * @param Nº_Processo
 	 * @param Tipo_Requisicao
@@ -437,28 +438,29 @@ public class Preenche {
 	 */
 	public void preencher(String Nº_RP, String Nº_Processo, String Tipo_Requisicao, String Natureza_Credito,
 			String Vara_Origem, String Observaco, String data_ordem0, String data_ordem1, String data_ordem2,
-			String data_ordem3, String data_ordem4, String data_ordem5, String CNPJ) throws NoSuchElementException, TimeoutException, WebDriverException, InterruptedException {
+			String data_ordem3, String data_ordem4, String data_ordem5, String CNPJ)
+			throws NoSuchElementException, TimeoutException, WebDriverException, InterruptedException {
 		logger.info("Preenchendo Numero requsicao de Pagamento");
 		fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tabGeral:inNrReq']")))
 				.clear();
 		driver.findElement(By.xpath(".//*[@id='tabGeral:inNrReq']")).sendKeys(Nº_RP);
-		driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt81']")).click();// click at the button and search the number
-		
+		driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt81']")).click();
 
+		
 		logger.info("Preenchendo Numero processo");
 		fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tabGeral:inNrProc']")))
 				.clear();
 		driver.findElement(By.xpath(".//*[@id='tabGeral:inNrProc']")).sendKeys(Nº_Processo);
-		driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt87']")).click();// click at the button and search the process
+		driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt87']")).click();
 
 		logger.info("Preenchendo Tipo de Requisicao");
 		if (Tipo_Requisicao.equals("RPV")) {
-
+			Thread.sleep(2000);
 			if (Helper.isClickable(".//*[@id='tabGeral:cmbAssuntos']/tbody/tr/td[3]/div/div[2]/span")) {
 				logger.info("Tipo de Requisicao RPV");
 			}
 		} else {
-
+			Thread.sleep(2000);
 			if (Helper.isClickable(".//*[@id='tabGeral:cmbAssuntos']/tbody/tr/td[1]/div/div[2]/span")) {
 				logger.info("Tipo de Requisição Precatorio");
 			}
@@ -467,10 +469,10 @@ public class Preenche {
 
 		logger.info("Preenchendo Natureza do Credito");
 		if (Natureza_Credito.equals("Alimentar")) {
-			//TODO Thread is a bad programming practice. It must be replaced.
-			Thread.sleep(5000);
-			
-			
+			// TODO At this case, Thread is a bad programming practice. It must
+			// be replaced.
+			Thread.sleep(2000);
+
 			Helper.isClickable(".//*[@id='tabGeral:cmbNaturezas']/tbody/tr/td[1]/div/div[2]/span");
 			logger.info("Natureza do Credito Alimentar");
 
@@ -481,7 +483,7 @@ public class Preenche {
 
 		}
 
-		if (Helper.isClickable(".//*[@id='tabGeral:cmbVara']")) {
+		if (Helper.isClickable(".//*[@id='tabGeral:cmbVara_input']")) {
 			logger.info("Preenchendo Vara de Origem");
 			Helper.selectFromDropdown(Vara_Origem, ".//*[@id='tabGeral:cmbVara_panel']/div[2]/ul/li");
 			{
@@ -548,17 +550,18 @@ public class Preenche {
 			campo_cnpj_Exec.clear();
 			campo_cnpj_Exec.sendKeys(CNPJ);
 			logger.info("Buscando nome do Executado");
-			driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt149']")).click();}
+			driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt149']")).click();
+		}
 
-		//it is not necessary to save.Only the exception is needed.
+		// it is not necessary to save.Only the exception is needed.
 
 	} // end of method. E12 UC002_CT003_PD002_5()
 
-	
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
-	
+
 	/**
-	 * Method fill in used to test the exception "Registro duplicado"
+	 * Method fill in used to test the exception "Duplicated Register"
+	 * 
 	 * @param Nº_RP
 	 * @throws NoSuchElementException
 	 * @throws TimeoutException
@@ -570,13 +573,35 @@ public class Preenche {
 		fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tabGeral:inNrReq']")))
 				.clear();
 		driver.findElement(By.xpath(".//*[@id='tabGeral:inNrReq']")).sendKeys(Nº_RP);
-		driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt83']")).click();// clica
-																				// no
-																				// botão
-		// search the number.
-		// RP
+		driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt81']")).click();
 
 	}
 
+	/**
+	 * Method fill in used to test the exception "Invalid process"
+	 * 
+	 * @param Nº_RP
+	 * @throws NoSuchElementException
+	 * @throws TimeoutException
+	 * @throws WebDriverException
+	 * @throws InterruptedException 
+	 */
+	public void preencher(String Nº_RP, String Nº_Processo)
+			throws NoSuchElementException, TimeoutException, WebDriverException, InterruptedException {
+
+		logger.info("Preenchendo Numero requsicao de Pagamento");
+		fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tabGeral:inNrReq']")))
+				.clear();
+		driver.findElement(By.xpath(".//*[@id='tabGeral:inNrReq']")).sendKeys(Nº_RP);
+		driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt81']")).click();
+		
+		Thread.sleep(2000);
+		logger.info("Preenchendo Numero processo");
+		fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tabGeral:inNrProc']")))
+				.clear();
+		driver.findElement(By.xpath(".//*[@id='tabGeral:inNrProc']")).sendKeys(Nº_Processo);
+		driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt87']")).click();
+
+	}
 
 }

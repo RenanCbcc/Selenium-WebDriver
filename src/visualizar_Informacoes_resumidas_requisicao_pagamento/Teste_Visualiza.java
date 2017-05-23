@@ -29,39 +29,39 @@ public class Teste_Visualiza {
 	@Test
 	public void UC002_CT005_PD001_1() {
 
-		this.pagina.novo().preencher("00010/2017",
-				"0128300-28.2008.5.08.0009");/*
+		this.pagina.novo().preencher("00001/2017",
+				"0000006-55.2008.5.08.0009");/*
 												 * Número, N_Processo, Situação,
 												 * Devedor
 												 */
-		assertTrue(this.pagina.resultado("00010/2017", "0128300-28.2008.5.08.0009", "VARA DO TRABALHO DE ALTAMIRA",
-				"Precatório", "Alimentar", "07/02/2017", "Parcialmente Paga", "Sim"));
+		assertTrue(this.pagina.resultado("00001/2017", "0000006-55.2008.5.08.0009", "VARA DO TRABALHO DE ALTAMIRA",
+				"Precatório", "Alimentar", "19/05/2017", "Autuada", "Não"));
 
 	}
 
 	@Test
 	public void UC002_CT005_PD001_2() {
 
-		this.pagina.novo().preencher("00282/2009",
-				"0071200-63.2004.5.08.0201");/*
+		this.pagina.novo().preencher("00002/2017",
+				"0000008-25.2008.5.08.0009");/*
 												 * Número, N_Processo, Situação,
 												 * Devedor
 												 */
-		assertTrue(this.pagina.resultado("00282/2009", "0071200-63.2004.5.08.0201", "1ª VARA DO TRABALHO DE MACAPÁ",
-				"Precatório", "Alimentar", "06/12/2016", "Cancelada", "Sim"));
+		assertTrue(this.pagina.resultado("00002/2017", "0000008-25.2008.5.08.0009", "VARA DO TRABALHO DE ALTAMIRA",
+				"RPV", "Alimentar", "19/05/2017", "Autuada", "Não"));
 
 	}
 
 	@Test
 	public void UC002_CT005_PD001_3() {
 
-		this.pagina.novo().preencher("00000/0000",
+		this.pagina.novo().preencher("00004/2017",
 				"0109400-24.2004.5.08.0013");/*
 												 * Numero, N_Processo, Situação,
 												 * Devedor
 												 */
-		assertTrue(this.pagina.resultado("00000/0000", "0109400-24.2004.5.08.0013", "13ª VARA DO TRABALHO DE BELÉM",
-				"RPV", "Alimentar", "07/03/2016", "Autuada", "Não"));
+		assertTrue(this.pagina.resultado("00004/2017", "0109400-24.2004.5.08.0013", "13ª VARA DO TRABALHO DE BELÉM",
+				"RPV", "Comum", "19/05/2017", "Autuada", "Não"));
 
 	}
 

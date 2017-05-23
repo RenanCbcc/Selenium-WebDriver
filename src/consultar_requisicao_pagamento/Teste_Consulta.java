@@ -27,15 +27,15 @@ public class Teste_Consulta {
 	@Test
 	public void UC002_CT001_PD001_1() {
 
-		this.pagina.novo().preencher("00000/2017", "0001414-43.2015.5.08.0007",
+		this.pagina.novo().preencher("00000/2017", "0036800-33.1989.5.08.0109",
 				"Autuada");/*
 							 * Numero, N_Processo, Situacao, Devedor
 							 */
-		assertTrue(pagina.resultado("00000/2017", "0001414-43.2015.5.08.0007", "VARA DO TRABALHO DE ALTAMIRA", "RPV",
-				"Comum", "04/05/2017", "Autuada", "Não"));
+		assertTrue(pagina.resultado("00000/2017", "0036800-33.1989.5.08.0109", "1ª VARA DO TRABALHO DE SANTARÉM", "RPV",
+				"Alimentar", "04/05/2017", "Autuada", "Não"));
 	}
 
-	@Ignore
+	@Test
 	public void UC002_CT002_PD001_2()  {
 
 		this.pagina.novo().preencher("00001/0000", "",
@@ -44,13 +44,13 @@ public class Teste_Consulta {
 
 	}
 
-	@Ignore
+	@Test
 	public void UC002_CT001_PD001_3()  {
 
 		this.pagina.novo().preencher("00254/2009", "0109400-24.2004.5.08.0013",
 				"Autuada");/* Numero, N_Processo, Situacao, Devedor */
-		assertTrue(pagina.resultado("00254/2009", "0109400-24.2004.5.08.0013", "13? VARA DO TRABALHO DE BEL?M",
-				"Precat?rio", "Alimentar", "07/03/2016", "Autuada", "Não"));
+		assertTrue(pagina.resultado("00254/2009", "0109400-24.2004.5.08.0013", "13ª VARA DO TRABALHO DE BELÉM",
+				"Precatório", "Alimentar", "07/03/2016", "Autuada", "Sim"));
 
 	}
 

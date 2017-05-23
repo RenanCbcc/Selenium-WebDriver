@@ -30,7 +30,7 @@ public class Teste_Altera_Terceiros_Interessados {
 	@Test
 	public void UC002_CT0010_PD0010_1() {
 
-		if (!Teste_Consulta.consultar("00000/2017", "Não", this.driver)) {
+		if (!Teste_Consulta.consultar("00001/2017", "Não", this.driver)) {
 			fail("Processo nao pode ser alterado");
 
 		}
@@ -40,7 +40,7 @@ public class Teste_Altera_Terceiros_Interessados {
 
 	}
 
-	@Ignore
+	@Test
 	public void UC002_CT0010_PD0010_2() {
 		if (!Teste_Consulta.consultar("00000/2017", "Não", this.driver)) {
 			fail("Processo nao pode ser alterado");

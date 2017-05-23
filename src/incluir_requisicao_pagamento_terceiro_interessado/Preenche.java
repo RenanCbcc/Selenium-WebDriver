@@ -120,8 +120,8 @@ public class Preenche {
 	}
 
 	/**
-	 * Overloaded method fill in used to include a 'Terceiro Interessado' in a
-	 * already added process, finalized or not, as 'Periciais' and other.
+	 * Overloaded method fill in used to include a 'Third Party' in a already
+	 * added process, finalized or not, as 'Periciais' and other.
 	 * 
 	 * @param Tipo_honorario
 	 * @param Tipo_Pessoa
@@ -142,22 +142,40 @@ public class Preenche {
 		logger.info("Novo Terceiro Interessado");
 		fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='tabGeral:j_idt267']"))).click();
 
+		logger.info("Novo Terceiro Interessado");
+		fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='tabGeral:j_idt267']"))).click();
+
 		logger.info("Preenchendo Tipo Honorario");
 		fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='cmbTpTerceiro']"))).click();
-
 		Helper.selectFromDropdown(Tipo_honorario, ".//*[@id='cmbTpTerceiro_panel']/div/ul/li");
 
 		// Perguntar se é Pessoa Física ou Juridica
 		if (Tipo_honorario.equals("Honorários Periciais") || Tipo_honorario.equals("Outros")) {
 			logger.info("Preenchendo Tipo Pessoa");
-			fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='cmbTpPessoaTerceiro']")))
-					.click();
+			System.out.println("Preenchendo Tipo Pessoa- DropDown");
+			Helper.isClickable(".//*[@id='cmbTpPessoaTerceiro']");
 			Helper.selectFromDropdown(Tipo_Pessoa, ".//*[@id='cmbTpPessoaTerceiro_panel']/div/ul/li");
-		}
+			if (Tipo_Pessoa.length() < 15) {
+				logger.info("Preenchendo CPF do Terceiro Interessado");
+				fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='inCpfTerceiro']")))
+						.clear();
+				driver.findElement(By.xpath(".//*[@id='inCpfTerceiro']")).sendKeys(Documento_Fiscal);
 
-		logger.info("Preenchendo numero do documento");
-		fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='inCpfTerceiro']"))).clear();
-		driver.findElement(By.xpath(".//*[@id='inCpfTerceiro']")).sendKeys(Documento_Fiscal);
+			} else {
+
+				logger.info("Preenchendo CNPJ do Terceiro Interessado");
+				fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='inCnpjTerceiro']")))
+						.clear();
+				driver.findElement(By.xpath(".//*[@id='inCnpjTerceiro']")).sendKeys(Documento_Fiscal);
+
+			}
+		} else {
+
+			logger.info("Preenchendo CPF do Terceiro Interessado");
+			fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='inCpfTerceiro']"))).clear();
+			driver.findElement(By.xpath(".//*[@id='inCpfTerceiro']")).sendKeys(Documento_Fiscal);
+
+		}
 
 		logger.info("Buscando Documento Fiscal do Terceiro Interessado");
 		driver.findElement(By.xpath(".//*[@id='j_idt568']")).click();
@@ -223,7 +241,7 @@ public class Preenche {
 				driver.findElement(By.xpath(".//*[@id='inCpfTerceiro']")).sendKeys(Documento_Fiscal);
 
 			} else {
-				
+
 				logger.info("Preenchendo CNPJ do Terceiro Interessado");
 				fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='inCnpjTerceiro']")))
 						.clear();
@@ -231,7 +249,7 @@ public class Preenche {
 
 			}
 		} else {
-			
+
 			logger.info("Preenchendo CPF do Terceiro Interessado");
 			fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='inCpfTerceiro']"))).clear();
 			driver.findElement(By.xpath(".//*[@id='inCpfTerceiro']")).sendKeys(Documento_Fiscal);

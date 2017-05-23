@@ -56,8 +56,8 @@ public class Pagina {
 		// wait for requisition table
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tblRequisicoes']/div[1]")));
 
-		logger.info("Retificar Requisicoes de Pagamento");
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='tblRequisicoes:0:j_idt111']"))).click();
+		logger.info("Alterar Requisicoes de Pagamento");
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='tblRequisicoes:0:j_idt110']"))).click();
 
 		logger.info("Selecionando Aba Beneficiario");
 		// espera por tabela de requisicoes.
@@ -78,8 +78,8 @@ public class Pagina {
 	}
 
 	/**
-	 * Auxiliary method used to include in a already loaded 'Beneficiary'page a
-	 * beneficiary or a lawyer, without search a new page again.
+	 * Auxiliary method used to include in a already loaded 'Beneficiary' page a
+	 * Beneficiary or a Lawyer, without search a new page again.
 	 * 
 	 * @param tipo
 	 * @return
@@ -102,15 +102,16 @@ public class Pagina {
 		return new Preenche(driver);
 
 	}
-
+/*
+	
 	/**
-	 * Method used to fill in the tab 'Beneficiário'
+	 * Method used to fill in the tab 'Beneficiary'
 	 * 
 	 * @return
 	 * @throws NoSuchElementException
 	 * @throws ElementNotVisibleException
-	 * @throws TimeoutException
-	 */
+	 * @throws TimeoutException* /
+	 
 	public Preenche novo() throws NoSuchElementException, ElementNotVisibleException, TimeoutException {
 
 		logger.info("Selecionando Aba Beneficiario");
@@ -123,7 +124,7 @@ public class Pagina {
 		return new Preenche(driver);
 
 	}
-
+*/
 	public boolean resultado(String resultado) throws TimeoutException {
 
 		// espera por tabela de requisicoes.

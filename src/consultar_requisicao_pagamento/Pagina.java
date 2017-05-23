@@ -109,7 +109,7 @@ public class Pagina {
 
 		// espera por tabela de requisicoes.
 		fluentwait.until(ExpectedConditions.textToBePresentInElementLocated(
-				By.xpath(".//*[@id='tblRequisicoes:j_idt91']"), "Requisições de Pagamento"));
+				By.xpath(".//*[@id='tblRequisicoes:j_idt89']"), "Requisições de Pagamento"));
 
 		// verifico se este elemento contém a messagem dejejada.
 		logger.info("verifica se existem resultados na listagem: " + driver.getPageSource().contains(resultado));

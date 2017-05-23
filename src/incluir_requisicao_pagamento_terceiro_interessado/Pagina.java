@@ -49,7 +49,7 @@ public class Pagina {
 		driver.findElement(By.xpath(".//*[@id='j_idt84']")).click();
 
 		logger.info("Retificar Requisicoes de Pagamento");
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='tblRequisicoes:0:j_idt111']"))).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='tblRequisicoes:0:j_idt110']"))).click();
 
 		logger.info("Aba Terceiros Interessados");
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='tabGeral']/ul/li[3]/a"))).click();
@@ -77,8 +77,33 @@ public class Pagina {
 		logger.info("Alterar Requisicoes de Pagamento");
 		// TODO At this case, Thread is a bad programming practice. It must be
 		// replaced.
-		Thread.sleep(4000);
+		Thread.sleep(3000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='tblRequisicoes:0:j_idt110']"))).click();
+
+		logger.info("Aba Terceiros Interessados");
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='tabGeral']/ul/li[3]/a"))).click();
+
+		return new Preenche(driver);
+	}
+
+	/**
+	 * Auxiliary method used to include in a already loaded 'Third Party'page a
+	 * beneficiary or a lawyer, without search a new page again.
+	 * @return Class Preenche
+	 * @throws NoSuchElementException
+	 * @throws ElementNotVisibleException
+	 * @throws TimeoutException
+	 * @throws InterruptedException
+	 */
+	public Preenche novo(String Third_Party)
+			throws NoSuchElementException, ElementNotVisibleException, TimeoutException, InterruptedException {
+
+		logger.info("Aguardando....");
+		// Wait for the tab 'Third_Party'
+		
+	
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='tabGeral:pnlBeneficios']/legend"))).click();
+
 
 		logger.info("Aba Terceiros Interessados");
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='tabGeral']/ul/li[3]/a"))).click();

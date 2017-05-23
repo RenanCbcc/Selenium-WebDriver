@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.*;
 import gep_pagamento_auxiliary.Helper;
 
+
 // Esta clase faz o preenchimento do formulario de buscas e os submete.
 public class Preenche {
 	private WebDriver driver;
@@ -215,7 +216,9 @@ public class Preenche {
 		logger.info("Preenchendo Observacoes*");
 		driver.findElement(By.xpath(".//*[@id='j_idt545']")).clear();
 		driver.findElement(By.xpath(".//*[@id='j_idt545']")).sendKeys(Observacao);
-
+		
+		//Drag a window to make the button visible 
+		Helper.dragAndDrop(".//*[@id='dlgCadastroBeneficio']/div[1]", "html/body/div[3]/div/div[1]");
 		System.out.println("Salvar");
 		fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='j_idt547']"))).click();
 
@@ -251,7 +254,7 @@ public class Preenche {
 		driver.findElement(By.xpath(".//*[@id='inCnpjBenef']")).sendKeys(Documento_Fiscal);
 
 		logger.info("Buscando nome do Beneficiario");
-		driver.findElement(By.xpath(".//*[@id='j_idt507']")).click();
+		driver.findElement(By.xpath(".//*[@id='j_idt505']")).click();
 
 		logger.info("Preenchendo nome do Benficiario");
 		if (fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='inNmBenef']")))
@@ -280,8 +283,10 @@ public class Preenche {
 		logger.info("Preenchendo Observacoes*");
 		driver.findElement(By.xpath(".//*[@id='j_idt545']")).clear();
 		driver.findElement(By.xpath(".//*[@id='j_idt545']")).sendKeys(Observacao);
-
-		if (Helper.isClickable(".//*[@id='j_idt549']")) {
+		
+		//Drag a window to make the button visible 
+		Helper.dragAndDrop(".//*[@id='dlgCadastroBeneficio']/div[1]", "html/body/div[3]/div/div[1]");
+		if (Helper.isClickable(".//*[@id='j_idt547']")) {
 			System.out.println("Salvar");
 		} // fim do if.
 
@@ -358,10 +363,11 @@ public class Preenche {
 
 		logger.info("Selecionando como Beneficiario o primeiro da lista");
 		// TODO The using of 'Thread must be reviewed!
-		Thread.sleep(3000);
+		Thread.sleep(2000);
 
 		Helper.attemptingToClick(".//*[@id='inBenef']/tbody/tr[1]/td[1]/div/div[2]/span");
 
+		
 		if (Helper.isClickable(".//*[@id='j_idt488']")) {
 			System.out.println("Salvar");
 		} // end if.

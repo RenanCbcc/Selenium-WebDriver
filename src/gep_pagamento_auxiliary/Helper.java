@@ -1,5 +1,6 @@
 package gep_pagamento_auxiliary;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
@@ -147,6 +148,59 @@ public class Helper {
 				.build().perform();
 	}
 
-	
+	/**
+	 * Primarily, it locates the Table and, soon after, returns all its cells.
+	 * 
+	 * @param xpath
+	 * @return List<<code>String</code>>
+	 */
+	public static List<String> getCellsfromTable(String id) {
+		List<String> aux = new ArrayList<String>();
+
+		List<WebElement> rows_table = driver.findElement(By.id(id)).findElements(By.tagName("tr"));
+
+		for (int row = 1; row < rows_table.size(); row++) {
+
+			List<WebElement> Columns_row = rows_table.get(row).findElements(By.tagName("td"));
+
+			int columns_count = Columns_row.size();
+
+			for (int column = 0; column < columns_count; column++) {
+				aux.add(Columns_row.get(column).getText());
+
+			}
+
+		}
+
+		return aux;
+	}
+
+	/**
+	 *  Primarily, it locates the Table and, soon after, returns all its cells without its respective titles.
+	 * @param 
+	 * @return List<<code>String</code>> 
+	 */
+	public static List<String> getCellsfromTableWithoutTititle(String id) {
+		List<String> aux = new ArrayList<String>();
+
+		List<WebElement> rows = driver.findElement(By.id(id)).findElements(By.tagName("tr"));
+
+		for (int i = 0; i < rows.size(); i++) {
+
+			List<WebElement> Columns = rows.get(i).findElements(By.tagName("td"));
+			System.out.println("Numero de celulas na linha " + i + " : " + Columns.size());
+
+			// Loop will execute till the last cell of that specific row.
+			for (int j = 0; j < Columns.size(); j++) {
+				// To retrieve text from that specific cell.
+				if (j == 1 || j == 3) {
+					System.out.println("Elemento da limha " + i + " coluna " + j + ":" + Columns.get(j).getText());
+					aux.add(Columns.get(j).getText());
+				}
+			}
+			System.out.println("--------------------------------------------------");
+		}
+		return aux;
+	}
 
 }

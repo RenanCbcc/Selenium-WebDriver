@@ -50,6 +50,10 @@ public class Preenche {
 
 	}
 	
+	/**
+	 * Method used to fill in the field number of process.
+	 * @param numero
+	 */
 	public void preencher(String numero){
 		WebElement campo_numero = driver.findElement(By.xpath(".//*[@id='inNrReq']"));
 		logger.info("Preenchendo ou nao campo o Numero");

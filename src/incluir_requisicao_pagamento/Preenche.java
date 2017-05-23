@@ -94,7 +94,7 @@ public class Preenche {
 		if (Natureza_Credito.equals("Alimentar")) {
 			// TODO At this case, Thread is a bad programming practice. It must
 			// be replaced.
-			Thread.sleep(5000);
+			Thread.sleep(3000);
 
 			Helper.isClickable(".//*[@id='tabGeral:cmbNaturezas']/tbody/tr/td[1]/div/div[2]/span");
 			logger.info("Natureza do Credito Alimentar");
@@ -206,7 +206,7 @@ public class Preenche {
 					ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tabGeral:cmbLegislacao']")));
 
 			// TODO Thread is a bad programming practice. It must be replaced.
-			Thread.sleep(5000);
+			Thread.sleep(3000);
 
 			if (Helper.isClickable(".//*[@id='tabGeral:cmbLegislacao']")) {
 				Helper.selectFromDropdown(Lei_Amparo, ".//*[@id='tabGeral:cmbLegislacao_panel']/div/ul/li");
@@ -231,19 +231,16 @@ public class Preenche {
 			logger.info("Dados do procurador Inativo");
 			System.out.println("Dados do procurador Inativo");
 		}
-		
+
 		// TODO Thread is a bad programming practice. It must be replaced.
 		Thread.sleep(3000);
 		System.out.println("Salvar e Continuar");
 		driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt188']")).click();
-		
-	
-		
 
 	} // End of method fill in.
 
 	/**
-	 * Method fill in used to test the exception "Registro duplicado"
+	 * Method fill in used to test the exception "Duplicated Register"
 	 * 
 	 * @param Nº_RP
 	 * @throws NoSuchElementException
@@ -256,13 +253,33 @@ public class Preenche {
 		fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tabGeral:inNrReq']")))
 				.clear();
 		driver.findElement(By.xpath(".//*[@id='tabGeral:inNrReq']")).sendKeys(Nº_RP);
-		driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt83']")).click();// clica
-																				// no
-																				// botão
-		// buscar numero
-		// RP
+		driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt81']")).click();
 
 	}
-	
-	
+
+	/**
+	 * Method fill in used to test the exception "Invalid process"
+	 * 
+	 * @param Nº_RP
+	 * @throws NoSuchElementException
+	 * @throws TimeoutException
+	 * @throws WebDriverException
+	 */
+	public void preencher(String Nº_RP, String Nº_Processo)
+			throws NoSuchElementException, TimeoutException, WebDriverException {
+
+		logger.info("Preenchendo Numero requsicao de Pagamento");
+		fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tabGeral:inNrReq']")))
+				.clear();
+		driver.findElement(By.xpath(".//*[@id='tabGeral:inNrReq']")).sendKeys(Nº_RP);
+		driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt81']")).click();
+
+		logger.info("Preenchendo Numero processo");
+		fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tabGeral:inNrProc']")))
+				.clear();
+		driver.findElement(By.xpath(".//*[@id='tabGeral:inNrProc']")).sendKeys(Nº_Processo);
+		driver.findElement(By.xpath(".//*[@id='tabGeral:j_idt87']")).click();
+
+	}
+
 }

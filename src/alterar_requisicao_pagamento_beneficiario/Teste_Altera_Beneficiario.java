@@ -30,7 +30,7 @@ public class Teste_Altera_Beneficiario {
 	@Test
 	public void UC002_CT008_PD002_1() {
 
-		if (!Teste_Consulta.consultar("00000/0000", "Não", this.driver)) {
+		if (!Teste_Consulta.consultar("00001/2017", "Não", this.driver)) {
 			fail("Processo nao pode ser alterado");
 
 		}
@@ -44,7 +44,7 @@ public class Teste_Altera_Beneficiario {
 	@Ignore
 	public void UC002_CT008_PD002_2() {
 
-		if (!Teste_Consulta.consultar("00000/0000", "Não", this.driver)) {
+		if (!Teste_Consulta.consultar("00001/2017", "Não", this.driver)) {
 			fail("Processo nao pode ser alterado");
 		}
 

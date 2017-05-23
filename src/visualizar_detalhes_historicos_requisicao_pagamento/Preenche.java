@@ -19,7 +19,7 @@ public class Preenche {
 	private WebDriver driver;
 	private final static Logger logger = Logger.getLogger(Preenche.class.getCanonicalName());
 	Wait<WebDriver> fluentwait;
-	
+
 	public Preenche(WebDriver driver) {
 		this.driver = driver;
 		fluentwait = new FluentWait<WebDriver>(driver).withTimeout(5, TimeUnit.SECONDS)
@@ -27,33 +27,31 @@ public class Preenche {
 				.ignoring(StaleElementReferenceException.class).ignoring(WebDriverException.class);
 	}
 
-	public void preencher(String numero,String n_processo) 
-					throws NoSuchElementException, TimeoutException, WebDriverException {
-		
+	public void preencher(String numero, String n_processo)
+			throws NoSuchElementException, TimeoutException, WebDriverException, InterruptedException {
+
 		fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='inNrReq']")));
-		
+
 		// 1ª linha
-		WebElement campo_numero = driver.findElement(By.xpath(".//*[@id='inNrReq']"));
-		WebElement capo_n_processo = driver.findElement(By.xpath(".//*[@id='inNrProc']"));
-		
+		WebElement campo_numero = driver.findElement(By.id("inNrReq"));
+		WebElement capo_n_processo = driver.findElement(By.id("inNrProc"));
+
 		logger.info("Preenchendo ou nao campo o Numero");
 		campo_numero.clear();
 		campo_numero.sendKeys(numero);
-
 
 		logger.info("Preenchendo ou nao campo Processo");
 		capo_n_processo.clear();
 		capo_n_processo.sendKeys(n_processo);
 
-		logger.info("Buscado Processo");
-		driver.findElement(By.xpath(".//*[@id='j_idt86']")).click();
-		
+		driver.findElement(By.xpath(".//*[@id='j_idt84']")).click();
+
 		logger.info("Mais Informações da Requisição de Pagamento");
-		driver.findElement(By.xpath(".//*[@id='tblRequisicoes:0:j_idt111']")).click();
 		
-		
-			
-		
+		Thread.sleep(2000);
+		driver.findElement(By.xpath(".//*[@id='tblRequisicoes:0:j_idt109']")).click();
+		logger.info("Visualizar Detalhes e Historicos da Requisicao Pagamento");
+
 	}
 
 }

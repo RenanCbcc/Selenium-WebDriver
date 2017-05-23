@@ -26,7 +26,7 @@ public class Pagina {
 		// A partir daqui, teste o caso de teste TC01
 		logger.info("Alterear Requisição de Pagamento");
 		//TODO Thread is a bad programming practice. It must be replaced.
-		Thread.sleep(5000);
+		Thread.sleep(3000);
 		this.driver.findElement(By.xpath(".//*[@id='tblRequisicoes:0:j_idt110']")).click();
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tabGeral']/ul/li[1]/a")));
 		return new Preenche(this.driver);
