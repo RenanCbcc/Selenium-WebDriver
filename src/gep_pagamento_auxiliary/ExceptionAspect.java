@@ -45,8 +45,8 @@ public class ExceptionAspect {
 		logger.log(Level.SEVERE, error.getMessage(), error);
 	}
 
-	@AfterThrowing(pointcut = "execution(* incluir_requisicao_pagamento.Teste_Inclui.*(..))", throwing = "error")
-	public void afterThrowing_Teste_Inclui_Pagamento(JoinPoint joinPoint, Throwable error) {
+	@AfterThrowing(pointcut = "execution(* incluir_requisicao_pagamento.Teste_incluir_requisicao_pagamento.*(..))", throwing = "error")
+	public void afterThrowing_Teste_incluir_requisicao_pagamento(JoinPoint joinPoint, Throwable error) {
 		logger.info("logAfterThrowing() is running!");
 		logger.info("Local : " + joinPoint.getSignature().getName());
 		logger.log(Level.SEVERE, error.getMessage(), error);
@@ -75,6 +75,20 @@ public class ExceptionAspect {
 
 	@AfterThrowing(pointcut = "execution(* visualizar_Informacoes_resumidas_requisicao_pagamento.Teste_Visualiza.*(..))", throwing = "error")
 	public void afterThrowing_Teste_Visualiza(JoinPoint joinPoint, Throwable error) {
+		logger.info("logAfterThrowing() is running!");
+		logger.info("Local : " + joinPoint.getSignature().getName());
+		logger.log(Level.SEVERE, error.getMessage(), error);
+	}
+	
+	@AfterThrowing(pointcut = "execution(* visualizar_requisicao_pagamento.Teste_Visualizar_Requisicao_Pagamento.*(..))", throwing = "error")
+	public void afterThrowing_Teste_Visualizar_Requisicao_Pagamento(JoinPoint joinPoint, Throwable error) {
+		logger.info("logAfterThrowing() is running!");
+		logger.info("Local : " + joinPoint.getSignature().getName());
+		logger.log(Level.SEVERE, error.getMessage(), error);
+	}
+	
+	@AfterThrowing(pointcut = "execution(* finalizar_cadastro.Teste_Finalizar_Cadastro.*(..))", throwing = "error")
+	public void afterThrowing_Teste_Finalizar_Cadastro(JoinPoint joinPoint, Throwable error) {
 		logger.info("logAfterThrowing() is running!");
 		logger.info("Local : " + joinPoint.getSignature().getName());
 		logger.log(Level.SEVERE, error.getMessage(), error);

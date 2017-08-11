@@ -13,11 +13,17 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import static org.junit.Assert.assertTrue;
 
+/**
+ * Last test 0708/2017
+ * 
+ * @author Renan Rosa
+ * @since 20/03/2017
+ * 
+ */
 public class Teste_Visualiza_Detalhes {
 
 	private WebDriver driver;
-	private Pagina pagina; // esta classe visita a pagina de consulta e
-							// preenche os formulários
+	private Pagina pagina;
 
 	@Before
 	public void inicilizar() {
@@ -34,11 +40,8 @@ public class Teste_Visualiza_Detalhes {
 	public void UC002_CT006_PD006_1() throws NoSuchElementException, ElementNotVisibleException, TimeoutException,
 			WebDriverException, InterruptedException {
 
-		this.pagina.novo().preencher("00001/2017",
-				"0000006-55.2008.5.08.0009");/*
-												 * Número, N_Processo, Situação,
-												 * Devedor
-												 */
+		this.pagina.novo().preencher("00001/2018", "0000006-55.2008.5.08.0009");
+		
 		assertTrue(pagina.resultado("00001/2017", "0000006-55.2008.5.08.0009", "Precatório", "Alimentar",
 				"VARA DO TRABALHO DE ALTAMIRA", "Autuada"));
 

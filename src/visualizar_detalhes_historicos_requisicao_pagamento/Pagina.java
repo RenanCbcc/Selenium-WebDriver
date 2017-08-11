@@ -1,21 +1,21 @@
 package visualizar_detalhes_historicos_requisicao_pagamento;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebDriverException;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.By;
-import org.openqa.selenium.ElementNotVisibleException;
-import org.openqa.selenium.TimeoutException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.*;
+import java.util.logging.Logger;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 
 import gep_pagamento_auxiliary.Helper;
 
@@ -37,7 +37,6 @@ public class Pagina {
 
 		Helper.pageSearcher(this.driver);
 		logger.info("Aguardando....");
-		// espera por tabela de requisicoes.
 		fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tblRequisicoes']/div[1]")));
 
 		return new Preenche(driver);
@@ -60,9 +59,7 @@ public class Pagina {
 
 		logger.info("verifica se existem resultados na listagem");
 
-		// espera por tabela de requisicoes.
-		{ // este bloco eh uma maneira de garantir uma espera, porém muito
-			// instavel. Se removido, gera 'AssertException'.
+		{
 			try {
 				fluentwait.until(ExpectedConditions
 						.textToBePresentInElementLocated(By.xpath(".//*[@id='tblRequisicoes_data']/tr/td[1]"), Numero));
@@ -102,7 +99,7 @@ public class Pagina {
 
 		return Arrays.equals(args, rsut);
 
-	} // fim do metodo resultado()
+	}
 
 	/**
 	 * Method verifies whether the current information is correct.
@@ -130,20 +127,7 @@ public class Pagina {
 
 		logger.info("verifica se existem resultados na listagem");
 
-		/*
-		 * for (int i = 1; i <= 4; i++) {
-		 * 
-		 * aux.add(driver.findElement(By.xpath(".//*[@id='j_idt118']/tbody/tr["
-		 * + i + "]/td[2]")).getText());
-		 * 
-		 * if (i == 1 || i == 2)
-		 * aux.add(driver.findElement(By.xpath(".//*[@id='j_idt118']/tbody/tr["
-		 * + i + "]/td[4]")).getText());
-		 * 
-		 * }
-		 */
-
-		aux.addAll(Helper.getCellsfromTableWithoutTititle("j_idt118"));
+		aux.addAll(Helper.getTextFromTable("j_idt118"));
 
 		String[] rsut = aux.toArray(new String[args.length]);
 
@@ -157,7 +141,7 @@ public class Pagina {
 
 		return Arrays.equals(args, rsut);
 
-	} // fim do metodo resultado()
+	}
 
 	public void print(String s) {
 		System.out.println(s);
@@ -169,19 +153,6 @@ public class Pagina {
 
 	public void print(int s) {
 		System.out.println(s);
-	}
-	
-	private void getTable(){
-		List<WebElement> table = driver.findElement(By.id("")).findElements(By.tagName("tr"));
-		for(int i = 0; i<= table.size(); i++){
-			List<WebElement> table_col = table.get(i).findElements(By.tagName("dt"));
-			for (int j= 0; j<= table_col.size(); j++)
-			{
-				
-				System.out.print("Elemento da limha "+i+" coluna "+j+":"+table_col.get(j).getText() );
-			}
-		}
-		
 	}
 
 }

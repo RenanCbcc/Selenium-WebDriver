@@ -25,19 +25,18 @@ public class Pagina {
 	public Preenche novo() throws NoSuchElementException, ElementNotVisibleException, TimeoutException {
 		Helper.pageSearcher(this.driver);
 		logger.info("Incluir Requisicoes de Pagamento");
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='j_idt87']"))).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='j_idt91']"))).click();
 
 		logger.info("Aguardando....");
-		// espera por tabela de requisicoes.
-	
-
 		return new Preenche(this.driver);
 	}
 
 	/**
+	 * Method used to verify if a specific message is returned to confirm a
+	 * success operation.
 	 * 
 	 * @param resultado
-	 * @return <code>boolean</code>
+	 * @return boolean
 	 * @throws TimeoutException
 	 */
 	public boolean resultado(String resultado) throws TimeoutException {

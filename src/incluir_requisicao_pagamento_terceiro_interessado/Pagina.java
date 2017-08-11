@@ -1,14 +1,14 @@
 package incluir_requisicao_pagamento_terceiro_interessado;
 
+import java.util.logging.Logger;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotVisibleException;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import gep_pagamento_auxiliary.Helper;
-import org.openqa.selenium.By;
-import org.openqa.selenium.ElementNotVisibleException;
-import org.openqa.selenium.TimeoutException;
-import java.util.logging.*;
-import org.openqa.selenium.NoSuchElementException;
 
 public class Pagina {
 	private WebDriver driver;
@@ -20,42 +20,49 @@ public class Pagina {
 		this.wait = new WebDriverWait(driver, 10);
 	}
 
-	/**
-	 * Method used to include a 'Third party' at processes without verifying
-	 * whether the process is finalized or not.
+	/*
+	 * DEPRECATED Method used to include a 'Third party' at processes without
+	 * verifying whether the process is finalized or not.
 	 * 
 	 * @param numero
+	 * 
 	 * @param processo
+	 * 
 	 * @return Class Preenche
+	 * 
 	 * @throws NoSuchElementException
+	 * 
 	 * @throws ElementNotVisibleException
+	 * 
 	 * @throws TimeoutException
+	 * 
+	 * public Preenche novo(String numero, String processo) throws
+	 * NoSuchElementException, ElementNotVisibleException, TimeoutException {
+	 * Helper.pageSearcher(this.driver);
+	 * 
+	 * logger.info("Aguardando...."); // espera por tabela de requisicoes.
+	 * wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(
+	 * ".//*[@id='tblRequisicoes']/div[1]")));
+	 * 
+	 * logger.info("Preenchendo Numero requsicao de Pagamento");
+	 * driver.findElement(By.xpath(".//*[@id='inNrReq']")).clear();
+	 * driver.findElement(By.xpath(".//*[@id='inNrReq']")).sendKeys(numero);
+	 * 
+	 * logger.info("Preenchendo Numero processo");
+	 * driver.findElement(By.xpath(".//*[@id='inNrProc']")).clear();
+	 * driver.findElement(By.xpath(".//*[@id='inNrProc']")).sendKeys(processo);
+	 * driver.findElement(By.xpath(".//*[@id='j_idt84']")).click();
+	 * 
+	 * logger.info("Retificar Requisicoes de Pagamento");
+	 * wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
+	 * ".//*[@id='tblRequisicoes:0:j_idt110']"))).click();
+	 * 
+	 * logger.info("Aba Terceiros Interessados");
+	 * wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
+	 * ".//*[@id='tabGeral']/ul/li[3]/a"))).click();
+	 * 
+	 * return new Preenche(driver); }
 	 */
-	public Preenche novo(String numero, String processo)
-			throws NoSuchElementException, ElementNotVisibleException, TimeoutException {
-		Helper.pageSearcher(this.driver);
-
-		logger.info("Aguardando....");
-		// espera por tabela de requisicoes.
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tblRequisicoes']/div[1]")));
-
-		logger.info("Preenchendo Numero requsicao de Pagamento");
-		driver.findElement(By.xpath(".//*[@id='inNrReq']")).clear();
-		driver.findElement(By.xpath(".//*[@id='inNrReq']")).sendKeys(numero);
-
-		logger.info("Preenchendo Numero processo");
-		driver.findElement(By.xpath(".//*[@id='inNrProc']")).clear();
-		driver.findElement(By.xpath(".//*[@id='inNrProc']")).sendKeys(processo);
-		driver.findElement(By.xpath(".//*[@id='j_idt84']")).click();
-
-		logger.info("Retificar Requisicoes de Pagamento");
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='tblRequisicoes:0:j_idt110']"))).click();
-
-		logger.info("Aba Terceiros Interessados");
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='tabGeral']/ul/li[3]/a"))).click();
-
-		return new Preenche(driver);
-	}
 
 	/**
 	 * Method used when it is necessary to verify that the process is not
@@ -77,8 +84,9 @@ public class Pagina {
 		logger.info("Alterar Requisicoes de Pagamento");
 		// TODO At this case, Thread is a bad programming practice. It must be
 		// replaced.
-		Thread.sleep(3000);
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='tblRequisicoes:0:j_idt110']"))).click();
+		Thread.sleep(1000);
+		wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("/html/body/div[4]/div/div/div/form/div/div[2]/table/tbody/tr/td[9]/button[4]"))).click();
 
 		logger.info("Aba Terceiros Interessados");
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='tabGeral']/ul/li[3]/a"))).click();
@@ -89,6 +97,7 @@ public class Pagina {
 	/**
 	 * Auxiliary method used to include in a already loaded 'Third Party'page a
 	 * beneficiary or a lawyer, without search a new page again.
+	 * 
 	 * @return Class Preenche
 	 * @throws NoSuchElementException
 	 * @throws ElementNotVisibleException
@@ -100,10 +109,9 @@ public class Pagina {
 
 		logger.info("Aguardando....");
 		// Wait for the tab 'Third_Party'
-		
-	
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='tabGeral:pnlBeneficios']/legend"))).click();
 
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='tabGeral:pnlBeneficios']/legend")))
+				.click();
 
 		logger.info("Aba Terceiros Interessados");
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='tabGeral']/ul/li[3]/a"))).click();
@@ -111,6 +119,14 @@ public class Pagina {
 		return new Preenche(driver);
 	}
 
+	/**
+	 * Method used to verify if a specific message is returned to confirm a
+	 * success operation.
+	 * 
+	 * @param resultado
+	 * @return boolean
+	 * @throws TimeoutException
+	 */
 	public boolean resultado(String resultado) throws TimeoutException {
 
 		// espera por tabela de requisicoes.

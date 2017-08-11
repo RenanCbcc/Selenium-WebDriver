@@ -23,7 +23,7 @@ public class Preenche {
 	}
 
 	public void preencher(String numero, String n_processo, String situacao)
-			throws NoSuchElementException, TimeoutException, WebDriverException {
+			throws NoSuchElementException, TimeoutException, WebDriverException, InterruptedException {
 
 		// 1ª linha
 		WebElement campo_numero = driver.findElement(By.xpath(".//*[@id='inNrReq']"));
@@ -39,13 +39,13 @@ public class Preenche {
 
 		if (situacao.isEmpty()) {
 			logger.info("Buscando...");
-			driver.findElement(By.xpath(".//*[@id='j_idt84']")).click();
+			driver.findElement(By.xpath(".//*[@id='j_idt88']")).click();
 		} else {
 			logger.info("Preenchendo o campo Situação");
 			
 			Helper.isClickable(".//*[@id='cmbSituacao_label']");
 			Helper.selectFromDropdown(situacao, ".//*[@id='cmbSituacao_panel']/div/ul/li");
-			driver.findElement(By.xpath(".//*[@id='j_idt84']")).click();
+			driver.findElement(By.xpath(".//*[@id='j_idt88']")).click();
 		}
 
 	}
@@ -59,7 +59,7 @@ public class Preenche {
 		logger.info("Preenchendo ou nao campo o Numero");
 		campo_numero.clear();
 		campo_numero.sendKeys(numero);
-		driver.findElement(By.xpath(".//*[@id='j_idt84']")).click();
+		driver.findElement(By.xpath(".//*[@id='j_idt88']")).click();
 	}
 
 	

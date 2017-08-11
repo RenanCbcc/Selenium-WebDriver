@@ -15,7 +15,7 @@ import org.openqa.selenium.WebDriverException;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.*;
 
-// Esta clase faz o preenchimento do formulario de buscas e os submete.
+
 public class Preenche {
 	private WebDriver driver;
 	Wait<WebDriver> fluentwait;
@@ -29,12 +29,22 @@ public class Preenche {
 
 	}
 
+	/**
+	 * Method used to alter a "Third party"
+	 * @param valorILiquido
+	 * @param valor_IR
+	 * @param Observacao
+	 * @throws NoSuchElementException
+	 * @throws TimeoutException
+	 * @throws WebDriverException
+	 */
 	public void preencher(String valorILiquido, String valor_IR, String Observacao)
 			throws NoSuchElementException, TimeoutException, WebDriverException {
 
 		logger.info("Alterar Terceiro Interessado");
-		fluentwait.until(
-				ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='tabGeral:tblTerceiros:0:j_idt281']")))
+		fluentwait
+				.until(ExpectedConditions.elementToBeClickable(By
+						.xpath("/html/body/div[4]/div/div/form[2]/div/div/div[3]/fieldset[2]/div/div/div/table/tbody/tr[1]/td[5]/button[2]")))
 				.click();
 
 		logger.info("Preenchendo Valor Líquido*");
@@ -48,14 +58,32 @@ public class Preenche {
 		driver.findElement(By.xpath(".//*[@id='inVlIrTerceiro_input']")).sendKeys(valor_IR);
 
 		logger.info("Preenchendo Observacoes*");
-		driver.findElement(By.xpath(".//*[@id='j_idt602']")).clear();
-		driver.findElement(By.xpath(".//*[@id='j_idt602']")).sendKeys(Observacao);
+		driver.findElement(By
+				.xpath("/html/body/div[4]/div/div/form[6]/div/div[2]/table[1]/tbody/tr[3]/td/fieldset/div/table/tbody/tr/td/textarea"))
+				.clear();
+		driver.findElement(By
+				.xpath("/html/body/div[4]/div/div/form[6]/div/div[2]/table[1]/tbody/tr[3]/td/fieldset/div/table/tbody/tr/td/textarea"))
+				.sendKeys(Observacao);
 
-		driver.findElement(By.xpath(".//*[@id='j_idt604']")).click();
+		driver.findElement(By.xpath("/html/body/div[4]/div/div/form[6]/div/div[2]/table[2]/tbody/tr/td[1]/button"))
+				.click();
 		System.out.println("Salvar");
 
 	}
 
+	/**
+	 * DEPREACATED
+	 * @param Tipo_honorario
+	 * @param Tipo_Pessoa
+	 * @param Documento_Fiscal
+	 * @param Nome
+	 * @param valorILiquido
+	 * @param valor_IR
+	 * @param Observacao
+	 * @throws NoSuchElementException
+	 * @throws TimeoutException
+	 * @throws WebDriverException
+	 */
 	public void preencher(String Tipo_honorario, String Tipo_Pessoa, String Documento_Fiscal, String Nome,
 			String valorILiquido, String valor_IR, String Observacao)
 			throws NoSuchElementException, TimeoutException, WebDriverException {

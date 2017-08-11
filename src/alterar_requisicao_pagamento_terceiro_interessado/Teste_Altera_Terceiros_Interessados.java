@@ -1,15 +1,20 @@
 package alterar_requisicao_pagamento_terceiro_interessado;
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.Ignore;
+import org.openqa.selenium.ElementNotVisibleException;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+
 import consultar_requisicao_pagamento.Teste_Consulta;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 public class Teste_Altera_Terceiros_Interessados {
 
@@ -28,9 +33,9 @@ public class Teste_Altera_Terceiros_Interessados {
 	}
 
 	@Test
-	public void UC002_CT0010_PD0010_1() {
+	public void UC002_CT0010_PD0010_1() throws TimeoutException, InterruptedException {
 
-		if (!Teste_Consulta.consultar("00001/2017", "Não", this.driver)) {
+		if (!Teste_Consulta.consultar("00001/2018", "Não", this.driver)) {
 			fail("Processo nao pode ser alterado");
 
 		}
@@ -41,21 +46,24 @@ public class Teste_Altera_Terceiros_Interessados {
 	}
 
 	@Test
-	public void UC002_CT0010_PD0010_2() {
-		if (!Teste_Consulta.consultar("00000/2017", "Não", this.driver)) {
+	public void UC002_CT0010_PD0010_2() throws NoSuchElementException, ElementNotVisibleException, TimeoutException,
+			WebDriverException, InterruptedException {
+		if (!Teste_Consulta.consultar("00001/2018", "Não", this.driver)) {
 			fail("Processo nao pode ser alterado");
 
 		} else {
-			this.pagina.novo().preencher("8.000,00", "4.000,00", "Per aspera ad astra");
-			assertTrue(pagina.resultado("Operação Realizada com Sucesso"));
+			this.pagina.novo().preencher("0", "0", "Per aspera ad astra");
+			assertTrue(pagina
+					.resultado("Erro: O valor total do benefício deve ser maior que zero. Operação não permitida."));
 		}
 
 	}
+	/*
 
 	@Ignore
-	public void UC002_CT0010_PD0010_3() {
+	public void UC002_CT0010_PD0010_3() throws TimeoutException, InterruptedException {
 
-		if (!Teste_Consulta.consultar("00000/2017", "Não", this.driver)) {
+		if (!Teste_Consulta.consultar("00000/2018", "Não", this.driver)) {
 			fail("Processo nao pode ser alterado");
 
 		}
@@ -68,8 +76,8 @@ public class Teste_Altera_Terceiros_Interessados {
 	}
 
 	@Ignore
-	public void UC002_CT0010_PD0010_4() {
-		if (!Teste_Consulta.consultar("00000/2017", "Não", this.driver)) {
+	public void UC002_CT0010_PD0010_4() throws TimeoutException, InterruptedException {
+		if (!Teste_Consulta.consultar("00000/2018", "Não", this.driver)) {
 			fail("Processo nao pode ser alterado");
 
 		}
@@ -82,8 +90,8 @@ public class Teste_Altera_Terceiros_Interessados {
 	}
 
 	@Ignore
-	public void UC002_CT0010_PD0010_5() {
-		if (!Teste_Consulta.consultar("00000/2017", "Não", this.driver)) {
+	public void UC002_CT0010_PD0010_5() throws TimeoutException, InterruptedException {
+		if (!Teste_Consulta.consultar("00000/2018", "Não", this.driver)) {
 			fail("Processo nao pode ser alterado");
 
 		}
@@ -95,8 +103,8 @@ public class Teste_Altera_Terceiros_Interessados {
 	}
 
 	@Ignore
-	public void UC002_CT0010_PD0010_6() {
-		if (!Teste_Consulta.consultar("00000/2017", "Não", this.driver)) {
+	public void UC002_CT0010_PD0010_6() throws TimeoutException, InterruptedException {
+		if (!Teste_Consulta.consultar("00000/2018", "Não", this.driver)) {
 			fail("Processo nao pode ser alterado");
 
 		}
@@ -109,8 +117,8 @@ public class Teste_Altera_Terceiros_Interessados {
 	}
 
 	@Ignore
-	public void UC002_CT0010_PD0010_7() {
-		if (!Teste_Consulta.consultar("00000/2017", "Não", this.driver)) {
+	public void UC002_CT0010_PD0010_7() throws TimeoutException, InterruptedException {
+		if (!Teste_Consulta.consultar("00000/2018", "Não", this.driver)) {
 			fail("Processo nao pode ser alterado");
 
 		}
@@ -122,8 +130,8 @@ public class Teste_Altera_Terceiros_Interessados {
 	}
 
 	@Ignore
-	public void UC002_CT0010_PD0010_8() {
-		if (!Teste_Consulta.consultar("00000/2017", "Não", this.driver)) {
+	public void UC002_CT0010_PD0010_8() throws TimeoutException, InterruptedException {
+		if (!Teste_Consulta.consultar("00000/2018", "Não", this.driver)) {
 			fail("Processo nao pode ser alterado");
 
 		}
@@ -133,6 +141,7 @@ public class Teste_Altera_Terceiros_Interessados {
 				.resultado("Erro: Registro duplicado. Já existe um terceiro interessado cadastrado para este CNPJ."));
 
 	}
+	*/
 
 	@After
 	public void fechar() {

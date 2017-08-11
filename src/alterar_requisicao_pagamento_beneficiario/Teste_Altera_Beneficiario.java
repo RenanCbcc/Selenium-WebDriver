@@ -5,11 +5,12 @@ import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+
 import consultar_requisicao_pagamento.Teste_Consulta;
 
 public class Teste_Altera_Beneficiario {
@@ -28,77 +29,54 @@ public class Teste_Altera_Beneficiario {
 	}
 
 	@Test
-	public void UC002_CT008_PD002_1() {
+	public void UC002_CT008_PD002_1() throws TimeoutException, InterruptedException {
 
-		if (!Teste_Consulta.consultar("00001/2017", "Não", this.driver)) {
-			fail("Processo nao pode ser alterado");
+		if (!Teste_Consulta.consultar("00001/2018", "Não", this.driver)) {
+			fail("404 Process not found");
 
 		}
-		this.pagina.novo("Beneficiario").preencher(false, "1.000,00", "100,00", "100,00", "100,00",
-				"Hello World!");
+		this.pagina.novo("Beneficiario").preencher("Não", "", "1.000,00", "100,00", "100,00", "100,00", "Hello World!");
 
-				assertTrue(pagina.resultado("Operação Realizada com Sucesso"));
+		assertTrue(pagina.resultado("Operação Realizada com Sucesso"));
 
 	}
 
-	@Ignore
-	public void UC002_CT008_PD002_2() {
+	@Test
+	public void UC002_CT008_PD002_2() throws TimeoutException, InterruptedException {
 
-		if (!Teste_Consulta.consultar("00001/2017", "Não", this.driver)) {
-			fail("Processo nao pode ser alterado");
+		if (!Teste_Consulta.consultar("00001/2018", "Não", this.driver)) {
+			fail("404 Process not found");
 		}
 
-		this.pagina.novo("Beneficiario").preencher("Pessoa Física", "729.673.582-15");
+		this.pagina.novo("Beneficiario").preencher("", "", "1.000,00", "100,00", "100,00", "100,00", "Hello World!");
 
-		assertTrue(pagina
-				.resultado("Erro: Beneficiário informado já está cadastrado como Procurador. Operação não permitida."));
+		assertTrue(pagina.resultado("Campo Obrigatório: Foi deferido o benefício de prioridade processual?."));
 
 	}
 
-	@Ignore
-	public void UC002_CT008_PD002_3() {
-		if (!Teste_Consulta.consultar("00000/0000", "Não", this.driver)) {
-			fail("Processo nao pode ser alterado");
+	@Test
+	public void UC002_CT008_PD002_3() throws TimeoutException, InterruptedException {
+		if (!Teste_Consulta.consultar("00001/2018", "Não", this.driver)) {
+			fail("404 Process not found");
 		}
 
-		this.pagina.novo("Beneficiario").preencher("Pessoa Jurídica", "05.054.861/0001-76");
+		this.pagina.novo("Beneficiario").preencher("Sim","","1.000,00", "100,00", "100,00", "100,00", "Hello World!");
 
-		assertTrue(pagina
-				.resultado("Erro: Beneficiário informado já está cadastrado como Executado. Operação não permitida."));
+		assertTrue(pagina.resultado("Campo Obrigatório: Tipo de Prioridade."));
 	}
 
-	@Ignore
-	public void UC002_CT008_PD002_4() {
-		if (!Teste_Consulta.consultar("00000/0000", "Não", this.driver)) {
+	@Test
+	public void UC002_CT008_PD002_4() throws TimeoutException, InterruptedException {
+		if (!Teste_Consulta.consultar("00001/2018", "Não", this.driver)) {
 			fail("Processo nao pode ser alterado");
 		}
-		this.pagina.novo("Advogado").preencher("Pessoa Física", "729.673.582-15");
-		assertTrue(pagina
-				.resultado("Erro: Advogado informado já está cadastrado como Procurador. Operação não permitida."));
-
-	}
-
-	@Ignore
-	public void UC002_CT008_PD002_5() {
-		if (!Teste_Consulta.consultar("00000/0000", "Não", this.driver)) {
-			fail("Processo nao pode ser alterado");
-		}
-		this.pagina.novo("Beneficiario").preencher("Pessoa Física", "357.579.517-70");
-
-		assertTrue(pagina.resultado("Erro: Registro duplicado. Já existe um benefício cadastrado para este CPF."));
+		this.pagina.novo("Beneficiario").preencher("Não", "", "0", "0", "0", "0", "Hello World!");
+		assertTrue(
+				pagina.resultado("Erro: O valor total do benefício deve ser maior que zero. Operação não permitida."));
 
 	}
 
-	@Ignore
-	public void UC002_CT008_PD002_6() {
-		if (!Teste_Consulta.consultar("00000/0000", "Não", this.driver)) {
-			fail("Processo nao pode ser alterado");
-		}
-		this.pagina.novo("Advogado").preencher("Pessoa Física", "670.198.542-49");
-		assertTrue(pagina.resultado("Erro: Registro duplicado. Já existe um advogado cadastrado com este CPF."));
 
-	}
-	
 	@After
 	public void fechar() {
 		System.out.println("Fechando...");

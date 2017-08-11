@@ -29,7 +29,8 @@ public class Pagina {
 	public Preenche novo() throws NoSuchElementException, ElementNotVisibleException, TimeoutException {
 
 		logger.info("Alterar Requisicoes de Pagamento");
-		driver.findElement(By.xpath(".//*[@id='tblRequisicoes:0:j_idt112']")).click();
+		driver.findElement(By.xpath("/html/body/div[4]/div/div/div/form/div/div[2]/table/tbody/tr/td[9]/button[4]"))
+				.click();
 
 		logger.info("Aba Terceiros Interessados");
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='tabGeral']/ul/li[3]/a"))).click();

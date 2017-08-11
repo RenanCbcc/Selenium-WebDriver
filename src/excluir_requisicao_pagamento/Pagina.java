@@ -9,7 +9,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-
 public class Pagina {
 	private WebDriver driver;
 	private WebDriverWait wait;
@@ -18,17 +17,20 @@ public class Pagina {
 	public Pagina(WebDriver driver) {
 		this.driver = driver;
 		this.wait = new WebDriverWait(this.driver, 10);
-		
+
 	}
 
 	public void excluir() throws NoSuchElementException, ElementNotVisibleException, TimeoutException {
 
 		// A partir daqui, teste o caso de teste TC01
 		logger.info("Exclir Requisição de Pagamento");
-		this.driver.findElement(By.xpath(".//*[@id='tblRequisicoes:0:j_idt113']")).click();
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='j_idt115']")));
-		
-		this.driver.findElement(By.xpath(".//*[@id='j_idt115']")).click();
+		this.driver
+				.findElement(By.xpath("/html/body/div[4]/div/div/div/form/div/div[2]/table/tbody/tr/td[9]/button[5]"))
+				.click();
+		wait.until(ExpectedConditions
+				.visibilityOfElementLocated(By.xpath("/html/body/div[4]/div/div/form[2]/div[1]/div[3]/button[1]")));
+
+		this.driver.findElement(By.xpath("/html/body/div[4]/div/div/form[2]/div[1]/div[3]/button[1]")).click();
 
 	}
 

@@ -10,14 +10,18 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.TimeoutException;
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.*;
 import org.openqa.selenium.NoSuchElementException;
 
 public class Pagina {
 	private WebDriver driver;
-	Wait<WebDriver> fluentwait;
+	private Wait<WebDriver> fluentwait;
 	private Logger logger = Logger.getLogger(Pagina.class.getCanonicalName());
 
 	public Pagina(WebDriver driver) {
@@ -37,42 +41,35 @@ public class Pagina {
 		return new Preenche(driver);
 	}
 
-	public boolean resultado(String numero, String processo, String vara, String requsicao, String credito, String data,
-			String situacao, String cadastro) throws TimeoutException {
-
-		// List<String> argumentos = new
-		// ArrayList<String>(Arrays.asList(numero,processo, vara, requsicao,
-		// data, situacao, cadastro));
-		String[] args = { numero, processo, vara, requsicao, credito, data, situacao, cadastro };
-		String[] tabela = new String[args.length];
+	/**
+	 * Method receives as argument a list of string and, soon after, compares it with the current information at the screen
+	 * @param argumentos
+	 * @return
+	 * @throws TimeoutException
+	 * @throws InterruptedException
+	 */
+	public boolean resultado(List<String> argumentos) throws TimeoutException, InterruptedException {
 
 		logger.info("verifica se existem resultados na listagem");
+		List<String> tabela = new ArrayList<String>();
+		Thread.sleep(2000);
 
-		// espera por tabela de requisicoes.
-		{ // este bloco eh uma maneira de garantir uma espera, porém muito
-			// instavel. Se removido, gera 'AssertException'.
-			try {
-				fluentwait.until(ExpectedConditions
-						.textToBePresentInElementLocated(By.xpath(".//*[@id='tblRequisicoes_data']/tr/td[1]"), numero));
-			} catch (TimeoutException toe) {
-				print("Numero de RP diferentes, prosseguindo");
-			}
-
+		if (argumentos.size() > 1) {
+			tabela = Helper.getCellsfromTableWithoutButton(".//*[@id='tblRequisicoes']/div[2]/table");
+		} else {
+			tabela = Helper.getCellsfromTable(".//*[@id='tblRequisicoes']/div[2]/table");
 		}
-		for (int i = 0; i < args.length; i++) {
-			tabela[i] = driver.findElement(By.xpath(".//*[@id='tblRequisicoes_data']/tr/td[" + (i + 1) + "]"))
-					.getText();
-			print("Obsevado: " + tabela[i]);
-			print("Esperado: " + args[i]);
-		}
+		Collections.sort(argumentos);
+		Collections.sort(tabela);
 
-		Arrays.sort(args);
-		Arrays.sort(tabela);
-		return Arrays.equals(args, tabela);
+		System.out.println(Arrays.toString(tabela.toArray()));
+		System.out.println(Arrays.toString(argumentos.toArray()));
 
-	} // fim do metodo resultado()
+		return tabela.equals(argumentos);
 
-	public boolean resultado(String numero, String cadastro) throws TimeoutException {
+	}
+
+	public boolean resultado(String numero, String cadastro) throws TimeoutException, InterruptedException {
 
 		// List<String> argumentos = new
 		// ArrayList<String>(Arrays.asList(numero,processo, vara, requsicao,
@@ -82,17 +79,7 @@ public class Pagina {
 
 		logger.info("Verifica se existem resultados na listagem");
 
-		// espera por tabela de requisicoes.
-		{ // este bloco eh uma maneira de garantir uma espera, porém muito
-			// instavel. Se removido, gera 'AssertException'.
-			try {
-				fluentwait.until(ExpectedConditions
-						.textToBePresentInElementLocated(By.xpath(".//*[@id='tblRequisicoes_data']/tr/td[1]"), numero));
-			} catch (TimeoutException toe) {
-				print("Numero de RP diferentes, prosseguindo");
-			}
-
-		}
+		Thread.sleep(2000);
 
 		tabela[0] = driver.findElement(By.xpath(".//*[@id='tblRequisicoes_data']/tr/td[1]")).getText();
 		tabela[1] = driver.findElement(By.xpath(".//*[@id='tblRequisicoes_data']/tr/td[8]")).getText();
@@ -103,15 +90,15 @@ public class Pagina {
 		logger.info("Retornando Resultado");
 		return Arrays.equals(args, tabela);
 
-	} // fim do metodo resultado()
+	} 
 
 	public boolean resultado(String resultado) throws TimeoutException {
 
-		// espera por tabela de requisicoes.
+		
 		fluentwait.until(ExpectedConditions.textToBePresentInElementLocated(
 				By.xpath(".//*[@id='tblRequisicoes:j_idt89']"), "Requisições de Pagamento"));
 
-		// verifico se este elemento contém a messagem dejejada.
+		
 		logger.info("verifica se existem resultados na listagem: " + driver.getPageSource().contains(resultado));
 		System.out.println("verifica se existem resultados na listagem: " + driver.getPageSource().contains(resultado));
 		System.out.println("verifica se existem resultados na listagem: " + driver.getPageSource().contains(resultado));

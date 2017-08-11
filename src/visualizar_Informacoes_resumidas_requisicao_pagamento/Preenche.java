@@ -10,7 +10,6 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import java.util.logging.*;
 
-
 // Esta clase faz o preenchimento do formulario de buscas e os submete.
 public class Preenche {
 	private WebDriver driver;
@@ -32,7 +31,7 @@ public class Preenche {
 	 * @throws TimeoutException
 	 * @throws WebDriverException
 	 */
-	
+
 	public void preencher(String numero, String n_processo)
 			throws NoSuchElementException, TimeoutException, WebDriverException {
 
@@ -50,7 +49,8 @@ public class Preenche {
 		capo_n_processo.clear();
 		capo_n_processo.sendKeys(n_processo);
 
-		driver.findElement(By.xpath(".//*[@id='j_idt84']")).click();
+		driver.findElement(By.xpath("/html/body/div[4]/div/div/div/form/fieldset/div/table/tbody/tr[5]/td[1]/button"))
+				.click();
 
 	}
 
