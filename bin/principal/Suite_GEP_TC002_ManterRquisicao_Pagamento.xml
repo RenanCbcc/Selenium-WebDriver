@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Smokink testing GEP TC002" verbose="1">
+	<test name="Smokink testing">
+		<classes>
+			<class
+				name="incluir_requisicao_pagamento.Teste_inclui_requisicao_pagamento" />
+			<class
+				name="visualizar_Informacoes_resumidas_requisicao_pagamento.Teste_Visualiza" />
+			<class
+				name="visualizar_detalhes_historicos_requisicao_pagamento.Teste_Visualiza_Detalhes" />
+			<class
+				name="alterar_requisicao_pagamento_dados_processo.Teste_Altera_Dados_Processo" />
+			<class
+				name="incluir_requisicao_pagamento_beneficiario.Teste_Inclui_Beneficiario" />
+			<class
+				name="alterar_requisicao_pagamento_beneficiario.Teste_Altera_Beneficiario" />
+			<class
+				name="incluir_requisicao_pagamento_terceiro_interessado.Teste_Inclui_Terceiros_Interessados" />				
+			<class
+				name="visualizar_requisicao_pagamento.Teste_Visualiza_Requisicao_Pagamento" />
+			<class
+				name="alterar_requisicao_pagamento_terceiro_interessado.Teste_Altera_Terceiros_Interessados" />
+
+			<class name="consultar_requisicao_pagamento.Teste_Consulta" />
+
+			<class name="excluir_requisicao_pagamento.Teste_Exclui" />
+		</classes>
+	</test>
+</suite>
+
+

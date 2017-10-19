@@ -1,85 +1,78 @@
 package alterar_requisicao_pagamento_beneficiario;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+
 import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.Assert;
+import org.testng.AssertJUnit;
+import org.testng.annotations.Test;
 
 import consultar_requisicao_pagamento.Teste_Consulta;
+import gep_pagamento_auxiliary.Report;
 
-public class Teste_Altera_Beneficiario {
-
-	private WebDriver driver;
-	private Pagina pagina;
-
-	@Before
-	public void inicilizar() {
-		System.setProperty("webdriver.gecko.driver", "C:\\geckodriver.exe");
-		DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-		capabilities.setCapability("marionette", false);
-		capabilities.setCapability("overlappingCheckDisabled", true);
-		this.driver = new FirefoxDriver(capabilities);
-		this.pagina = new Pagina(driver);
-	}
+/**
+ * This class implements one of the scenarios of test case described in
+ * 'Maintain Payment Requisition - Alter Beneficiary' Last test of the class:
+ * 04/10/2017
+ * 
+ * @author Renan Rosa, Estagiário, SETIN.
+ * @version 1.3
+ * @since 29-04-2017
+ */
+public class Teste_Altera_Beneficiario extends Report {
 
 	@Test
 	public void UC002_CT008_PD002_1() throws TimeoutException, InterruptedException {
-
+		logger = extent.createTest("UC002_CT008_PD002_1");
+		
 		if (!Teste_Consulta.consultar("00001/2018", "Não", this.driver)) {
-			fail("404 Process not found");
+			Assert.fail("404 Process not found");
 
 		}
-		this.pagina.novo("Beneficiario").preencher("Não", "", "1.000,00", "100,00", "100,00", "100,00", "Hello World!");
+		((Pagina) pagina).novo("Beneficiario").preencher("Não", "", "1.000,00", "100,00", "100,00", "100,00", "100,00",
+				"100,00", "Hello World!");
 
-		assertTrue(pagina.resultado("Operação Realizada com Sucesso"));
+		AssertJUnit.assertTrue(((Pagina) pagina).resultado("Operação Realizada com Sucesso"));
 
 	}
 
-	@Test
+	@Test(enabled = false)
 	public void UC002_CT008_PD002_2() throws TimeoutException, InterruptedException {
-
+		logger = extent.createTest("UC002_CT008_PD002_2");
 		if (!Teste_Consulta.consultar("00001/2018", "Não", this.driver)) {
-			fail("404 Process not found");
+			Assert.fail("404 Process not found");
 		}
 
-		this.pagina.novo("Beneficiario").preencher("", "", "1.000,00", "100,00", "100,00", "100,00", "Hello World!");
+		((Pagina) pagina).novo("Beneficiario").preencher("", "", "1.000,00", "100,00", "100,00", "100,00", "100,00", "100,00",
+				"Hello World!");
 
-		assertTrue(pagina.resultado("Campo Obrigatório: Foi deferido o benefício de prioridade processual?."));
+		AssertJUnit.assertTrue(((Pagina) pagina).resultado("Campo Obrigatório: Foi deferido o benefício de prioridade processual?."));
 
 	}
 
-	@Test
+	@Test(enabled = false)
 	public void UC002_CT008_PD002_3() throws TimeoutException, InterruptedException {
+		logger = extent.createTest("UC002_CT008_PD002_3");
 		if (!Teste_Consulta.consultar("00001/2018", "Não", this.driver)) {
-			fail("404 Process not found");
+			Assert.fail("404 Process not found");
 		}
 
-		this.pagina.novo("Beneficiario").preencher("Sim","","1.000,00", "100,00", "100,00", "100,00", "Hello World!");
+		((Pagina) pagina).novo("Beneficiario").preencher("Sim", "", "1.000,00", "100,00", "100,00", "100,00", "100,00",
+				"100,00", "Hello World!");
 
-		assertTrue(pagina.resultado("Campo Obrigatório: Tipo de Prioridade."));
+		AssertJUnit.assertTrue(((Pagina) pagina).resultado("Campo Obrigatório: Tipo de Prioridade."));
 	}
 
-	@Test
+	@Test(enabled = false)
 	public void UC002_CT008_PD002_4() throws TimeoutException, InterruptedException {
+		logger = extent.createTest("UC002_CT008_PD002_4");
 		if (!Teste_Consulta.consultar("00001/2018", "Não", this.driver)) {
-			fail("Processo nao pode ser alterado");
+			Assert.fail("Processo nao pode ser alterado");
 		}
-		this.pagina.novo("Beneficiario").preencher("Não", "", "0", "0", "0", "0", "Hello World!");
-		assertTrue(
-				pagina.resultado("Erro: O valor total do benefício deve ser maior que zero. Operação não permitida."));
+		((Pagina) pagina).novo("Beneficiario").preencher("Não", "", "0", "0", "0", "0", "0", "0", "Hello World!");
+		AssertJUnit.assertTrue(
+				((Pagina) pagina).resultado("Erro: O valor total do benefício deve ser maior que zero. Operação não permitida."));
 
 	}
 
-
-	@After
-	public void fechar() {
-		System.out.println("Fechando...");
-		driver.close();
-	}
 }

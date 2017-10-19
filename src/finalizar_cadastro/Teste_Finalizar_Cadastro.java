@@ -1,69 +1,58 @@
 package finalizar_cadastro;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.Assert;
+import org.testng.AssertJUnit;
+import org.testng.annotations.Test;
+
 import consultar_requisicao_pagamento.Teste_Consulta;
+import gep_pagamento_auxiliary.Report;
+import incluir_requisicao_pagamento.Pagina;
 
-public class Teste_Finalizar_Cadastro {
+/**
+ * This class implements one of the scenarios of test case described in
+ * 'Maintain Payment Requisition - Finalize Registry' Last test of the class:
+ * 28/08/2017
+ * 
+ * @author Renan Rosa, Estagiário, SETIN.
+ * @version 1.1
+ * @since 15-03-2017
+ */
+public class Teste_Finalizar_Cadastro extends Report {
 
-	private WebDriver driver;
-	private Pagina pagina;
-
-	@Before
-	public void inicialize() {
-		System.setProperty("webdriver.gecko.driver", "C:\\geckodriver.exe");
-		DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-		capabilities.setCapability("marionette", false);
-		this.driver = new FirefoxDriver(capabilities);
-
-		this.pagina = new Pagina(this.driver);
-	}
-
+	
 	@Test
 	public void UC002_CT011_PD011_1() throws ElementNotVisibleException, NoSuchElementException, TimeoutException,
 			WebDriverException, InterruptedException {
 
-		if (!Teste_Consulta.consultar("00001/2017", "Não", this.driver)) {
-			fail("Error 404: Precess not found");
+		if (!Teste_Consulta.consultar("00001/2018", "Não", this.driver)) {
+			Assert.fail("Error 404: Process not found");
 
 		}
 
-		this.pagina.novo();
+		((Pagina) pagina).novo();
 
-		assertTrue(pagina.resultado("Operação Realizada com Sucesso"));
+		AssertJUnit.assertTrue(((Pagina) pagina).resultado("Operação Realizada com Sucesso"));
 
 	}
 
-	@Test
+	@Test(enabled = false)
 	public void UC002_CT011_PD011_2() throws ElementNotVisibleException, NoSuchElementException, TimeoutException,
 			WebDriverException, InterruptedException {
 
-		if (!Teste_Consulta.consultar("00005/2017", "Sim", this.driver)) {
-			fail("Error 404: Precess not found");
+		if (!Teste_Consulta.consultar("00005/2018", "Sim", this.driver)) {
+			Assert.fail("Error 404: Process not found");
 
 		}
 
-		this.pagina.novo();
+		((Pagina) pagina).novo();
 
-		assertTrue(pagina.resultado(
+		AssertJUnit.assertTrue(((Pagina) pagina).resultado(
 				"Erro: Não foi possível finalizar o cadastro. É necessário cadastrar pelo menos um beneficiário."));
 
 	}
 
-	@After
-	public void fechar() {
-		System.out.println("Fechando...");
-		driver.close();
-	}
 }

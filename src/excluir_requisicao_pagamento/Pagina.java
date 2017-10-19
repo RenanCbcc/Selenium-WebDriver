@@ -24,22 +24,28 @@ public class Pagina {
 
 		// A partir daqui, teste o caso de teste TC01
 		logger.info("Exclir Requisição de Pagamento");
-		this.driver
-				.findElement(By.xpath("/html/body/div[4]/div/div/div/form/div/div[2]/table/tbody/tr/td[9]/button[5]"))
-				.click();
+		this.driver.findElement(By.xpath("//button[5]")).click();
 		wait.until(ExpectedConditions
-				.visibilityOfElementLocated(By.xpath("/html/body/div[4]/div/div/form[2]/div[1]/div[3]/button[1]")));
+				.visibilityOfElementLocated(By.xpath("//div[@id='dlgConfirmacaoExclusao']/div[3]/button")));
 
-		this.driver.findElement(By.xpath("/html/body/div[4]/div/div/form[2]/div[1]/div[3]/button[1]")).click();
+		this.driver.findElement(By.xpath("//div[@id='dlgConfirmacaoExclusao']/div[3]/button")).click();
 
 	}
 
+	/**
+	 * Method used to verify if a specific message is returned to confirm a
+	 * success operation.
+	 * 
+	 * @param resultado
+	 * @return boolean
+	 * @throws TimeoutException
+	 */
 	public boolean resultado(String resultado) throws TimeoutException {
 
-		// espera por tabela de requisicoes.
+		// Wait for the payment requisitions table
 		wait.until(ExpectedConditions.textToBePresentInElementLocated(By.className("ui-growl-item"), resultado));
 
-		// verifico se este elemento contém a messagem dejejada.
+		// It verify if the current WebElemet contains the desirable message.
 		logger.info("verifica se existem resultados na listagem: " + driver.getPageSource().contains(resultado));
 
 		return driver.getPageSource().contains(resultado);

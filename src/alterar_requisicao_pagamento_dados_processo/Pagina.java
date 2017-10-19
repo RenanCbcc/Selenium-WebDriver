@@ -1,7 +1,6 @@
 package alterar_requisicao_pagamento_dados_processo;
 
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
@@ -18,7 +17,6 @@ import org.openqa.selenium.support.ui.Wait;
 public class Pagina {
 	private WebDriver driver;
 	private Wait<WebDriver> fluentwait;
-	private Logger logger = Logger.getLogger(Pagina.class.getCanonicalName());
 
 	public Pagina(WebDriver driver) {
 		this.driver = driver;
@@ -30,14 +28,13 @@ public class Pagina {
 
 	public Preenche novo() throws NoSuchElementException, ElementNotVisibleException, TimeoutException {
 
-		// A partir daqui, teste o caso de teste TC01
-		logger.info("Alterear Requisição de Pagamento");
+		Teste_Altera_Dados_Processo.getLogger().info("Alterear Requisição de Pagamento");
 
 		WebElement fieldP = fluentwait.until(ExpectedConditions.visibilityOfElementLocated(
-				By.xpath("/html/body/div[4]/div/div/div/form/div/div[2]/table/tbody/tr/td[9]/button[4]")));
-		
+				By.xpath("//tbody[@id='tblRequisicoes_data']/tr/td[9]/button[4]")));
+
 		fluentwait.until(ExpectedConditions.elementToBeClickable(fieldP)).click();
-		
+
 		fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='tabGeral']/ul/li[1]/a")));
 		return new Preenche(this.driver);
 
@@ -57,7 +54,8 @@ public class Pagina {
 		fluentwait.until(ExpectedConditions.textToBePresentInElementLocated(By.className("ui-growl-item"), resultado));
 
 		// verifico se este elemento contém a messagem dejejada.
-		logger.info("verifica se existem resultados na listagem: " + driver.getPageSource().contains(resultado));
+		Teste_Altera_Dados_Processo.getLogger()
+				.info("verifica se existem resultados na listagem: " + driver.getPageSource().contains(resultado));
 
 		return driver.getPageSource().contains(resultado);
 

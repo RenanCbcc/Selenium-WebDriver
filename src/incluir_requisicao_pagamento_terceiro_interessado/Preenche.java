@@ -51,24 +51,21 @@ public class Preenche {
 			String Tipo_OAB, String valorILiquido, String valor_IR, String Observacao)
 			throws NoSuchElementException, TimeoutException, WebDriverException, InterruptedException {
 
-		logger.info("Novo Terceiro Interessado".toUpperCase());
+		logger.info("Novo Terceiro Interessado");
 		fluentwait
-				.until(ExpectedConditions.elementToBeClickable(By
-						.xpath("/html/body/div[4]/div/div/form[2]/div/div/div[3]/fieldset[2]/div/table/tbody/tr/td/button")))
+				.until(ExpectedConditions.elementToBeClickable(By.xpath("//fieldset[2]/div/table/tbody/tr/td/button")))
 				.click();
 
-		logger.info("Preenchendo Tipo Honorario".toUpperCase());
+		logger.info("Preenchendo Tipo Honorario");
 		fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='cmbTpTerceiro']"))).click();
 		Helper.selectFromDropdown(Tipo_honorario, ".//*[@id='cmbTpTerceiro_panel']/div/ul/li");
 
-		logger.info("Preenchendo numero do documento".toUpperCase());
+		logger.info("Preenchendo numero do documento");
 		fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='inCpfTerceiro']"))).clear();
 		driver.findElement(By.xpath(".//*[@id='inCpfTerceiro']")).sendKeys(Documento_Fiscal);
 
-		logger.info("Buscando Documento Fiscal do Terceiro Interessado".toUpperCase());
-		driver.findElement(By
-				.xpath("/html/body/div[4]/div/div/form[6]/div/div[2]/table[1]/tbody/tr/td/fieldset/div/table/tbody/tr[2]/td[2]/button"))
-				.click();
+		logger.info("Buscando Documento Fiscal do Terceiro Interessado");
+		driver.findElement(By.xpath("//tr[2]/td[2]/button")).click();
 
 		logger.info("Preenchendo nome do Terceiro Interessado");
 		if (fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='inNmTerceiro']")))
@@ -77,16 +74,16 @@ public class Preenche {
 			driver.findElement(By.xpath(".//*[@id='inNmTerceiro']")).sendKeys(Nome);
 		}
 
-		if (Helper.isClickable(".//*[@id='inUfOABTerceiro']".toUpperCase())) {
+		if (Helper.isClickable(".//*[@id='inUfOABTerceiro']")) {
 
 			logger.info("Selecionando Unidade Federativa da OAB");
 			Helper.selectFromDropdown(UF_OAB, ".//*[@id='inUfOABTerceiro_panel']/div/ul/li");
 		} else {
-			logger.info("Unidade Federativa da OAB INATIVA".toUpperCase());
+			logger.info("Unidade Federativa da OAB INATIVA");
 			System.out.println("Unidade Federativa da OAB INATIVA");
 		}
 
-		logger.info("Preenchendo numero da OAB".toUpperCase());
+		logger.info("Preenchendo numero da OAB");
 		if (fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='inNrOABTerceiro']")))
 				.isEnabled()) {
 			driver.findElement(By.xpath(".//*[@id='inNrOABTerceiro']")).clear();
@@ -100,17 +97,17 @@ public class Preenche {
 			logger.info("Tipo da OAB INATIVA");
 		}
 
-		logger.info("Preenchendo Valor Líquido*".toUpperCase());
+		logger.info("Preenchendo Valor Líquido*");
 		fluentwait
 				.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='inVlLiquidoTerceiro_input']")))
 				.clear();
 		driver.findElement(By.xpath(".//*[@id='inVlLiquidoTerceiro_input']")).sendKeys(valorILiquido);
 
-		logger.info("Preenchendo Valor IR*".toUpperCase());
+		logger.info("Preenchendo Valor IR*");
 		driver.findElement(By.xpath(".//*[@id='inVlIrTerceiro_input']")).clear();
 		driver.findElement(By.xpath(".//*[@id='inVlIrTerceiro_input']")).sendKeys(valor_IR);
 
-		logger.info("Preenchendo Observacoes*".toUpperCase());
+		logger.info("Preenchendo Observacoes*");
 		driver.findElement(By
 				.xpath("/html/body/div[4]/div/div/form[6]/div/div[2]/table[1]/tbody/tr[3]/td/fieldset/div/table/tbody/tr/td/textarea"))
 				.clear();
@@ -120,11 +117,9 @@ public class Preenche {
 
 		Helper.dragAndDrop(".//*[@id='dlgCadastroTerceiro']/div[1]", "html/body/div[3]/div/div[1]");
 
-		System.out.println("Salvar");
-		fluentwait
-				.until(ExpectedConditions.elementToBeClickable(
-						By.xpath("/html/body/div[4]/div/div/form[6]/div/div[2]/table[2]/tbody/tr/td[1]/button")))
-				.click();
+		logger.info("Salvando");
+		fluentwait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("//table[@id='pnlSalvarTerceiro']/tbody/tr/td/button"))).click();
 
 	}
 
@@ -148,79 +143,71 @@ public class Preenche {
 			String valorILiquido, String valor_IR, String Observacao)
 			throws NoSuchElementException, TimeoutException, WebDriverException, InterruptedException {
 
-		logger.info("Novo Terceiro Interessado".toUpperCase());
-		fluentwait
-				.until(ExpectedConditions.elementToBeClickable(By
-						.xpath("/html/body/div[4]/div/div/form[2]/div/div/div[3]/fieldset[2]/div/table/tbody/tr/td/button")))
+		logger.info("Novo Terceiro Interessado");
+		fluentwait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("//fieldset[@id='tabGeral:pnlTerceiros']/div/table/tbody/tr/td/button")))
 				.click();
-		logger.info("Preenchendo Tipo Honorario".toUpperCase());
+		logger.info("Preenchendo Tipo Honorario");
 		fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='cmbTpTerceiro']"))).click();
 		Helper.selectFromDropdown(Tipo_honorario, ".//*[@id='cmbTpTerceiro_panel']/div/ul/li");
 
 		if (Tipo_honorario.equals("Honorários Periciais") || Tipo_honorario.equals("Outros")) {
 			logger.info("Preenchendo Tipo Pessoa");
-			System.out.println("Preenchendo Tipo Pessoa- DropDown".toUpperCase());
 			Helper.isClickable(".//*[@id='cmbTpPessoaTerceiro']");
 			Helper.selectFromDropdown(Tipo_Pessoa, ".//*[@id='cmbTpPessoaTerceiro_panel']/div/ul/li");
 			if (Tipo_Pessoa.length() < 15) {
-				logger.info("Preenchendo CPF do Terceiro Interessado".toUpperCase());
-				fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='inCpfTerceiro']")))
-						.clear();
+				logger.info("Preenchendo CPF do Terceiro Interessado");
+				fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='inCpfTerceiro']")));
 				driver.findElement(By.xpath(".//*[@id='inCpfTerceiro']")).sendKeys(Documento_Fiscal);
 
 			} else {
 
-				logger.info("Preenchendo CNPJ do Terceiro Interessado".toUpperCase());
-				fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='inCnpjTerceiro']")))
-						.clear();
+				logger.info("Preenchendo CNPJ do Terceiro Interessado");
+				fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='inCnpjTerceiro']")));
 				driver.findElement(By.xpath(".//*[@id='inCnpjTerceiro']")).sendKeys(Documento_Fiscal);
 
 			}
 		} else {
 
-			logger.info("Preenchendo CPF do Terceiro Interessado".toUpperCase());
-			fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='inCpfTerceiro']"))).clear();
+			logger.info("Preenchendo CPF do Terceiro Interessado");
+			fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='inCpfTerceiro']")));
 			driver.findElement(By.xpath(".//*[@id='inCpfTerceiro']")).sendKeys(Documento_Fiscal);
 
 		}
 
-		logger.info("Buscando Documento Fiscal do Terceiro Interessado".toUpperCase());
-		driver.findElement(By
-				.xpath("/html/body/div[4]/div/div/form[6]/div/div[2]/table[1]/tbody/tr[1]/td/fieldset/div/table/tbody/tr[2]/td[4]/button"))
-				.click();
+		logger.info("Buscando Documento Fiscal do Terceiro Interessado");
+		driver.findElement(By.xpath("//td[4]/button")).click();
 
-		logger.info("Preenchendo nome do Terceiro Interessado".toUpperCase());
+		logger.info("Preenchendo nome do Terceiro Interessado");
 		if (fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='inNmTerceiro']")))
 				.isEnabled()) {
 			driver.findElement(By.xpath(".//*[@id='inNmTerceiro']")).clear();
 			driver.findElement(By.xpath(".//*[@id='inNmTerceiro']")).sendKeys(Nome);
 		}
 
-		logger.info("Preenchendo Valor Líquido*".toUpperCase());
+		logger.info("Preenchendo Valor Líquido*");
 		fluentwait
 				.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='inVlLiquidoTerceiro_input']")))
 				.clear();
 		driver.findElement(By.xpath(".//*[@id='inVlLiquidoTerceiro_input']")).sendKeys(valorILiquido);
 
-		logger.info("Preenchendo Valor IR*".toUpperCase());
+		logger.info("Preenchendo Valor IR*");
 		driver.findElement(By.xpath(".//*[@id='inVlIrTerceiro_input']")).clear();
 		driver.findElement(By.xpath(".//*[@id='inVlIrTerceiro_input']")).sendKeys(valor_IR);
 
-		logger.info("Preenchendo Observacoes*".toUpperCase());
-		driver.findElement(By
-				.xpath("/html/body/div[4]/div/div/form[6]/div/div[2]/table[1]/tbody/tr[3]/td/fieldset/div/table/tbody/tr/td/textarea"))
-				.clear();
-		driver.findElement(By
-				.xpath("/html/body/div[4]/div/div/form[6]/div/div[2]/table[1]/tbody/tr[3]/td/fieldset/div/table/tbody/tr/td/textarea"))
+		logger.info("Preenchendo Observacoes*");
+		driver.findElement(
+				By.xpath("//form[6]/div/div[2]/table/tbody/tr[3]/td/fieldset/div/table/tbody/tr/td/textarea")).clear();
+		driver.findElement(
+				By.xpath("//form[6]/div/div[2]/table/tbody/tr[3]/td/fieldset/div/table/tbody/tr/td/textarea"))
 				.sendKeys(Observacao);
 
-		Helper.dragAndDrop(".//*[@id='dlgCadastroTerceiro']/div[1]", "html/body/div[3]/div/div[1]");
+		// Drag a window to make the button visible
+				Helper.dragAndDrop("//div[@id='dlgCadastroTerceiro']/div", "//div[3]/fieldset/legend");
 
-		System.out.println("Salvar");
-		fluentwait
-				.until(ExpectedConditions.elementToBeClickable(
-						By.xpath("/html/body/div[4]/div/div/form[6]/div/div[2]/table[2]/tbody/tr/td[1]/button")))
-				.click();
+		logger.info("Salvando");
+		fluentwait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("//table[@id='pnlSalvarTerceiro']/tbody/tr/td/button"))).click();
 
 	}
 

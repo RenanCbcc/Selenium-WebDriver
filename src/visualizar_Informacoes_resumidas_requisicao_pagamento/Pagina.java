@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
@@ -22,7 +21,7 @@ import gep_pagamento_auxiliary.Helper;
 public class Pagina {
 	private WebDriver driver;
 	Wait<WebDriver> fluentwait;
-	private final static Logger logger = Logger.getLogger(Pagina.class.getCanonicalName());
+	
 
 	public Pagina(WebDriver driver) {
 		this.driver = driver;
@@ -34,8 +33,7 @@ public class Pagina {
 	public Preenche novo() throws NoSuchElementException, ElementNotVisibleException, TimeoutException {
 
 		Helper.pageSearcher(this.driver);
-		logger.info("Aguardando....");
-
+		Teste_Visualiza.getLogger().info("Aguardando....");
 		fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tblRequisicoes']/div[1]")));
 
 		return new Preenche(driver);
@@ -45,7 +43,7 @@ public class Pagina {
 
 		List<String> tabela = new ArrayList<String>();
 			Thread.sleep(1000);
-		logger.info("verifica se existem resultados na listagem".toUpperCase());
+		Teste_Visualiza.getLogger().info("verifica se existem resultados na listagem");
 		tabela.addAll(Helper.getCellsfromTableWithoutButton(".//*[@id='tblRequisicoes']/div[2]/table"));
 		
 		System.out.println(Arrays.toString(argumentos.toArray()));

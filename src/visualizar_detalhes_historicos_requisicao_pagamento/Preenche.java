@@ -44,14 +44,13 @@ public class Preenche {
 		capo_n_processo.clear();
 		capo_n_processo.sendKeys(n_processo);
 
-		driver.findElement(By.xpath("/html/body/div[4]/div/div/div/form/fieldset/div/table/tbody/tr[5]/td[1]/button"))
+		driver.findElement(By.xpath("//td/button"))
 				.click();
 
-		logger.info("Mais Informações da Requisição de Pagamento".toUpperCase());
-
+		logger.info("Mais Informações da Requisição de Pagamento");
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("/html/body/div[4]/div/div/div/form/div/div[2]/table/tbody/tr/td[9]/button[2]")).click();
-		logger.info("Visualizar Detalhes e Historicos da Requisicao Pagamento");
+		driver.findElement(By.xpath("//button[3]")).click();
+	
 
 	}
 

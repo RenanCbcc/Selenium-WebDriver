@@ -3,7 +3,7 @@ package gep_pagamento_auxiliary;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.NoSuchElementException;
@@ -18,23 +18,26 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 
+import com.aventstack.extentreports.ExtentTest;
+
 /**
  * This class consists exclusively of static methods and was made to modularize
  * common behaviors of the test case such as open the main page, select a
  * desired option from a 'DropDown', verify whether a WebElement is enabled and
  * so forth.
  * 
- * @author Renan Thiago, Estagiário, SETIN.
+ * @author Renan Rosa, Estagiário, SETIN.
  *
  */
-public class Helper {
+public abstract class Helper {
 
 	private static Wait<WebDriver> fluentwait;
-	private static Logger logger = Logger.getLogger(Helper.class.getCanonicalName());
+	private static ExtentTest logger;
 	private static WebDriver driver;
 
 	public static void init(WebDriver drive) {
 		driver = drive;
+		logger = Report.getLogger();
 		fluentwait = new FluentWait<WebDriver>(driver).withTimeout(10, TimeUnit.SECONDS)
 				.pollingEvery(2, TimeUnit.SECONDS).ignoring(NoSuchElementException.class)
 				.ignoring(StaleElementReferenceException.class).ignoring(WebDriverException.class);
@@ -54,36 +57,39 @@ public class Helper {
 
 			throws NotFoundException, NoSuchElementException, ElementNotVisibleException, TimeoutException {
 		init(driver);
-		logger.info("Acessando à página: " + driver.getTitle());
-		driver.get("http://10.8.17.214:8080/gep_teste");
+		logger.info("Acessando a pagina: " + driver.getTitle());
+		driver.get("someLink");
 		driver.manage().window().maximize();
 		logger.info("Entrar por Login e Senha");
-		driver.findElement(By.xpath(".//*[@id='j_idt20:sFormaAcesso']/div[3]/span")).click();
+		fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div/div[3]/span"))).click();
 		WebElement username = fluentwait
 				.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='name']")));
-		username.clear();
-		username.sendKeys("669.271.102-91");
+		username.sendKeys("");
 		logger.info("Preenchendo campo Login");
-		driver.findElement(By.xpath(".//*[@id='j_idt31']")).click();
+		driver.findElement(By.xpath("//table/tbody/tr/td[3]/button")).click();
 		logger.info("Autenticando no sistema");
 
 		fluentwait.until(ExpectedConditions.textToBePresentInElementLocated(By.className("ui-growl-item"),
 				"Login realizado com sucesso!"));
+
 		logger.info("Login realizado com sucesso!");
 
-		driver.findElement(By.xpath(".//*[@id='cmbPermissoes_label']")).click();
-		driver.findElement(By.xpath("//*[@id='cmbPermissoes_panel']/div[2]/ul/li[1]")).click();
+		fluentwait.until(ExpectedConditions.invisibilityOfElementWithText(By.className("ui-growl-item"),
+				"Login realizado com sucesso!"));
+
+		Helper.isClickable(".//*[@id='cmbPermissoes']");
+		Helper.selectFromDropdown("Divisão de Precatórios | Diretor", "//*[@id='cmbPermissoes_panel']/div[2]/ul/li");
 		logger.info("Divisão de Precatórios | Diretor!");
 
 		Actions actions = new Actions(driver);
 		logger.info("Opcoes de Requisisao de pagamento!");
 		actions.moveToElement(fluentwait
-				.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='j_idt96']/ul/li[4]/a"))));
+				.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/form[1]/div/ul/li[4]/a"))));
 		logger.info("Gerenciar");
-		actions.moveToElement(driver.findElement(By.xpath(".//*[@id='j_idt96']/ul/li[4]/ul/li[2]/a")));
+		actions.moveToElement(driver.findElement(By.xpath("/html/body/form[1]/div/ul/li[4]/ul/li[2]/a")));
 		logger.info("Requisicoes de Pagamento");
-		actions.moveToElement(driver.findElement(By.xpath(".//*[@id='j_idt96']/ul/li[4]/ul/li[2]/ul/li[1]/a"))).click()
-				.build().perform();
+		actions.moveToElement(driver.findElement(By.xpath("/html/body/form[1]/div/ul/li[4]/ul/li[2]/ul/li[1]/a")))
+				.click().build().perform();
 	}
 
 	public static boolean attemptingToClick(String xpath) throws InterruptedException {
@@ -144,11 +150,8 @@ public class Helper {
 			}
 		}
 
-		System.out.println("Cannot find " + option + " in dropdown");
-		// TODO I would gravely doubt the sanity of any testing code which
-		// ignores exceptions thrown from tested code.
-		// throw new NoSuchElementException("Cannot find " + option + " in
-		// dropdown");
+		logger.warning("Cannot find " + option + " in dropdown");
+
 	}
 
 	/**
@@ -166,10 +169,36 @@ public class Helper {
 	}
 
 	/**
-	 * Primarily, it locates the Table and, soon after, returns all its cells.
+	 * Primarily, it locates the Table and, soon after, returns all its cells,
+	 * like that:
+	 * <table role="grid">
+	 * <thead id="tblRpObservacoes_head">
+	 * <tr role="row">
+	 * <th style="width: 90px;" scope="col" aria-label="Data" role=
+	 * "columnheader" class="ui-state-default" id=
+	 * "tblRpObservacoes:j_idt137"><span class=
+	 * "ui-column-title">Data</span></th>
+	 * <th style="width: 160px;" scope="col" aria-label="Responsável" role=
+	 * "columnheader" class="ui-state-default" id=
+	 * "tblRpObservacoes:j_idt139"><span class=
+	 * "ui-column-title">Responsável</span></th>
+	 * <th scope="col" aria-label="Observação" role="columnheader" class=
+	 * "ui-state-default" id="tblRpObservacoes:j_idt141"><span class=
+	 * "ui-column-title">Observação</span></th>
+	 * </tr>
+	 * </thead> <tbody class="ui-datatable-data ui-widget-content" id=
+	 * "tblRpObservacoes_data">
+	 * <tr role="row" class="ui-widget-content ui-datatable-even" data-ri="0">
+	 * <td style="width: 90px;" role="gridcell">18/08/2017</td>
+	 * <td style="width: 160px;" role="gridcell">Solimar Silva</td>
+	 * <td role="gridcell">Ab alio expectes, quod alteri feceris</td>
+	 * </tr>
+	 * </tbody>
+	 * </table>
 	 * 
 	 * @param xpath
-	 * @return List<<code>String</code>>
+	 * @return List<["18/08/2017","Solimar Silva","Ab alio expectes, quod alteri
+	 *         feceris"]>
 	 */
 	public static List<String> getCellsfromTable(String xpath) {
 		List<String> aux = new ArrayList<String>();
@@ -303,10 +332,15 @@ public class Helper {
 	 * </tbody>
 	 * 
 	 * @param
-	 * @return List<["000.000.000-00","Documento Fiscal"]>
+	 * @return
+	 * 
+	 *         <pre>
+	 * List["000.000.000-00","Documento Fiscal"]
+	 *         </pre>
+	 * 
 	 * @throws InterruptedException
 	 */
-	public static List<String> getTextFromTable(String xpath) throws InterruptedException {
+	public static List<String> getTextAndValueFromTable(String xpath) throws InterruptedException {
 		List<String> aux = new ArrayList<String>();
 		Thread.sleep(1000);
 		List<WebElement> rows = driver.findElement(By.xpath(xpath)).findElements(By.tagName("tr"));
@@ -314,7 +348,8 @@ public class Helper {
 		for (int i = 0; i < rows.size(); i++) {
 
 			List<WebElement> Columns = rows.get(i).findElements(By.tagName("td"));
-			System.out.println("Numero de celulas na linha " + i + " : " + Columns.size());
+			// System.out.println("Numero de celulas na linha " + i + " : " +
+			// Columns.size());
 
 			// Loop will execute till the last cell of that specific row.
 			for (int j = 0; j < Columns.size(); j++) {
@@ -332,7 +367,7 @@ public class Helper {
 
 				}
 			}
-			System.out.println("--------------------------------------------------");
+			// System.out.println("--------------------------------------------------");
 		}
 		return aux;
 	}

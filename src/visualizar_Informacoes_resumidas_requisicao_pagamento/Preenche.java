@@ -1,22 +1,23 @@
 package visualizar_Informacoes_resumidas_requisicao_pagamento;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.TimeoutException;
-import java.util.logging.*;
 
-// Esta clase faz o preenchimento do formulario de buscas e os submete.
+import com.aventstack.extentreports.ExtentTest;
+
 public class Preenche {
 	private WebDriver driver;
-	private final static Logger logger = Logger.getLogger(Preenche.class.getCanonicalName());
+	private ExtentTest logger; 
 	private WebDriverWait wait;
 
 	public Preenche(WebDriver driver) {
+		logger = Teste_Visualiza.getLogger();
 		this.driver = driver;
 		this.wait = new WebDriverWait(driver, 10);
 	}
@@ -35,8 +36,8 @@ public class Preenche {
 	public void preencher(String numero, String n_processo)
 			throws NoSuchElementException, TimeoutException, WebDriverException {
 
+		
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("inNrReq")));
-
 		// 1ª linha
 		WebElement campo_numero = driver.findElement(By.id("inNrReq"));
 		WebElement capo_n_processo = driver.findElement(By.id("inNrProc"));
@@ -49,7 +50,7 @@ public class Preenche {
 		capo_n_processo.clear();
 		capo_n_processo.sendKeys(n_processo);
 
-		driver.findElement(By.xpath("/html/body/div[4]/div/div/div/form/fieldset/div/table/tbody/tr[5]/td[1]/button"))
+		driver.findElement(By.xpath("//table[@id='pnlConsulta']/tbody/tr[5]/td[1]/button"))
 				.click();
 
 	}

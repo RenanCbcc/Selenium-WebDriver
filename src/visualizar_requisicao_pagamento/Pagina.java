@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
@@ -17,12 +16,14 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 
+import com.aventstack.extentreports.ExtentTest;
+
 import gep_pagamento_auxiliary.Helper;
 
 public class Pagina {
 	private WebDriver driver;
 	private Wait<WebDriver> fluentwait;
-	private Logger logger = Logger.getLogger(Pagina.class.getCanonicalName());
+	private ExtentTest logger = Teste_Visualiza_Requisicao_Pagamento.getLogger();
 
 	public Pagina(WebDriver driver) {
 		this.driver = driver;
@@ -37,9 +38,8 @@ public class Pagina {
 		// espera por tabela de requisicoes.
 		fluentwait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(".//*[@id='tblRequisicoes']/div[1]")));
 
-		logger.info("Visualizar Registro de pagamento".toUpperCase());
-		driver.findElement(By.xpath("/html/body/div[4]/div/div/div/form/div/div[2]/table/tbody/tr/td[9]/button[1]"))
-				.click();
+		logger.info("Visualizar Registro de pagamento");
+		driver.findElement(By.xpath("//td[9]/button")).click();
 
 	}
 
@@ -47,104 +47,92 @@ public class Pagina {
 
 		List<String> tabela = new ArrayList<String>();
 
-		logger.info("Dados do Processo".toUpperCase());
+		logger.info("Dados do Processo");
 		{
 
 			tabela.add(fluentwait
-					.until(ExpectedConditions.visibilityOfElementLocated(By
-							.xpath("/html/body/div[4]/div/div/div/form/div/div/div[1]/table/tbody/tr[1]/td/fieldset/div/table/tbody/tr[1]/td[2]/input")))
+					.until(ExpectedConditions.visibilityOfElementLocated(
+							By.xpath("//table/tbody/tr[1]/td/fieldset/div/table/tbody/tr[1]/td[2]/input")))
 					.getAttribute("value"));
 
-			tabela.add(driver
-					.findElement(By
-							.xpath("/html/body/div[4]/div/div/div/form/div/div/div[1]/table/tbody/tr[1]/td/fieldset/div/table/tbody/tr[2]/td[2]/input"))
+			tabela.add(driver.findElement(By.xpath("//table/tbody/tr[1]/td/fieldset/div/table/tbody/tr[2]/td[2]/input"))
 					.getAttribute("value"));
 
 			if (driver
 					.findElement(By
-							.xpath("/html/body/div[4]/div/div/div/form/div/div/div[1]/table/tbody/tr[1]/td/fieldset/div/table/tbody/tr[3]/td[2]/table/tbody/tr/td[1]/div/div[1]/input"))
+							.xpath("//table/tbody/tr[1]/td/fieldset/div/table/tbody/tr[3]/td[2]/table/tbody/tr/td[1]/div/div[1]/input"))
 					.isSelected()) {
 				tabela.add(driver
 						.findElement(By
-								.xpath("/html/body/div[4]/div/div/div/form/div/div/div[1]/table/tbody/tr[1]/td/fieldset/div/table/tbody/tr[3]/td[2]/table/tbody/tr/td[1]/label"))
+								.xpath("//table/tbody/tr[1]/td/fieldset/div/table/tbody/tr[3]/td[2]/table/tbody/tr/td[1]/label"))
 						.getText());
 
 			} else {
 				tabela.add(driver
 						.findElement(By
-								.xpath("/html/body/div[4]/div/div/div/form/div/div/div[1]/table/tbody/tr[1]/td/fieldset/div/table/tbody/tr[3]/td[2]/table/tbody/tr/td[2]/label"))
+								.xpath("//table/tbody/tr[1]/td/fieldset/div/table/tbody/tr[3]/td[2]/table/tbody/tr/td[2]/label"))
 						.getText());
 			}
 
 			if (driver
 					.findElement(By
-							.xpath("/html/body/div[4]/div/div/div/form/div/div/div[1]/table/tbody/tr[1]/td/fieldset/div/table/tbody/tr[4]/td[2]/table/tbody/tr/td[1]/div/div[1]/input"))
+							.xpath("//table/tbody/tr[1]/td/fieldset/div/table/tbody/tr[4]/td[2]/table/tbody/tr/td[1]/div/div[1]/input"))
 					.isSelected()) {
 				tabela.add(driver
 						.findElement(By
-								.xpath("/html/body/div[4]/div/div/div/form/div/div/div[1]/table/tbody/tr[1]/td/fieldset/div/table/tbody/tr[4]/td[2]/table/tbody/tr/td[1]/label"))
+								.xpath("//table/tbody/tr[1]/td/fieldset/div/table/tbody/tr[4]/td[2]/table/tbody/tr/td[1]/label"))
 						.getText());
 
 			} else {
 				tabela.add(driver
 						.findElement(By
-								.xpath("/html/body/div[4]/div/div/div/form/div/div/div[1]/table/tbody/tr[1]/td/fieldset/div/table/tbody/tr[4]/td[2]/table/tbody/tr/td[2]/label"))
+								.xpath("//table/tbody/tr[1]/td/fieldset/div/table/tbody/tr[4]/td[2]/table/tbody/tr/td[2]/label"))
 						.getText());
 			}
 
-			tabela.add(driver
-					.findElement(By
-							.xpath("/html/body/div[4]/div/div/div/form/div/div/div[1]/table/tbody/tr[1]/td/fieldset/div/table/tbody/tr[5]/td[2]/div"))
+			tabela.add(driver.findElement(By.xpath("//table/tbody/tr[1]/td/fieldset/div/table/tbody/tr[5]/td[2]/div"))
 					.getText());
 
-			tabela.add(driver
-					.findElement(By
-							.xpath("/html/body/div[4]/div/div/div/form/div/div/div[1]/table/tbody/tr[1]/td/fieldset/div/table/tbody/tr[6]/td[2]/textarea"))
-					.getAttribute("value"));
+			tabela.add(
+					driver.findElement(By.xpath("//table/tbody/tr[1]/td/fieldset/div/table/tbody/tr[6]/td[2]/textarea"))
+							.getAttribute("value"));
 
 			System.out.println(Arrays.toString(tabela.toArray()));
 
 		}
 
-		logger.info("Datas de Referência".toUpperCase());
+		logger.info("Datas de Referência");
 		{
 
-			tabela.addAll(Helper.getTextFromTable(
-					"/html/body/div[4]/div/div/div/form/div/div/div[1]/table/tbody/tr[2]/td/fieldset/div/table[1]"));
+			tabela.addAll(Helper.getTextAndValueFromTable("//table/tbody/tr[2]/td/fieldset/div/table[1]"));
 
-			tabela.addAll(Helper.getTextFromTable(
-					"/html/body/div[4]/div/div/div/form/div/div/div[1]/table/tbody/tr[2]/td/fieldset/div/table[2]"));
+			tabela.addAll(Helper.getTextAndValueFromTable("//table/tbody/tr[2]/td/fieldset/div/table[2]"));
 
 		}
 
-		logger.info("Dados do Executado".toUpperCase());
+		logger.info("Dados do Executado");
 		{
 
-			tabela.addAll(Helper.getTextFromTable(
-					"/html/body/div[4]/div/div/div/form/div/div/div[1]/table/tbody/tr[3]/td/fieldset/div/table"));
+			tabela.addAll(Helper.getTextAndValueFromTable("//table/tbody/tr[3]/td/fieldset/div/table"));
 
 		}
 
-		logger.info("Dados do Procurador".toUpperCase());
+		logger.info("Dados do Procurador");
 		{
-			tabela.addAll(Helper.getTextFromTable(
-					"/html/body/div[4]/div/div/div/form/div/div/div[1]/table/tbody/tr[4]/td/fieldset/div/table"));
+			tabela.addAll(Helper.getTextAndValueFromTable("//table/tbody/tr[4]/td/fieldset/div/table"));
 		}
 
-		logger.info("Ente Devedor (Responsável pelo Pagamento)".toUpperCase());
+		logger.info("Ente Devedor (Responsável pelo Pagamento)");
 		{
 
-			tabela.addAll(Helper.getTextFromTable(
-					"/html/body/div[4]/div/div/div/form/div/div/div[1]/table/tbody/tr[5]/td/fieldset/div/table/tbody"));
+			tabela.addAll(Helper.getTextAndValueFromTable("//table/tbody/tr[5]/td/fieldset/div/table/tbody"));
 			System.out.println(Arrays.toString(tabela.toArray()));
 		}
 
-		logger.info("Beneficiários".toUpperCase());
+		logger.info("Beneficiários");
 		{
 
-			driver.findElement(By
-					.xpath("/html/body/div[4]/div/div/div/form/div/div/div[1]/table/tbody/tr[7]/td/table/tbody/tr/td[2]/button"))
-					.click();
+			driver.findElement(By.xpath("//table/tbody/tr[7]/td/table/tbody/tr/td[2]/button")).click();
 
 			fluentwait.until(ExpectedConditions.presenceOfElementLocated(
 					By.xpath("/html/body/div[4]/div/div/div/form/div/div/div[2]/fieldset[1]/legend")));
@@ -155,35 +143,50 @@ public class Pagina {
 					"/html/body/div[4]/div/div/div/form/div/div/div[2]/fieldset[2]/div/fieldset/div/table/tbody/tr"));
 		}
 
-		logger.info("Visualização do Beneficiário".toUpperCase());
+		logger.info("Visualização do Beneficiário");
 		{
 
-			driver.findElement(By
-					.xpath("/html/body/div[4]/div/div/div/form/div/div/div[2]/fieldset[2]/div/div/div/table/tbody/tr/td[5]/button[1]"))
-					.click();
+			driver.findElement(By.xpath("//table/tbody/tr/td[5]/button[1]")).click();
 
 			fluentwait.until(ExpectedConditions
 					.visibilityOfElementLocated(By.xpath("/html/body/div[4]/div/div/form[2]/div[3]/div[1]/span")));
 
-			tabela.addAll(Helper.getTextFromTable(
-					"/html/body/div[4]/div/div/form[2]/div[3]/div[2]/table[1]/tbody/tr[1]/td/fieldset/div/table[1]/tbody"));
+			tabela.add(driver
+					.findElement(By.xpath("//table[1]/tbody/tr[1]/td/fieldset/div/table[1]/tbody/tr[1]/td[2]/div"))
+					.getText());
+			tabela.add(driver
+					.findElement(By.xpath("//table[1]/tbody/tr[1]/td/fieldset/div/table[1]/tbody/tr[1]/td[4]/input"))
+					.getAttribute("value"));
+
+			tabela.add(driver
+					.findElement(By
+							.xpath("/html/body/div[4]/div/div/form[2]/div[3]/div[2]/table[1]/tbody/tr[1]/td/fieldset/div/table[1]/tbody/tr[2]/td[2]/input"))
+					.getAttribute("value"));
+
+			if (driver.findElement(By.xpath("//table[1]/tbody/tr[1]/td/fieldset/div/table[1]/tbody/tr[1]/td[2]/div"))
+					.getText().equals("Pessoa Física")) {
+				if (driver
+						.findElement(By
+								.xpath("/html/body/div[4]/div/div/form[2]/div[3]/div[2]/table[1]/tbody/tr[1]/td/fieldset/div/table[1]/tbody/tr[4]/td[2]/table/tbody/tr/td[1]/div/div[2]/span"))
+						.getAttribute("checked").equals("true")) {
+					tabela.add("Sim");
+				} else {
+					tabela.add("Não");
+				}
+			}
 
 			System.out.println(Arrays.toString(tabela.toArray()));
 		}
 
-		// TODO get CheckBox!!!!
-
-		logger.info("Valor (R$) e Observação".toUpperCase());
+		logger.info("Valor (R$) e Observação");
 		{
 
-			tabela.addAll(Helper.getTextFromTable(
+			tabela.addAll(Helper.getTextAndValueFromTable(
 					"/html/body/div[4]/div/div/form[2]/div[3]/div[2]/table[1]/tbody/tr[2]/td/fieldset/div/table/tbody"));
 
-			logger.info("Observação)".toUpperCase());
+			logger.info("Observação)");
 
-			tabela.add(driver
-					.findElement(By
-							.xpath("/html/body/div[4]/div/div/form[2]/div[3]/div[2]/table[1]/tbody/tr[3]/td/fieldset/div/table/tbody/tr/td/textarea"))
+			tabela.add(driver.findElement(By.xpath("//table[1]/tbody/tr[3]/td/fieldset/div/table/tbody/tr/td/textarea"))
 					.getText());
 		}
 
@@ -191,60 +194,58 @@ public class Pagina {
 				.click();
 
 		System.out.println(Arrays.toString(tabela.toArray()));
-		logger.info("Total Requisitado Beneficiários)".toUpperCase());
 
-		tabela.addAll(Helper.getTextFromTable(
-				"/html/body/div[4]/div/div/div/form/div/div/div[2]/fieldset[2]/div/fieldset/div/table/tbody"));
-		System.out.println(Arrays.toString(tabela.toArray()));
+		logger.info("Total Requisitado Beneficiários)");
+		{
+
+			tabela.addAll(Helper.getTextAndValueFromTable(
+					"/html/body/div[4]/div/div/div/form/div/div/div[2]/fieldset[2]/div/fieldset/div/table/tbody"));
+			System.out.println(Arrays.toString(tabela.toArray()));
+		}
 
 		// TODO For now, the is no lawyer!
 		/*
-		 * logger.info("Advogados".toUpperCase()); if
+		 * logger.info("Advogados"); if
 		 * (Helper.getCellsfromTableWithoutButton("").size() != 0) {
 		 * tabela.addAll(Helper.getCellsfromTableWithoutButton(
 		 * ".//*[@id='tabGeral:tblAdvogados']/div/table")); }
 		 * 
 		 */
-		logger.info("Terceiros Interessados)".toUpperCase());
+		logger.info("Terceiros Interessados)");
 		{
 
 			fluentwait
-					.until(ExpectedConditions.elementToBeClickable(
+					.until(ExpectedConditions.visibilityOfElementLocated(
 							By.xpath("/html/body/div[4]/div/div/div/form/div/div/div[2]/table/tbody/tr/td[2]/button")))
 					.click();
 
-			fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath(
-					"/html/body/div[4]/div/div/div/form/div/div/div[3]/fieldset[2]/div/div/div/table/tbody/tr/td[6]/button[1]")));
+			fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath("//table/tbody/tr/td[6]/button[1]")));
 
 			tabela.addAll(Helper.getCellsfromTableWithoutButton(".//*[@id='tabGeral:tblTerceiros']/div/table"));
 			System.out.println(Arrays.toString(tabela.toArray()));
 		}
 
-		logger.info("Visualização do Terceiro Interessado".toUpperCase());
+		logger.info("Visualização do Terceiro Interessado");
 		{
 
-			driver.findElement(By
-					.xpath("/html/body/div[4]/div/div/div/form/div/div/div[3]/fieldset[2]/div/div/div/table/tbody/tr/td[6]/button[1]"))
-					.click();
+			driver.findElement(By.xpath("//table/tbody/tr/td[6]/button[1]")).click();
 
 			fluentwait.until(
 					ExpectedConditions.presenceOfElementLocated(By.xpath(".//*[@id='dlgVisualizacaoTerceiro_title']")));
 
-			tabela.addAll(Helper.getTextFromTable(
-					"/html/body/div[4]/div/div/form[2]/div[4]/div[2]/table[1]/tbody/tr[1]/td/fieldset/div/table/tbody"));
+			tabela.addAll(Helper.getTextAndValueFromTable(
+					"/html/body/div[4]/div/div/form[2]/div[4]/div[2]/table[1]/tbody/tr[1]/td/fieldset"));
 
 			System.out.println(Arrays.toString(tabela.toArray()));
 		}
 
-		logger.info("Valor e Observação".toUpperCase());
+		logger.info("Valor e Observação");
 		{
 
-			tabela.addAll(Helper.getTextFromTable(
-					"/html/body/div[4]/div/div/form[2]/div[4]/div[2]/table[1]/tbody/tr[2]/td/fieldset/div/table/tbody"));
+			tabela.addAll(Helper.getTextAndValueFromTable(
+					"/html/body/div[4]/div/div/form[2]/div[4]/div[2]/table[1]/tbody/tr[2]/td/fieldset/div"));
 
-			tabela.add(driver
-					.findElement(By
-							.xpath("/html/body/div[4]/div/div/form[2]/div[4]/div[2]/table[1]/tbody/tr[3]/td/fieldset/div/table/tbody/tr/td/textarea"))
+			tabela.add(driver.findElement(By.xpath("//table[1]/tbody/tr[3]/td/fieldset/div/table/tbody/tr/td/textarea"))
 					.getAttribute("value"));
 
 			System.out.println(Arrays.toString(tabela.toArray()));
@@ -253,14 +254,13 @@ public class Pagina {
 					.click();
 		}
 
-		logger.info("Total Requisitado".toUpperCase());
+		logger.info("Total Requisitado");
 		{
-			tabela.addAll(Helper.getTextFromTable(
+			tabela.addAll(Helper.getTextAndValueFromTable(
 					"/html/body/div[4]/div/div/div/form/div/div/div[3]/fieldset[2]/div/fieldset/div/table"));
+			System.out.println("Tabela:     " + Arrays.toString(tabela.toArray()));
+			System.out.println("Argumentos: " + Arrays.toString(argumentos.toArray()));
 		}
-
-		System.out.println("Tabela:     " + Arrays.toString(tabela.toArray()));
-		System.out.println("Argumentos: " + Arrays.toString(argumentos.toArray()));
 
 		return tabela.equals(argumentos);
 

@@ -1,28 +1,27 @@
 package consultar_requisicao_pagamento;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotVisibleException;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
-import gep_pagamento_auxiliary.Helper;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.By;
-import org.openqa.selenium.ElementNotVisibleException;
-import org.openqa.selenium.TimeoutException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.*;
-import org.openqa.selenium.NoSuchElementException;
+import gep_pagamento_auxiliary.Helper;
+import gep_pagamento_auxiliary.Report;
 
 public class Pagina {
 	private WebDriver driver;
 	private Wait<WebDriver> fluentwait;
-	private Logger logger = Logger.getLogger(Pagina.class.getCanonicalName());
 
 	public Pagina(WebDriver driver) {
 		this.driver = driver;
@@ -34,7 +33,7 @@ public class Pagina {
 	public Preenche novo() throws NoSuchElementException, ElementNotVisibleException, TimeoutException {
 		Helper.pageSearcher(this.driver);
 
-		logger.info("Aguardando....");
+		Report.getLogger().info("Aguardando....");
 
 		fluentwait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='tblRequisicoes']/div[1]")));
 
@@ -42,25 +41,26 @@ public class Pagina {
 	}
 
 	/**
-	 * Method receives as argument a list of string and, soon after, compares it with the current information at the screen
+	 * Method receives as argument a list of string and, soon after, compares it
+	 * with the current information at the screen
+	 * 
 	 * @param argumentos
 	 * @return
 	 * @throws TimeoutException
 	 * @throws InterruptedException
 	 */
-	public boolean resultado(List<String> argumentos) throws TimeoutException, InterruptedException {
+	public boolean resultado(List<String> argumentos) throws TimeoutException {
 
-		logger.info("verifica se existem resultados na listagem");
+		Report.getLogger().info("verifica se existem resultados na listagem");
 		List<String> tabela = new ArrayList<String>();
-		Thread.sleep(2000);
+		fluentwait.until(ExpectedConditions.invisibilityOfElementWithText(By.xpath(".//*[@id='j_idt73:dialogStatus']"),
+				"Aguardando..."));
 
 		if (argumentos.size() > 1) {
 			tabela = Helper.getCellsfromTableWithoutButton(".//*[@id='tblRequisicoes']/div[2]/table");
 		} else {
 			tabela = Helper.getCellsfromTable(".//*[@id='tblRequisicoes']/div[2]/table");
 		}
-		Collections.sort(argumentos);
-		Collections.sort(tabela);
 
 		System.out.println(Arrays.toString(tabela.toArray()));
 		System.out.println(Arrays.toString(argumentos.toArray()));
@@ -69,37 +69,46 @@ public class Pagina {
 
 	}
 
+	/**
+	 * Copied method from 'Consult payment requirement'
+	 * 
+	 * @param numero
+	 * @param cadastro
+	 * @return
+	 * @throws TimeoutException
+	 * @throws InterruptedException
+	 */
 	public boolean resultado(String numero, String cadastro) throws TimeoutException, InterruptedException {
 
-		// List<String> argumentos = new
-		// ArrayList<String>(Arrays.asList(numero,processo, vara, requsicao,
-		// data, situacao, cadastro));
-		String[] args = { numero, cadastro };
-		String[] tabela = new String[args.length];
+		List<String> argumentos = new ArrayList<String>(Arrays.asList(numero, cadastro));
 
-		logger.info("Verifica se existem resultados na listagem");
+		List<String> tabela = new ArrayList<String>();
+
+		Report.getLogger().info("Verifica se existem resultados na listagem");
 
 		Thread.sleep(2000);
 
-		tabela[0] = driver.findElement(By.xpath(".//*[@id='tblRequisicoes_data']/tr/td[1]")).getText();
-		tabela[1] = driver.findElement(By.xpath(".//*[@id='tblRequisicoes_data']/tr/td[8]")).getText();
+		tabela.addAll(Helper.getCellsfromTableWithoutButton(".//*[@id='tblRequisicoes']/div[2]/table"));
 
-		Arrays.sort(args);
-		Arrays.sort(tabela);
+		System.out.println(tabela);
+		if (tabela.size() > 1) {
+			while (tabela.size() != 2) {
+				tabela.remove(1);
+			}
+		}
 
-		logger.info("Retornando Resultado");
-		return Arrays.equals(args, tabela);
+		Report.getLogger().info("Retornando Resultados");
+		return argumentos.equals(tabela);
 
-	} 
+	}
 
 	public boolean resultado(String resultado) throws TimeoutException {
 
-		
 		fluentwait.until(ExpectedConditions.textToBePresentInElementLocated(
 				By.xpath(".//*[@id='tblRequisicoes:j_idt89']"), "Requisições de Pagamento"));
 
-		
-		logger.info("verifica se existem resultados na listagem: " + driver.getPageSource().contains(resultado));
+		Report.getLogger()
+				.info("verifica se existem resultados na listagem: " + driver.getPageSource().contains(resultado));
 		System.out.println("verifica se existem resultados na listagem: " + driver.getPageSource().contains(resultado));
 		System.out.println("verifica se existem resultados na listagem: " + driver.getPageSource().contains(resultado));
 

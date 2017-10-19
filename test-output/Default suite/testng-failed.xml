@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
+  <test name="Default test(failed)">
+    <classes>
+      <class name="incluir_requisicao_pagamento.Teste_inclui_requisicao_pagamento">
+        <methods>
+          <include name="close"/>
+          <include name="UC002_CT002_PD002_1"/>
+          <include name="afterMethod"/>
+          <include name="afterSuite"/>
+          <include name="beforeSuite"/>
+          <include name="initialize"/>
+        </methods>
+      </class> <!-- incluir_requisicao_pagamento.Teste_inclui_requisicao_pagamento -->
+    </classes>
+  </test> <!-- Default test(failed) -->
+</suite> <!-- Failed suite [Default suite] -->

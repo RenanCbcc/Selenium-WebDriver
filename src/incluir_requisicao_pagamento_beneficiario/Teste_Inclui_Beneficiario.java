@@ -1,60 +1,73 @@
 package incluir_requisicao_pagamento_beneficiario;
 
-import static org.junit.Assert.assertTrue;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.AssertJUnit;
+import org.testng.annotations.Test;
+import gep_pagamento_auxiliary.Report;
 
-public class Teste_Inclui_Beneficiario {
-
-	private WebDriver driver;
-	private Pagina pagina;
-
-	@Before
-	public void inicilizar() {
-		System.setProperty("webdriver.gecko.driver", "C:\\geckodriver.exe");
-		DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-		capabilities.setCapability("marionette", false);
-		capabilities.setCapability("overlappingCheckDisabled", true);
-		this.driver = new FirefoxDriver(capabilities);
-		this.pagina = new Pagina(this.driver);
-
-	}
-
-	@Ignore
-	public void UC002_CT007_PD002_1() throws NoSuchElementException, ElementNotVisibleException, TimeoutException,
-			WebDriverException, InterruptedException {
-
-		this.pagina.novo("00001/2018", "0000006-55.2008.5.08.0009").preencher("Pessoa Física", "600.380.726-10",
-				"Fyodor Osvald Efisio", "1950", false, "", "1.000,00", "100,00", "100,00", "100,00",
-				"Per aspera ad astra");
-
-		assertTrue(pagina.resultado("Operação Realizada com Sucesso"));
-
-		this.pagina.novo().preencher("357.579.517-70", "Lazare Ernesto Fleur", "MG", "000000", "Advogado");
-
-		assertTrue(pagina.resultado("Operação Realizada com Sucesso"));
-	}
+/**
+ * This class implements one of the scenarios of test case described in
+ * 'Maintain Payment Requisition - Include Beneficiary' Last test of the class:
+ * 04/10/2017
+ * 
+ * @author Renan Rosa, Estagiário, SETIN.
+ * @version 1.3
+ * @since 15-04-2017
+ */
+public class Teste_Inclui_Beneficiario extends Report {
 
 	/**
 	 * @see {@link alterar_requisicao_pagamento_dados_processo.Teste_Altera_Dados_Processo#UC002_CT003_PD003_1()}
 	 */
 	@Test
+	public void UC002_CT007_PD002_1() throws NoSuchElementException, ElementNotVisibleException, TimeoutException,
+			WebDriverException, InterruptedException {
+		logger = extent.createTest("UC002_CT007_PD002_1");
+		Preenche preenche = ((Pagina) pagina).novo("00001/2018", "0000001-34.1983.5.08.0001");
+
+		preenche.preencher("Pessoa Física", "600.380.726-10", "Fyodor Osvald Efisio", "07/03/1900", false, "",
+				"1.000,00", "100,00", "100,00", "100,00", "42.165,00", "42.165,00", "Per aspera ad astra");
+
+		AssertJUnit.assertTrue(((Pagina) pagina).resultado("Operação Realizada com Sucesso"));
+
+		preenche.preencher("357.579.517-70", "Lazare Ernesto Fleur", "MG", "000000", "Advogado");
+
+		AssertJUnit.assertTrue(((Pagina) pagina).resultado("Operação Realizada com Sucesso"));
+
+		preenche.preencher("Pessoa Física", "113.255.348-20", "Domingos Áine Feliciano", "07/03/1900", true,
+				"Doença Grave", "42.165,00", "42.165,00", "42.165,00", "42.165,00", "42.165,00", "42.165,00",
+				"Per aspera ad astra");
+
+		AssertJUnit.assertTrue(((Pagina) pagina).resultado("Operação Realizada com Sucesso"));
+
+		/*
+		 * // Verifica se, após as passos acima, o beneficiário é mostrado na
+		 * lista // interna. assertTrue(Teste_Lista.listar( Arrays.
+		 * asList("AGENCIA BRASILEIRA DE INTELIGENCIA-ABIN/GSI/PR - 01.175.497/0001-41"
+		 * , "UNIVERSIDADE FEDERAL DO PARA - 34.621.748/0001-23", "true",
+		 * "true", "false"), Arrays.asList(
+		 * 
+		 * "1", "11/01/2016", "0000273-62.2015.5.08.0209", "00004/2016",
+		 * "21/03/2016", "2017", "18.000,00", "16/12/2015",
+		 * "JOSE CARLOS ZINGRA - 016.857.028-99 18.000,00 0,00 0,00 0,00 18.000,00 Doença Grave"
+		 * ), driver));
+		 */
+	}
+
+	/**
+	 * @see {@link alterar_requisicao_pagamento_dados_processo.Teste_Altera_Dados_Processo#UC002_CT003_PD003_1()}
+	 */
+	@Test(enabled = false)
 	public void UC002_CT007_PD002_2() throws NoSuchElementException, ElementNotVisibleException, TimeoutException,
 			WebDriverException, InterruptedException {
+		logger = extent.createTest("UC002_CT007_PD002_2");
+		((Pagina) pagina).novo("00001/2018", "0000006-55.2008.5.08.0009").preencher("Pessoa Física", "557.353.606-04");
 
-		this.pagina.novo("00001/2018", "0000006-55.2008.5.08.0009").preencher("Pessoa Física", "557.353.606-04");
-
-		assertTrue(pagina
+		AssertJUnit.assertTrue(((Pagina) pagina)
 				.resultado("Erro: Beneficiário informado já está cadastrado como Procurador. Operação não permitida."));
 
 	}
@@ -62,25 +75,31 @@ public class Teste_Inclui_Beneficiario {
 	/**
 	 * @see {@link alterar_requisicao_pagamento_dados_processo.Teste_Altera_Dados_Processo#UC002_CT003_PD003_1()}
 	 */
-	@Test
+	@Test(enabled = false)
 	public void UC002_CT007_PD002_3() throws NoSuchElementException, ElementNotVisibleException, TimeoutException,
 			WebDriverException, InterruptedException {
+		logger = extent.createTest("UC002_CT007_PD002_3");
+		((Pagina) pagina).novo("00001/2018", "0000006-55.2008.5.08.0009").preencher("Pessoa Jurídica", "06.553.481/0001-49");
 
-		this.pagina.novo("00001/2018", "0000006-55.2008.5.08.0009").preencher("Pessoa Jurídica", "06.553.481/0001-49");
-
-		assertTrue(pagina
+		AssertJUnit.assertTrue(((Pagina) pagina)
 				.resultado("Erro: Beneficiário informado já está cadastrado como Executado. Operação não permitida."));
 
 	}
 
 	/**
+	 * @throws InterruptedException
+	 * @throws WebDriverException
+	 * @throws TimeoutException
+	 * @throws NoSuchElementException
+	 * @throws ElementNotVisibleException
 	 * @see {@link alterar_requisicao_pagamento_dados_processo.Teste_Altera_Dados_Processo#UC002_CT003_PD003_1()}
 	 */
-	@Test
-	public void UC002_CT007_PD002_4() {
-
-		this.pagina.novo("00001/2018", "0000006-55.2008.5.08.0009").preencher("557.353.606-04");
-		assertTrue(pagina
+	@Test(enabled = false)
+	public void UC002_CT007_PD002_4() throws ElementNotVisibleException, NoSuchElementException, TimeoutException,
+			WebDriverException, InterruptedException {
+		logger = extent.createTest("UC002_CT007_PD002_4");
+		((Pagina) pagina).novo("00001/2018", "0000006-55.2008.5.08.0009").preencher("557.353.606-04");
+		AssertJUnit.assertTrue(((Pagina) pagina)
 				.resultado("Erro: Advogado informado já está cadastrado como Procurador. Operação não permitida."));
 
 	}
@@ -88,24 +107,32 @@ public class Teste_Inclui_Beneficiario {
 	/**
 	 * @see {@link incluir_requisicao_pagamento_beneficiario.Teste_Inclui_Beneficiario#UC002_CT007_PD002_1()}
 	 */
-	@Test
+	@Test(enabled = false)
 	public void UC002_CT007_PD002_5() throws NoSuchElementException, ElementNotVisibleException, TimeoutException,
 			WebDriverException, InterruptedException {
+		logger = extent.createTest("UC002_CT007_PD002_5");
+		((Pagina) pagina).novo("00002/2018", "0000008-25.2008.5.08.0009").preencher("Pessoa Física", "357.579.517-70");
 
-		this.pagina.novo("00002/2018", "0000008-25.2008.5.08.0009").preencher("Pessoa Física", "357.579.517-70");
-
-		assertTrue(pagina.resultado("Erro: Registro duplicado. Já existe um benefício cadastrado para este CPF."));
+		AssertJUnit.assertTrue(
+				((Pagina) pagina).resultado("Erro: Registro duplicado. Já existe um benefício cadastrado para este CPF."));
 
 	}
 
 	/**
+	 * @throws InterruptedException
+	 * @throws WebDriverException
+	 * @throws TimeoutException
+	 * @throws NoSuchElementException
+	 * @throws ElementNotVisibleException
 	 * @see {@link incluir_requisicao_pagamento_beneficiario.Teste_Inclui_Beneficiario#UC002_CT007_PD002_1()}
 	 */
-	@Test
-	public void UC002_CT007_PD002_6() {
-
-		this.pagina.novo("00001/2018", "0000006-55.2008.5.08.0009").preencher("357.579.517-70");
-		assertTrue(pagina.resultado("Erro: Registro duplicado. Já existe um advogado cadastrado com este CPF."));
+	@Test(enabled = false)
+	public void UC002_CT007_PD002_6() throws ElementNotVisibleException, NoSuchElementException, TimeoutException,
+			WebDriverException, InterruptedException {
+		logger = extent.createTest("UC002_CT007_PD002_6");
+		((Pagina) pagina).novo("00001/2018", "0000006-55.2008.5.08.0009").preencher("357.579.517-70");
+		AssertJUnit.assertTrue(
+				((Pagina) pagina).resultado("Erro: Registro duplicado. Já existe um advogado cadastrado com este CPF."));
 
 	}
 
@@ -127,15 +154,22 @@ public class Teste_Inclui_Beneficiario {
 	 * @param IR
 	 * @param Observacao
 	 * @return <code>boolean</code>
+	 * @throws InterruptedException
+	 * @throws WebDriverException
+	 * @throws TimeoutException
+	 * @throws NoSuchElementException
+	 * @throws ElementNotVisibleException
 	 */
-	@Ignore
+	@Test(enabled = false)
 	public static boolean incluir_Beneficiario(WebDriver driver, String Tipo_Pessoa, String Documento_Fiscal,
 			String Nome, String Data_Nascimento, Boolean Prioridade, String Tipo_Prioridade, String Exeq_Liquido,
-			String INSS_Beneficiario, String INSS_Executado, String IR, String Observacao) {
+			String INSS_Beneficiario, String INSS_Executado, String IR, String FGTS, String Custas_Judiciais,
+			String Observacao) throws ElementNotVisibleException, NoSuchElementException, TimeoutException,
+			WebDriverException, InterruptedException {
 		Pagina pagina = new Pagina(driver);
 
 		pagina.novo().preencher(Tipo_Pessoa, Documento_Fiscal, Nome, Data_Nascimento, Prioridade, Tipo_Prioridade,
-				Exeq_Liquido, INSS_Beneficiario, INSS_Executado, IR, Observacao);
+				Exeq_Liquido, INSS_Beneficiario, INSS_Executado, IR, FGTS, Custas_Judiciais, Observacao);
 
 		return pagina.resultado("Operação Realizada com Sucesso");
 	}
@@ -162,15 +196,15 @@ public class Teste_Inclui_Beneficiario {
 	 * @throws ElementNotVisibleException
 	 * @throws NoSuchElementException
 	 */
-	@Ignore
+	@Test(enabled = false)
 	public static boolean incluir_Beneficiario(WebDriver driver, String Tipo_Pessoa, String Documento_Fiscal,
-			String Nome, String Exeq_Liquido, String INSS_Beneficiario, String INSS_Executado, String IR,
-			String Observacao) throws NoSuchElementException, ElementNotVisibleException, TimeoutException,
-			WebDriverException, InterruptedException {
+			String Nome, String Exeq_Liquido, String INSS_Beneficiario, String INSS_Executado, String IR, String FGTS,
+			String Custas_Judiciais, String Observacao) throws NoSuchElementException, ElementNotVisibleException,
+			TimeoutException, WebDriverException, InterruptedException {
 		Pagina pagina = new Pagina(driver);
 
 		pagina.novo().preencher(Tipo_Pessoa, Documento_Fiscal, Nome, Exeq_Liquido, INSS_Beneficiario, INSS_Executado,
-				IR, Observacao);
+				IR, FGTS, Custas_Judiciais, Observacao);
 
 		return pagina.resultado("Operação Realizada com Sucesso");
 	}
@@ -199,7 +233,7 @@ public class Teste_Inclui_Beneficiario {
 	 * @throws ElementNotVisibleException
 	 * @throws NoSuchElementException
 	 */
-	@Ignore
+	@Test(enabled = false)
 	public static boolean incluir_Advogado(WebDriver driver, String Documento_Fiscal, String Nome, String UF_OAB,
 			String numero_OAB, String Tipo_OAB) throws NoSuchElementException, ElementNotVisibleException,
 			TimeoutException, WebDriverException, InterruptedException {
@@ -225,7 +259,7 @@ public class Teste_Inclui_Beneficiario {
 	 * @throws InterruptedException
 	 */
 
-	@Ignore
+	@Test(enabled = false)
 	public static void incluir_Advogado(WebDriver driver, String Documento_Fiscal) throws NoSuchElementException,
 			ElementNotVisibleException, TimeoutException, WebDriverException, InterruptedException {
 		Pagina pagina = new Pagina(driver);
@@ -234,8 +268,4 @@ public class Teste_Inclui_Beneficiario {
 
 	}
 
-	@After
-	public void fechar() {
-		driver.close();
-	}
 }

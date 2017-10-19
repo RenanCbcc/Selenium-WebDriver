@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Smokink testing GEP TC002]">
+  <test name="Smokink testing(failed)">
+    <classes>
+      <class name="visualizar_detalhes_historicos_requisicao_pagamento.Teste_Visualiza_Detalhes">
+        <methods>
+          <include name="afterMethod"/>
+          <include name="UC002_CT006_PD006_1"/>
+          <include name="afterSuite"/>
+          <include name="beforeSuite"/>
+          <include name="initialize"/>
+          <include name="close"/>
+        </methods>
+      </class> <!-- visualizar_detalhes_historicos_requisicao_pagamento.Teste_Visualiza_Detalhes -->
+      <class name="visualizar_requisicao_pagamento.Teste_Visualiza_Requisicao_Pagamento">
+        <methods>
+          <include name="UC002_CT012_PD012_1"/>
+          <include name="afterMethod"/>
+          <include name="afterSuite"/>
+          <include name="beforeSuite"/>
+          <include name="initialize"/>
+          <include name="close"/>
+        </methods>
+      </class> <!-- visualizar_requisicao_pagamento.Teste_Visualiza_Requisicao_Pagamento -->
+    </classes>
+  </test> <!-- Smokink testing(failed) -->
+</suite> <!-- Failed suite [Smokink testing GEP TC002] -->

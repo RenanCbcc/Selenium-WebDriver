@@ -15,7 +15,6 @@ import org.openqa.selenium.WebDriverException;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.*;
 
-
 public class Preenche {
 	private WebDriver driver;
 	Wait<WebDriver> fluentwait;
@@ -31,6 +30,7 @@ public class Preenche {
 
 	/**
 	 * Method used to alter a "Third party"
+	 * 
 	 * @param valorILiquido
 	 * @param valor_IR
 	 * @param Observacao
@@ -42,10 +42,7 @@ public class Preenche {
 			throws NoSuchElementException, TimeoutException, WebDriverException {
 
 		logger.info("Alterar Terceiro Interessado");
-		fluentwait
-				.until(ExpectedConditions.elementToBeClickable(By
-						.xpath("/html/body/div[4]/div/div/form[2]/div/div/div[3]/fieldset[2]/div/div/div/table/tbody/tr[1]/td[5]/button[2]")))
-				.click();
+		fluentwait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[2]"))).click();
 
 		logger.info("Preenchendo Valor Líquido*");
 		fluentwait
@@ -59,20 +56,21 @@ public class Preenche {
 
 		logger.info("Preenchendo Observacoes*");
 		driver.findElement(By
-				.xpath("/html/body/div[4]/div/div/form[6]/div/div[2]/table[1]/tbody/tr[3]/td/fieldset/div/table/tbody/tr/td/textarea"))
+				.xpath("//form[6]/div/div[2]/table/tbody/tr[3]/td/fieldset/div/table/tbody/tr/td/textarea"))
 				.clear();
 		driver.findElement(By
-				.xpath("/html/body/div[4]/div/div/form[6]/div/div[2]/table[1]/tbody/tr[3]/td/fieldset/div/table/tbody/tr/td/textarea"))
+				.xpath("//form[6]/div/div[2]/table/tbody/tr[3]/td/fieldset/div/table/tbody/tr/td/textarea"))
 				.sendKeys(Observacao);
 
-		driver.findElement(By.xpath("/html/body/div[4]/div/div/form[6]/div/div[2]/table[2]/tbody/tr/td[1]/button"))
+		driver.findElement(By.xpath("//table[@id='pnlSalvarTerceiro']/tbody/tr/td/button"))
 				.click();
-		System.out.println("Salvar");
+		logger.info("Salvando");
 
 	}
 
 	/**
 	 * DEPREACATED
+	 * 
 	 * @param Tipo_honorario
 	 * @param Tipo_Pessoa
 	 * @param Documento_Fiscal
