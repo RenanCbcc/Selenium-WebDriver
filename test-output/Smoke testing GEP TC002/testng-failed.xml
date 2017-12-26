@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Smoke testing GEP TC002]">
+  <test name="Smoke testing(failed)">
+    <groups>
+      <run>
+        <include name="Smoke testing"/>
+      </run>
+    </groups>
+    <classes>
+      <class name="excluir_requisicao_pagamento.Teste_Exclui">
+        <methods>
+          <include name="afterMethod"/>
+          <include name="afterSuite"/>
+          <include name="beforeSuite"/>
+          <include name="initialize"/>
+          <include name="UC002_CT004_PD004_1"/>
+          <include name="close"/>
+        </methods>
+      </class> <!-- excluir_requisicao_pagamento.Teste_Exclui -->
+    </classes>
+  </test> <!-- Smoke testing(failed) -->
+</suite> <!-- Failed suite [Smoke testing GEP TC002] -->

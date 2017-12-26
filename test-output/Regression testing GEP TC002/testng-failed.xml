@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Regression testing GEP TC002]">
+  <test name="Regression testing(failed)">
+    <groups>
+      <run>
+        <include name="Regression testing"/>
+      </run>
+    </groups>
+    <classes>
+      <class name="consultar_requisicao_pagamento.Teste_Consulta">
+        <methods>
+          <include name="afterMethod"/>
+          <include name="UC002_CT001_PD001_1"/>
+          <include name="afterSuite"/>
+          <include name="initialize"/>
+          <include name="beforeSuite"/>
+          <include name="close"/>
+        </methods>
+      </class> <!-- consultar_requisicao_pagamento.Teste_Consulta -->
+      <class name="alterar_requisicao_pagamento_dados_processo.Teste_Altera_Dados_Processo">
+        <methods>
+          <include name="afterMethod"/>
+          <include name="UC002_CT003_PD003_8"/>
+          <include name="afterSuite"/>
+          <include name="initialize"/>
+          <include name="UC002_CT003_PD003_9"/>
+          <include name="close"/>
+          <include name="UC002_CT003_PD003_3"/>
+          <include name="UC002_CT003_PD003_1"/>
+          <include name="UC002_CT003_PD003_4"/>
+          <include name="UC002_CT003_PD003_7"/>
+          <include name="UC002_CT003_PD003_2"/>
+          <include name="UC002_CT003_PD003_5"/>
+          <include name="beforeSuite"/>
+          <include name="UC002_CT003_PD003_6"/>
+        </methods>
+      </class> <!-- alterar_requisicao_pagamento_dados_processo.Teste_Altera_Dados_Processo -->
+      <class name="incluir_requisicao_pagamento_beneficiario.Teste_Inclui_Beneficiario">
+        <methods>
+          <include name="afterMethod"/>
+          <include name="UC002_CT007_PD002_6"/>
+          <include name="UC002_CT007_PD002_7"/>
+          <include name="UC002_CT007_PD002_4"/>
+          <include name="afterSuite"/>
+          <include name="UC002_CT007_PD002_5"/>
+          <include name="initialize"/>
+          <include name="beforeSuite"/>
+          <include name="UC002_CT007_PD002_2"/>
+          <include name="UC002_CT007_PD002_3"/>
+          <include name="UC002_CT007_PD002_1"/>
+          <include name="close"/>
+        </methods>
+      </class> <!-- incluir_requisicao_pagamento_beneficiario.Teste_Inclui_Beneficiario -->
+      <class name="alterar_requisicao_pagamento_terceiro_interessado.Teste_Altera_Terceiros_Interessados">
+        <methods>
+          <include name="UC002_CT0010_PD0010_2"/>
+          <include name="afterMethod"/>
+          <include name="UC002_CT010_PD010_1"/>
+          <include name="afterSuite"/>
+          <include name="initialize"/>
+          <include name="beforeSuite"/>
+          <include name="close"/>
+        </methods>
+      </class> <!-- alterar_requisicao_pagamento_terceiro_interessado.Teste_Altera_Terceiros_Interessados -->
+      <class name="alterar_requisicao_pagamento_beneficiario.Teste_Altera_Beneficiario">
+        <methods>
+          <include name="UC002_CT008_PD002_2"/>
+          <include name="UC002_CT008_PD002_3"/>
+          <include name="afterMethod"/>
+          <include name="UC002_CT008_PD002_1"/>
+          <include name="UC002_CT008_PD002_4"/>
+          <include name="afterSuite"/>
+          <include name="initialize"/>
+          <include name="beforeSuite"/>
+          <include name="close"/>
+        </methods>
+      </class> <!-- alterar_requisicao_pagamento_beneficiario.Teste_Altera_Beneficiario -->
+      <class name="incluir_requisicao_pagamento_terceiro_interessado.Teste_Inclui_Terceiros_Interessados">
+        <methods>
+          <include name="UC002_CT009_PD009_2"/>
+          <include name="afterMethod"/>
+          <include name="afterSuite"/>
+          <include name="initialize"/>
+          <include name="close"/>
+          <include name="UC002_CT009_PD009_5"/>
+          <include name="UC002_CT009_PD009_7"/>
+          <include name="UC002_CT009_PD009_4"/>
+          <include name="UC002_CT009_PD009_6"/>
+          <include name="UC002_CT009_PD009_8"/>
+          <include name="beforeSuite"/>
+          <include name="UC002_CT009_PD009_1"/>
+          <include name="UC002_CT009_PD009_3"/>
+        </methods>
+      </class> <!-- incluir_requisicao_pagamento_terceiro_interessado.Teste_Inclui_Terceiros_Interessados -->
+      <class name="visualizar_detalhes_historicos_requisicao_pagamento.Teste_Visualiza_Detalhes">
+        <methods>
+          <include name="afterMethod"/>
+          <include name="UC002_CT006_PD006_1"/>
+          <include name="afterSuite"/>
+          <include name="initialize"/>
+          <include name="beforeSuite"/>
+          <include name="close"/>
+        </methods>
+      </class> <!-- visualizar_detalhes_historicos_requisicao_pagamento.Teste_Visualiza_Detalhes -->
+    </classes>
+  </test> <!-- Regression testing(failed) -->
+</suite> <!-- Failed suite [Regression testing GEP TC002] -->

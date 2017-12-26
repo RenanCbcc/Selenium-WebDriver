@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [ Suite Smoke testing GEP TC002]">
+  <test name="Smoke_testing(failed)">
+    <groups>
+      <run>
+        <include name="Smoke testing"/>
+      </run>
+    </groups>
+    <classes>
+      <class name="consultar_requisicao_pagamento.Teste_Consulta">
+        <methods>
+          <include name="beforeMethod"/>
+          <include name="afterMethod"/>
+          <include name="UC002_CT001_PD001_1"/>
+          <include name="afterSuite"/>
+          <include name="beforeSuite"/>
+        </methods>
+      </class> <!-- consultar_requisicao_pagamento.Teste_Consulta -->
+      <class name="alterar_requisicao_pagamento_dados_processo.Teste_Altera_Dados_Processo">
+        <methods>
+          <include name="UC002_CT003_PD003_1"/>
+          <include name="beforeMethod"/>
+          <include name="afterMethod"/>
+          <include name="afterSuite"/>
+          <include name="beforeSuite"/>
+        </methods>
+      </class> <!-- alterar_requisicao_pagamento_dados_processo.Teste_Altera_Dados_Processo -->
+      <class name="incluir_requisicao_pagamento_beneficiario.Teste_Inclui_Beneficiario">
+        <methods>
+          <include name="beforeMethod"/>
+          <include name="UC002_CT007_PD002_8"/>
+          <include name="afterMethod"/>
+          <include name="afterSuite"/>
+          <include name="beforeSuite"/>
+          <include name="UC002_CT007_PD002_1"/>
+        </methods>
+      </class> <!-- incluir_requisicao_pagamento_beneficiario.Teste_Inclui_Beneficiario -->
+      <class name="alterar_requisicao_pagamento_terceiro_interessado.Teste_Altera_Terceiros_Interessados">
+        <methods>
+          <include name="beforeMethod"/>
+          <include name="afterMethod"/>
+          <include name="UC002_CT010_PD010_1"/>
+          <include name="afterSuite"/>
+          <include name="beforeSuite"/>
+        </methods>
+      </class> <!-- alterar_requisicao_pagamento_terceiro_interessado.Teste_Altera_Terceiros_Interessados -->
+      <class name="alterar_requisicao_pagamento_beneficiario.Teste_Altera_Beneficiario">
+        <methods>
+          <include name="beforeMethod"/>
+          <include name="afterMethod"/>
+          <include name="UC002_CT008_PD002_1"/>
+          <include name="afterSuite"/>
+          <include name="beforeSuite"/>
+        </methods>
+      </class> <!-- alterar_requisicao_pagamento_beneficiario.Teste_Altera_Beneficiario -->
+      <class name="finalizar_cadastro.Teste_Finalizar_Cadastro">
+        <methods>
+          <include name="beforeMethod"/>
+          <include name="afterMethod"/>
+          <include name="afterSuite"/>
+          <include name="beforeSuite"/>
+          <include name="UC002_CT011_PD011_1"/>
+        </methods>
+      </class> <!-- finalizar_cadastro.Teste_Finalizar_Cadastro -->
+      <class name="incluir_requisicao_pagamento_terceiro_interessado.Teste_Inclui_Terceiros_Interessados">
+        <methods>
+          <include name="beforeMethod"/>
+          <include name="UC002_CT009_PD009_9"/>
+          <include name="afterMethod"/>
+          <include name="afterSuite"/>
+          <include name="beforeSuite"/>
+          <include name="UC002_CT009_PD009_1"/>
+        </methods>
+      </class> <!-- incluir_requisicao_pagamento_terceiro_interessado.Teste_Inclui_Terceiros_Interessados -->
+      <class name="excluir_requisicao_pagamento.Teste_Exclui">
+        <methods>
+          <include name="beforeMethod"/>
+          <include name="afterMethod"/>
+          <include name="afterSuite"/>
+          <include name="beforeSuite"/>
+          <include name="UC002_CT004_PD004_1"/>
+        </methods>
+      </class> <!-- excluir_requisicao_pagamento.Teste_Exclui -->
+      <class name="visualizar_requisicao_pagamento.Teste_Visualiza_Requisicao_Pagamento">
+        <methods>
+          <include name="beforeMethod"/>
+          <include name="UC002_CT012_PD012_1"/>
+          <include name="afterMethod"/>
+          <include name="afterSuite"/>
+          <include name="beforeSuite"/>
+        </methods>
+      </class> <!-- visualizar_requisicao_pagamento.Teste_Visualiza_Requisicao_Pagamento -->
+    </classes>
+  </test> <!-- Smoke_testing(failed) -->
+</suite> <!-- Failed suite [ Suite Smoke testing GEP TC002] -->
